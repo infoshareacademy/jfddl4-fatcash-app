@@ -1,21 +1,46 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import {BrowserRouter as Router, Route,} from 'react-router-dom'
+import AppBar from 'material-ui/AppBar';
+import SideBar from './components/SideBar'
+import AddOperation from './components/AddOperation'
+import OperationList from './components/OperationList'
+import Dashboard from './components/Dashboard'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+
+class App extends React.Component {
+    state = {
+        isDrowerOpen: false
+    }
+
+    drawerBtnClickHandler = () => this.setState({
+        isDrowerOpen: !this.state.isDrowerOpen
+    })
+
+    render() {
+        return (
+            <div>
+                <AppBar
+                    title="FatCash App - save money with us"
+                    onLeftIconButtonClick={this.drawerBtnClickHandler}
+                />
+                <Router>
+                    <div>
+                        <SideBar
+                            onRequestSideBarChange={this.drawerBtnClickHandler}
+                            isSideBarOpen={this.state.isDrowerOpen}
+                        />
+
+
+                        <Route exact path={'/'} component={Dashboard}/>
+                        <Route path={'/operation-list'} component={OperationList}/>
+                        <Route path={'/add-new-operation'} component={AddOperation}/>
+
+                    </div>
+                </Router>
+
+            </div>
+        );
+    }
 }
 
 export default App;
