@@ -4,7 +4,8 @@ import {Row, Col} from 'react-flexbox-grid'
 
 const styles = {
     pie: {
-        margin: '0 auto'
+        margin: '0 auto',
+
     }
 };
 
@@ -46,7 +47,7 @@ const data1 = [
         color: 'yellow'
     }
 
-]
+];
 const Dashboard = () => {
     return (
         <Row>
@@ -59,8 +60,8 @@ const Dashboard = () => {
 
                     >
                         {
-                            data1.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={entry.color}/>
+                            data1.map((value,index) => (
+                                <Cell key={`cell-${index}`} fill={value.color}/>
                             ))
                         }
                     </Pie>
@@ -76,8 +77,8 @@ const Dashboard = () => {
                         nameKey="name"
                     >
                         {
-                            data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={entry.color}/>
+                            data.map((value, index) => (
+                                <Cell key={`cell-${index}`} fill={value.color}/> // bierze index i wartosc oraz zmienia im kolor
                             ))
                         }
                     </Pie>
