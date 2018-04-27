@@ -28,21 +28,43 @@ const data = [
 
 ];
 
+const data1 = [
+    {
+        value: 70,
+        name: 'Papierosy',
+        color: 'green'
+    },
+    {
+        value: 10,
+        name: 'Słodycze',
+        color: 'blue'
+    },
+
+    {
+        value: 20,
+        name: 'Alkohol',
+        color: 'yellow'
+    }
+
+]
+
 const Dashboard = () => {
-
-
     return (
-
         <Row>
             <Col xs={12} sm={6}>
                 <PieChart style={styles.pie} width={320} height={320}>
                     <Pie
-                        data={data}
+                        data={data1}
                         dataKey="value"
                         nameKey="name"
-                        fill="#444444"
 
-                    />
+                    >
+                        {
+                            data1.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.color}/>
+                            ))
+                        }
+                    </Pie>
                     <Tooltip/>
                 </PieChart>
             </Col>
@@ -65,7 +87,7 @@ const Dashboard = () => {
             </Col>
         </Row>
     )
-};
+}
 
 
 export default Dashboard
