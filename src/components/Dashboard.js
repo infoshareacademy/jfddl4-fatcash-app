@@ -1,6 +1,12 @@
 import React from 'react'
-import {PieChart, Pie, Tooltip} from 'recharts'
+import {PieChart, Pie, Tooltip, Cell} from 'recharts'
+import {Row, Col} from 'react-flexbox-grid'
 
+const styles = {
+    pie: {
+        margin: '0 auto'
+    }
+}
 
 const data = [
     {
@@ -10,12 +16,14 @@ const data = [
     },
     {
         value: 10,
-        name: 'Słodycze'
+        name: 'Słodycze',
+        color: '#FFBB28'
     },
 
     {
         value: 20,
-        name: 'Alkohol'
+        name: 'Alkohol',
+        color: '#FF804'
     }
 
 ];
@@ -25,28 +33,37 @@ const Dashboard = () => {
 
     return (
 
-        <div>
-            <PieChart width={400} height={400}>
-                <Pie
-                    data={data}
-                    dataKey="value"
-                    nameKey="name"
-                    fill="#444444"
-                />
-                <Tooltip/>
-            </PieChart>
+        <Row>
+            <Col xs={12} sm={6}>
+                <PieChart style={styles.pie} width={320} height={320}>
+                    <Pie
+                        data={data}
+                        dataKey="value"
+                        nameKey="name"
+                        fill="#444444"
 
+                    />
+                    <Tooltip/>
+                </PieChart>
+            </Col>
 
-            <PieChart width={400} height={400}>
-                <Pie
-                    data={data}
-                    dataKey="value"
-                    nameKey="name"
-                    fill="#773355"
-                />
-                <Tooltip/>
-            </PieChart>
-        </div>
+            <Col xs={12} sm={6}>
+                <PieChart style={styles.pie} width={320} height={320}>
+                    <Pie
+                        data={data}
+                        dataKey="value"
+                        nameKey="name"
+                    >
+                        {
+                            data.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={entry.color}/>
+                            ))
+                        }
+                    </Pie>
+                    <Tooltip/>
+                </PieChart>
+            </Col>
+        </Row>
     )
 };
 
