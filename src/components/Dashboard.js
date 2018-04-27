@@ -6,7 +6,7 @@ const styles = {
     pie: {
         margin: '0 auto'
     }
-}
+};
 
 const data = [
     {
@@ -47,7 +47,6 @@ const data1 = [
     }
 
 ]
-
 const Dashboard = () => {
     return (
         <Row>
@@ -87,9 +86,7 @@ const Dashboard = () => {
             </Col>
         </Row>
     )
-}
-
-
+};
 export default Dashboard
 
 
