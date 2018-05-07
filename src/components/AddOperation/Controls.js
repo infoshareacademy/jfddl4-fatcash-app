@@ -4,17 +4,10 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import Divider from 'material-ui/Divider'
 
-const Controls = ({onChangeHandlerdate,newcategoryValue,onChangeHandlercategory, newdateValue, onClickHandler, onChangeHandlerdescription,newdescriptionValue,onChangeHandlervalue, newvalueValue}) => (
+const Controls = ({newcategoryValue,onChangeHandlercategory, onClickHandler, onChangeHandlerdescription,newdescriptionValue,onChangeHandlervalue, newvalueValue}) => (
 
     <Paper>
-        <TextField
-            onChange={onChangeHandlerdate}
-            value={newdateValue}
-            name={'new-date'}
-            placeholder={'date'}
-            fullWidth={true}
-        />
-        <Divider />
+
         <TextField
             onChange={onChangeHandlercategory}
             value={newcategoryValue}

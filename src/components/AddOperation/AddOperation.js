@@ -6,12 +6,12 @@ class OperationList extends React.Component {
 
     state = {
         Operations: [
-            {date: "1524836758913", category: "other", description: "milk, eggs, and toilet paper", value: "2222", key: 123},
-            {date: "1524836758988", category: "food", description: "meat and bred", value: "4444", key: 1234},
+            {category: "other", description: "milk, eggs, and toilet paper", value: "2222", key: 123},
+            {category: "food", description: "meat and bred", value: "4444", key: 1234},
 
         ],
         filterText: '',
-        dateAdd: '',
+
         categoryAdd: '',
         descriptionAdd: '',
         valueAdd: '',
@@ -27,9 +27,7 @@ class OperationList extends React.Component {
 
     }
 
-    newOperationChangeHandlerdate = (event, newValue) => this.setState({
-        dateAdd: newValue
-    })
+
     newOperationChangeHandlercategory = (event, newValue) => this.setState({
         categoryAdd: newValue
     })
@@ -43,7 +41,7 @@ class OperationList extends React.Component {
 
     addOperation = () => {
         const newFullOperation = {
-            date: this.state.dateAdd,
+
             category: this.state.categoryAdd,
             description: this.state.descriptionAdd,
             value: this.state.valueAdd,
@@ -63,8 +61,6 @@ class OperationList extends React.Component {
 
                 <Controls
                     onClickHandler={this.addOperation}
-                    onChangeHandlerdate={this.newOperationChangeHandlerdate}
-                    newdateValue={this.state.dateAdd}
                     newcategoryValue={this.state.categoryAdd}
                     onChangeHandlercategory={this.newOperationChangeHandlercategory}
                     newdescriptionValue={this.state.descriptionAdd}

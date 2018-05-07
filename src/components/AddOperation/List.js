@@ -8,7 +8,7 @@ const List = ({OperationList, deleteOperationFunction}) => (
         {
             OperationList.map(el => (
                 <Operation
-                    date={el.date}
+
                     category={el.category}
                     description={el.description}
                     value={el.value}
