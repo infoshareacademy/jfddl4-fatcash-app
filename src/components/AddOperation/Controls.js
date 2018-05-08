@@ -3,18 +3,14 @@ import Paper from 'material-ui/Paper'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import Divider from 'material-ui/Divider'
+import DropDownMenuItem from './DropdownMenu'
 
 const Controls = ({newcategoryValue,onChangeHandlercategory, onClickHandler, onChangeHandlerdescription,newdescriptionValue,onChangeHandlervalue, newvalueValue}) => (
 
     <Paper>
 
-        <TextField
-            onChange={onChangeHandlercategory}
-            value={newcategoryValue}
-            name={'new-category'}
-            placeholder={'category'}
-            fullWidth={true}
-        />
+
+        <DropDownMenuItem/>
         <Divider />
         <TextField
             onChange={onChangeHandlerdescription}
