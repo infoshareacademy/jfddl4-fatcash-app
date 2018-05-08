@@ -29,14 +29,14 @@ class AddCategory extends React.Component {
                         value="light"
                         label="icome"
                         style={styles.radioButton}
-                        onChange={alert(icome)}
+                        onChange={()=>{alert('income')}}
 
                     />
                     <RadioButton
                         value="not_light"
                         label="expenses"
                         style={styles.radioButton}
-                        onChange={alert(expenses)}
+                        onChange={()=>{alert('expenses')}}
                     />
                 </RadioButtonGroup>
                 <TextField

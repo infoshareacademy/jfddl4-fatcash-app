@@ -1,8 +1,8 @@
 import React from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
-import facebook from 'src/img/facebook.svg'
-import google   from 'src/img/google.svg'
+import facebook from '../img/facebook.svg'
+import google   from '../img/google.svg'
 
 const styles = {
     position: 'fixed',
