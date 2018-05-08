@@ -1,16 +1,37 @@
 import React from 'react'
-import Slider from 'material-ui/Slider'
+import InputRange from 'react-input-range'
+import TextField from 'material-ui/TextField'
 
+import 'react-input-range/lib/css/index.css'
 
+class OperationList extends React.Component {
+    constructor(props) {
+        super(props);
 
-const OperationList = () => (
-    <div>
-        List of Operations
+        this.state = {
+            value: {min: 2, max: 10},
+        };
+    }
+    render(){
+            return (
+                <div>
+                    List of Operations
+                    <div>
+                        <TextField
+                            hintText="Hint Text"
+                        />
+                    </div>
 
-    <div><Slider name="slider0" defaultValue={0.5}/></div>
-</div>
-)
+                    <InputRange
+                        maxValue={20}
+                        minValue={0}
+                        value={this.state.value}
+                        onChange={value => this.setState({ value })} />
 
+                </div>
+            )
+    }
+}
 
 
 export default OperationList
