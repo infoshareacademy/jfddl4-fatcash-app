@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route,} from 'react-router-dom'
 import AppBar from 'material-ui/AppBar';
 import SideBar from './components/SideBar'
-import AddOperation from './components/AddOperation'
+import AddOperation from './components/AddOperation/AddOperation'
 import OperationList from './components/OperationList'
 import Dashboard from './components/Dashboard'
 import AddCategory from './components/AddCategory'

@@ -1,0 +1,36 @@
+{
+    "transactions": {
+        "asdfghjkl": {
+            "date": 1524836758913,
+            "income": true,
+            "category": "",
+            "description": "Programming",
+            "value": 20000
+        },
+        "lkjhgfdsa": {
+            "date": 1524836758913,
+            "income": true,
+            "category": "",
+            "description": "Programming",
+            "value": 20000
+        }
+    },
+    "categories": {
+        "income": {
+            "qwertyuiio": {
+                "name": "work1"
+            }
+        },
+        "exp": {
+            "mnbvcxz": {
+                "name": "food"
+            },
+            "qazwsxedc": {
+                "name": "car"
+            },
+            "qazbvfrty": {
+                "name": "other"
+            }
+        }
+    }
+}
