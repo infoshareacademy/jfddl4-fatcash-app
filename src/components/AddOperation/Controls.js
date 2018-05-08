@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField'
 import Divider from 'material-ui/Divider'
 import DropDownMenuItem from './DropdownMenu'
 
-const Controls = ({newcategoryValue,onChangeHandlercategory, onClickHandler, onChangeHandlerdescription,newdescriptionValue,onChangeHandlervalue, newvalueValue}) => (
+const Controls = ({newValue,newcategoryValue,onChangeHandlercategory, onClickHandler, onChangeHandlerdescription,newdescriptionValue,onChangeHandlervalue, newvalueValue}) => (
 
     <Paper>
 
