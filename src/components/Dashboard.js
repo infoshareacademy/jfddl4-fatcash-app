@@ -1,5 +1,5 @@
 import React from 'react'
-import {PieChart, Pie, Tooltip, Cell} from 'recharts'
+import {PieChart, Pie, Tooltip, BarChart, Bar, CartesianGrid, XAxis, YAxis, Cell} from 'recharts'
 import {Row, Col} from 'react-flexbox-grid'
 
 const styles = {
@@ -60,7 +60,7 @@ const Dashboard = () => {
 
                     >
                         {
-                            data1.map((value,index) => (
+                            data1.map((value, index) => (
                                 <Cell key={`cell-${index}`} fill={value.color}/>
                             ))
                         }
@@ -70,20 +70,25 @@ const Dashboard = () => {
             </Col>
 
             <Col xs={12} sm={6}>
-                <PieChart style={styles.pie} width={320} height={320}>
-                    <Pie
-                        data={data}
-                        dataKey="value"
-                        nameKey="name"
-                    >
+
+
+                <BarChart width={320} height={320} data={data}>
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <XAxis dataKey="name"/>
+                    <YAxis/>
+
+                    <Bar label={true} dataKey="value" fill="#8884d8">
                         {
+
                             data.map((value, index) => (
-                                <Cell key={`cell-${index}`} fill={value.color}/> // bierze index i wartosc oraz zmienia im kolor
+                                <Cell key={`cell-${index}`} fill={value.color}/>
                             ))
+
                         }
-                    </Pie>
-                    <Tooltip/>
-                </PieChart>
+                    </Bar>
+                </BarChart>
+
+
             </Col>
         </Row>
     )
