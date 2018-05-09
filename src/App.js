@@ -5,7 +5,8 @@ import SideBar from './components/SideBar'
 import AddOperation from './components/AddOperation/AddOperation'
 import OperationList from './components/OperationList'
 import Dashboard from './components/Dashboard'
-
+import AddCategory from './components/AddCategory'
+import ShareButton from './components/Share'
 
 class App extends React.Component {
     state = {
@@ -23,6 +24,8 @@ class App extends React.Component {
                     title="FatCash App - save money with us"
                     onLeftIconButtonClick={this.drawerBtnClickHandler}
                 />
+                <ShareButton />
+                <AddCategory />
                 <Router>
                     <div>
                         <SideBar
