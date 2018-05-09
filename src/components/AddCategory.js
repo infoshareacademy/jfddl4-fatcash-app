@@ -21,7 +21,25 @@ const style = {
 
 class AddCategory extends React.Component {
     state = {
-        selectedKindOfCategory: 'exp'
+        selectedKindOfCategory: 'exp',
+        newCategoryName:''
+    }
+
+    saveNewCategory = () => {
+        fetch('https://fatcash-app.firebaseio.com/categories/'+this.state.selectedKindOfCategory+'/.json',
+            {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: this.state.newCategoryName
+                })
+            }
+        )
+    }
+
+    newTaskHandler = (event, value) => {
+        this.setState({
+            newCategoryName : value
+        })
     }
 
     render() {
@@ -46,13 +64,14 @@ class AddCategory extends React.Component {
                 <TextField
                     hintText="Type your cattegory"
                     fullWidth={true}
+                    onChange={this.newTaskHandler}
                 />
                 <br/>
                 <RaisedButton
                     label="Add category"
                     primary={true} style={style}
                     fullWidth={true}
-                    onClick
+                    onClick={this.saveNewCategory}
                 />
             </div>
         )
