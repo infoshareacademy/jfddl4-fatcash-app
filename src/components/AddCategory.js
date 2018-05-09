@@ -72,6 +72,7 @@ class AddCategory extends React.Component {
                     primary={true} style={style}
                     fullWidth={true}
                     onClick={this.saveNewCategory}
+                    disabled={this.state.newCategoryName ? false : true}
                 />
             </div>
         )
