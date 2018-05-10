@@ -1,85 +1,167 @@
 import React from 'react'
-import List from './List'
-import Controls from './Controls'
-import DropDownMenu from './DropdownMenu'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
+import moment from 'moment'
+import MenuItem from 'material-ui/MenuItem'
+import Divider from 'material-ui/Divider'
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 
-class OperationList extends React.Component {
+
+
+
+class AddOperation extends React.Component {
 
     state = {
-        Operations: [
-            {category: "other", description: "milk, eggs, and toilet paper", value: "2222", key: 123},
-            {category: "food", description: "meat and bred", value: "4444", key: 1234},
-
-        ],
-        filterText: '',
-
-        categoryAdd: '',
-        descriptionAdd: '',
-        valueAdd: '',
+        category: "",
+        date: "",
+        description: "",
+        income: {},
+        value: "",
+        transactions: []
 
 
     }
 
-    deleteOperation = (OperationKey) => {
-        const newOperations = this.state.Operations.filter(el => OperationKey !== el.key)
-        this.setState({
-            Operations: newOperations
-        })
+    componentDidMount() {
+        this.loadTransaction()
 
     }
 
+    mapObjectToArray = (obj) => (
+        Object.entries(obj || {})
+            .map(([key, value]) => (
+                typeof value === 'object' ?
+                    {...value, key}
+                    :
+                    {key, value}
+            ))
+    )
 
-    newOperationChangeHandlercategory = (event, newValue) => this.setState({
-        categoryAdd: newValue
-    })
-    newOperationChangeHandlerdescription = (event, newValue) => this.setState({
-        descriptionAdd: newValue
-    })
-    newOperationChangeHandlervalue = (event, newValue) => this.setState({
-        valueAdd: newValue
-    })
+    loadTransaction = () => {
+        fetch('https://fatcash-app.firebaseio.com/transactions/.json')
+            .then(r => r.json())
+            .then((data) => {
+                const transactionInArray = this.mapObjectToArray(data)
 
+                this.setState({transactions: transactionInArray,
+                    category: "",
+                    date: "",
+                    description: "",
+                    income: "",
+                    value: ""
+                })
+            })
 
-    addOperation = () => {
-        const newFullOperation = {
-
-            category: this.state.categoryAdd,
-            description: this.state.descriptionAdd,
-            value: this.state.valueAdd,
-            key: Date.now()
-        }
-        const newOperations = this.state.Operations.concat(newFullOperation)
-
-        this.setState({
-            Operations: newOperations,
-            newFullOperation: ''
-        })
     }
+
+    newCategoryHandler = (el, val) => {
+        this.setState({category: val})
+
+    }
+    newDateHandler = (el, val) => {
+        this.setState({date: val})
+
+    }
+    newDescriptionHandler = (el, val) => {
+        this.setState({description: val})
+
+    }
+    newIncomeHandler = (el, val) => {
+        this.setState({income: val})
+
+    }
+    newValueHandler = (el, val) => {
+        this.setState({value: val})
+
+    }
+
+    saveTaskToDatabase = () => {
+        fetch('https://fatcash-app.firebaseio.com/transactions/.json',
+            {
+                method: 'POST',
+                body: JSON.stringify
+                (
+                    {
+                        category: this.state.category,
+                        date: Date.now(),
+                        description: this.state.description,
+                        income: this.state.income,
+                        value: this.state.value,
+                    }
+                )
+            }
+        ).then(this.loadTransaction)
+    }
+
 
     render() {
         return (
             <div>
+                <RadioButtonGroup
+                    name="shipSpeed"
+                    defaultSelected={true}
+                    onChange={(e, val) => this.setState({income: val})}
+                >
+                    <RadioButton
+                        value={true}
+                        label="income"
 
-                <Controls
-                    onClickHandler={this.addOperation}
-                    newcategoryValue={this.state.categoryAdd}
-                    onChangeHandlercategory={this.newOperationChangeHandlercategory}
-                    newdescriptionValue={this.state.descriptionAdd}
-                    onChangeHandlerdescription={this.newOperationChangeHandlerdescription}
-                    newvalueValue = {this.state.valueAdd}
-                    onChangeHandlervalue={this.newOperationChangeHandlervalue}
+                    />
+                    <RadioButton
+                        value={false}
+                        label="expenses"
+
+                    />
+                </RadioButtonGroup>
+                <TextField
+                    value={this.state.category}
+                    hintText={"Your category..."}
+                    fullWidth={true}
+                    onChange={this.newCategoryHandler}
                 />
-                <List
-                    deleteOperationFunction={this.deleteOperation}
-                    OperationList={this.state.Operations}
+                <Divider/>
+                {/*<TextField*/}
+                    {/*value={this.state.date}*/}
+                    {/*onChange={this.newDateHandler}*/}
+                {/*/>*/}
+                <TextField
+                    value={this.state.description}
+                    hintText={"description..."}
+                    fullWidth={true}
+                    onChange={this.newDescriptionHandler}
                 />
+                <Divider/>
+
+                <TextField
+                    value={this.state.value}
+                    hintText={'value'}
+                    fullWidth={true}
+                    onChange={this.newValueHandler}
+                />
+                <Divider/>
+                <RaisedButton
+                    onClick={this.saveTaskToDatabase}
+                    fullWidth={true}
+                    primary={true}
+                    label={"SAVE IT!"}
+                />
+
+                {
+                    this.state.transactions.map((el) => (
+                            <MenuItem secondaryText={`${el.category} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`} primaryText={` Value: ${el.value}`}>Description: {el.description}</MenuItem>
+
+
+                        )
+                    )
+
+                }
+
 
             </div>
 
         )
     }
-
-
 }
 
-export default OperationList
+
+export default AddOperation
