@@ -1,85 +1,105 @@
 import React from 'react'
-import List from './List'
-import Controls from './Controls'
-import DropDownMenu from './DropdownMenu'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 
-class OperationList extends React.Component {
+
+class AddOperation extends React.Component {
 
     state = {
-        Operations: [
-            {category: "other", description: "milk, eggs, and toilet paper", value: "2222", key: 123},
-            {category: "food", description: "meat and bred", value: "4444", key: 1234},
-
-        ],
-        filterText: '',
-
-        categoryAdd: '',
-        descriptionAdd: '',
-        valueAdd: '',
-
+        category: "Your category",
+        date: "Date",
+        description: "Description",
+        income: "True or false",
+        value: "Value",
 
     }
 
-    deleteOperation = (OperationKey) => {
-        const newOperations = this.state.Operations.filter(el => OperationKey !== el.key)
-        this.setState({
-            Operations: newOperations
-        })
+    componentDidMount() {
+        this.loadTransaction()
 
     }
 
-
-    newOperationChangeHandlercategory = (event, newValue) => this.setState({
-        categoryAdd: newValue
-    })
-    newOperationChangeHandlerdescription = (event, newValue) => this.setState({
-        descriptionAdd: newValue
-    })
-    newOperationChangeHandlervalue = (event, newValue) => this.setState({
-        valueAdd: newValue
-    })
-
-
-    addOperation = () => {
-        const newFullOperation = {
-
-            category: this.state.categoryAdd,
-            description: this.state.descriptionAdd,
-            value: this.state.valueAdd,
-            key: Date.now()
-        }
-        const newOperations = this.state.Operations.concat(newFullOperation)
-
-        this.setState({
-            Operations: newOperations,
-            newFullOperation: ''
-        })
+    loadTransaction = () => {
+        fetch('https://fatcash-app.firebaseio.com/transactions/.json')
+            .then(r => r.json())
+            .then(data => (console.log(data)
+                )
+            )
     }
+
+    newCategoryHandler = (el, val) => {
+        this.setState({category: val})
+
+    }
+    newDateHandler = (el, val) => {
+        this.setState({date: val})
+
+    }
+    newDescriptionHandler = (el, val) => {
+        this.setState({description: val})
+
+    }
+    newIncomeHandler = (el, val) => {
+        this.setState({income: val})
+
+    }
+    newValueHandler = (el, val) => {
+        this.setState({value: val})
+
+    }
+
+    saveTaskToDatabase = () => {
+        fetch('https://fatcash-app.firebaseio.com/transactions/.json',
+            {
+                method: 'POST',
+                body: JSON.stringify
+                (
+                    {
+                        category: this.state.category,
+                        date: this.state.date,
+                        description: this.state.description,
+                        income: this.state.income,
+                        value: this.state.value,
+                    }
+                )
+            }
+        )
+    }
+
 
     render() {
         return (
             <div>
-
-                <Controls
-                    onClickHandler={this.addOperation}
-                    newcategoryValue={this.state.categoryAdd}
-                    onChangeHandlercategory={this.newOperationChangeHandlercategory}
-                    newdescriptionValue={this.state.descriptionAdd}
-                    onChangeHandlerdescription={this.newOperationChangeHandlerdescription}
-                    newvalueValue = {this.state.valueAdd}
-                    onChangeHandlervalue={this.newOperationChangeHandlervalue}
+                <TextField
+                    value={this.state.category}
+                    onChange={this.newCategoryHandler}
                 />
-                <List
-                    deleteOperationFunction={this.deleteOperation}
-                    OperationList={this.state.Operations}
+                <TextField
+                    value={this.state.date}
+                    onChange={this.newDateHandler}
+                />
+                <TextField
+                    value={this.state.description}
+                    onChange={this.newDescriptionHandler}
+                />
+                <TextField
+                    value={this.state.income}
+                    onChange={this.newIncomeHandler}
+                />
+                <TextField
+                    value={this.state.value}
+                    onChange={this.newValueHandler}
+                />
+                <RaisedButton
+                    onClick={this.saveTaskToDatabase}
+                    label={"SAVE IT!"}
                 />
 
             </div>
 
         )
     }
-
-
 }
 
-export default OperationList
+
+export default AddOperation
