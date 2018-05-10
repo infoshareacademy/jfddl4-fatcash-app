@@ -5,8 +5,8 @@ import moment from 'moment'
 import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-
-
+import SelectField from 'material-ui/SelectField'
+import FlatButton from 'material-ui/FlatButton'
 
 
 class AddOperation extends React.Component {
@@ -17,13 +17,19 @@ class AddOperation extends React.Component {
         description: "",
         income: true,
         value: "",
-        transactions: []
+        name: "",
+        transactions: [],
+        categoriesExp: [],
+        categoriesInc: [],
+
 
 
     }
 
     componentDidMount() {
         this.loadTransaction()
+        this.loadCategoriesExp()
+        this.loadCategoriesInc()
 
     }
 
@@ -43,7 +49,8 @@ class AddOperation extends React.Component {
             .then((data) => {
                 const transactionInArray = this.mapObjectToArray(data)
 
-                this.setState({transactions: transactionInArray,
+                this.setState({
+                    transactions: transactionInArray,
                     category: "",
                     date: "",
                     description: "",
@@ -54,7 +61,35 @@ class AddOperation extends React.Component {
 
     }
 
-    newCategoryHandler = (el, val) => {
+    loadCategoriesExp = () => {
+        fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
+            .then(r => r.json())
+            .then((data) => {
+                const categoriesExpInArray = this.mapObjectToArray(data)
+
+                this.setState({
+                    categoriesExp: categoriesExpInArray,
+                    name: ""
+                })
+            })
+
+    }
+
+    loadCategoriesInc = () => {
+        fetch('https://fatcash-app.firebaseio.com/categories/income/.json')
+            .then(r => r.json())
+            .then((data) => {
+                const categoriesIncInArray = this.mapObjectToArray(data)
+
+                this.setState({
+                    categoriesInc: categoriesIncInArray,
+                    name: ""
+                })
+            })
+
+    }
+
+    newCategoryHandler = (el,key, val) => {
         this.setState({category: val})
 
     }
@@ -75,7 +110,8 @@ class AddOperation extends React.Component {
 
     }
 
-    saveTaskToDatabase = () => {console.log(this.state.income)
+    saveTaskToDatabase = () => {
+        console.log(this.state.income)
         fetch('https://fatcash-app.firebaseio.com/transactions/.json',
             {
                 method: 'POST',
@@ -97,10 +133,12 @@ class AddOperation extends React.Component {
     render() {
         return (
             <div>
+
+
                 <RadioButtonGroup
                     name="shipSpeed"
                     defaultSelected={true}
-                    onChange={(e, val) => this.setState({income: val})}
+                    onChange={this.newIncomeHandler}
                 >
                     <RadioButton
                         value={true}
@@ -113,16 +151,36 @@ class AddOperation extends React.Component {
 
                     />
                 </RadioButtonGroup>
-                <TextField
-                    value={this.state.category}
-                    hintText={"Your category..."}
-                    fullWidth={true}
-                    onChange={this.newCategoryHandler}
-                />
+
+                {this.state.income === true ?
+                    <SelectField floatingLabelText="Category" fullWidth={true} onChange={this.newCategoryHandler}>
+                        {
+                            this.state.categoriesExp.map((el) => (
+
+                                    <MenuItem value={el.name} primaryText={el.name}/>
+
+                                )
+                            )}
+
+                    </SelectField>
+                    :
+                <SelectField fullWidth={true} onChange={this.newCategoryHandler}>
+                    {this.state.categoriesInc.map((el) => (
+
+                            <MenuItem value={el.name} primaryText={el.name}/>
+
+                        )
+                    )}
+                    </SelectField>
+
+                }
+
+
+
                 <Divider/>
                 {/*<TextField*/}
-                    {/*value={this.state.date}*/}
-                    {/*onChange={this.newDateHandler}*/}
+                {/*value={this.state.date}*/}
+                {/*onChange={this.newDateHandler}*/}
                 {/*/>*/}
                 <TextField
                     value={this.state.description}
@@ -148,7 +206,9 @@ class AddOperation extends React.Component {
 
                 {
                     this.state.transactions.map((el) => (
-                            <MenuItem secondaryText={`${el.category} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`} primaryText={` Value: ${el.value}`}>Description: {el.description}</MenuItem>
+                            <MenuItem
+                                secondaryText={`Category:${el.category} || ${el.income===true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
+                                primaryText={` Value: ${el.value}`}> </MenuItem>
 
 
                         )
