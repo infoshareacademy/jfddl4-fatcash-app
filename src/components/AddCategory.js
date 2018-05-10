@@ -27,6 +27,9 @@ class AddCategory extends React.Component {
 
     saveNewCategory = () => {
         fetch('https://fatcash-app.firebaseio.com/categories/'+this.state.selectedKindOfCategory+'/.json', {
+
+
+
                 method: 'POST',
                 body: JSON.stringify({
                     name: this.state.newCategoryName
@@ -37,7 +40,6 @@ class AddCategory extends React.Component {
 
         })
     }
-
     newTaskHandler = (event, value) => {
         this.setState({
             newCategoryName : value
