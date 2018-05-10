@@ -3,16 +3,20 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 import moment from 'moment'
 import MenuItem from 'material-ui/MenuItem'
+import Divider from 'material-ui/Divider'
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+
+
 
 
 class AddOperation extends React.Component {
 
     state = {
-        category: "Your category",
-        date: "Date",
-        description: "Description",
-        income: "True or false",
-        value: "Value",
+        category: "",
+        date: "",
+        description: "",
+        income: {},
+        value: "",
         transactions: []
 
 
@@ -39,7 +43,13 @@ class AddOperation extends React.Component {
             .then((data) => {
                 const transactionInArray = this.mapObjectToArray(data)
 
-                this.setState({transactions: transactionInArray})
+                this.setState({transactions: transactionInArray,
+                    category: "",
+                    date: "",
+                    description: "",
+                    income: "",
+                    value: ""
+                })
             })
 
     }
@@ -80,35 +90,59 @@ class AddOperation extends React.Component {
                     }
                 )
             }
-        )
+        ).then(this.loadTransaction)
     }
 
 
     render() {
         return (
             <div>
+                <RadioButtonGroup
+                    name="shipSpeed"
+                    defaultSelected="exp"
+                    onChange={(e, val) => this.setState({income: val})}
+                >
+                    <RadioButton
+                        value={true}
+                        label="income"
+
+                    />
+                    <RadioButton
+                        value={false}
+                        label="expenses"
+
+                    />
+                </RadioButtonGroup>
                 <TextField
                     value={this.state.category}
+                    hintText={"Your category..."}
+                    fullWidth={true}
                     onChange={this.newCategoryHandler}
                 />
+                <Divider/>
                 {/*<TextField*/}
                     {/*value={this.state.date}*/}
                     {/*onChange={this.newDateHandler}*/}
                 {/*/>*/}
                 <TextField
                     value={this.state.description}
+                    hintText={"description..."}
+                    fullWidth={true}
                     onChange={this.newDescriptionHandler}
                 />
-                <TextField
-                    value={this.state.income}
-                    onChange={this.newIncomeHandler}
-                />
+                <Divider/>
+
                 <TextField
                     value={this.state.value}
+                    hintText={'value'}
+                    fullWidth={true}
                     onChange={this.newValueHandler}
                 />
+                <Divider/>
                 <RaisedButton
                     onClick={this.saveTaskToDatabase}
+                    fullWidth={true}
+                    primary={true}
                     label={"SAVE IT!"}
                 />
 
