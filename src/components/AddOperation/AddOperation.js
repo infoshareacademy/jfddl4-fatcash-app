@@ -7,7 +7,7 @@ import Divider from 'material-ui/Divider'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import SelectField from 'material-ui/SelectField'
 import FlatButton from 'material-ui/FlatButton'
-
+import Dialog from 'material-ui/Dialog';
 
 class AddOperation extends React.Component {
 
@@ -21,7 +21,7 @@ class AddOperation extends React.Component {
         transactions: [],
         categoriesExp: [],
         categoriesInc: [],
-
+        open: false,
 
 
     }
@@ -89,7 +89,15 @@ class AddOperation extends React.Component {
 
     }
 
-    newCategoryHandler = (el,key, val) => {
+    handleOpen = () => {
+        this.setState({open: true});
+    };
+
+    handleClose = () => {
+        this.setState({open: false});
+    };
+
+    newCategoryHandler = (el, key, val) => {
         this.setState({category: val})
 
     }
@@ -131,6 +139,20 @@ class AddOperation extends React.Component {
 
 
     render() {
+        const actions = [
+            <FlatButton
+                label="Cancel"
+                primary={true}
+                onClick={this.handleClose}
+            />,
+
+            <FlatButton
+                label="Submit"
+                primary={true}
+                keyboardFocused={true}
+                onClick={this.handleClose}
+            />,];
+
         return (
             <div>
 
@@ -164,17 +186,16 @@ class AddOperation extends React.Component {
 
                     </SelectField>
                     :
-                <SelectField fullWidth={true} onChange={this.newCategoryHandler}>
-                    {this.state.categoriesInc.map((el) => (
+                    <SelectField fullWidth={true} onChange={this.newCategoryHandler}>
+                        {this.state.categoriesInc.map((el) => (
 
-                            <MenuItem value={el.name} primaryText={el.name}/>
+                                <MenuItem value={el.name} primaryText={el.name}/>
 
-                        )
-                    )}
+                            )
+                        )}
                     </SelectField>
 
                 }
-
 
 
                 <Divider/>
@@ -207,8 +228,21 @@ class AddOperation extends React.Component {
                 {
                     this.state.transactions.map((el) => (
                             <MenuItem
-                                secondaryText={`Category:${el.category} || ${el.income===true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
-                                primaryText={` Value: ${el.value}`}> </MenuItem>
+                                secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
+                                > Value: {el.value}
+                                &ensp;
+                                <RaisedButton style={{margin: '10px'}} label="Clik here to read description" onClick={this.handleOpen}/>
+                                <Dialog
+                                    title="Description of your income/expence"
+                                    modal={false}
+                                    open={this.state.open}
+                                    onRequestClose={this.handleClose}
+                                >
+                                    {el.description}
+                                </Dialog>
+
+
+                            </MenuItem>
 
 
                         )
