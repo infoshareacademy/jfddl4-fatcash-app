@@ -146,12 +146,7 @@ class AddOperation extends React.Component {
                 onClick={this.handleClose}
             />,
 
-            <FlatButton
-                label="Submit"
-                primary={true}
-                keyboardFocused={true}
-                onClick={this.handleClose}
-            />,];
+    ,];
 
         return (
             <div>
@@ -234,11 +229,14 @@ class AddOperation extends React.Component {
                                 <RaisedButton style={{margin: '10px'}} label="Clik here to read description" onClick={this.handleOpen}/>
                                 <Dialog
                                     title="Description of your income/expence"
+                                    actions={actions}
                                     modal={false}
                                     open={this.state.open}
                                     onRequestClose={this.handleClose}
                                 >
+                                    Category: {el.category}
                                     {el.description}
+
                                 </Dialog>
 
 
