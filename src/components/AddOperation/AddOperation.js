@@ -1,6 +1,8 @@
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
+import moment from 'moment'
+import MenuItem from 'material-ui/MenuItem'
 
 
 class AddOperation extends React.Component {
@@ -11,7 +13,7 @@ class AddOperation extends React.Component {
         description: "Description",
         income: "True or false",
         value: "Value",
-        transactions: null
+        transactions: []
 
 
     }
@@ -37,7 +39,7 @@ class AddOperation extends React.Component {
             .then((data) => {
                 const transactionInArray = this.mapObjectToArray(data)
 
-        this.setState({transactions: transactionInArray})
+                this.setState({transactions: transactionInArray})
             })
 
     }
@@ -71,7 +73,7 @@ class AddOperation extends React.Component {
                 (
                     {
                         category: this.state.category,
-                        date: this.state.date,
+                        date: Date.now(),
                         description: this.state.description,
                         income: this.state.income,
                         value: this.state.value,
@@ -89,10 +91,10 @@ class AddOperation extends React.Component {
                     value={this.state.category}
                     onChange={this.newCategoryHandler}
                 />
-                <TextField
-                    value={this.state.date}
-                    onChange={this.newDateHandler}
-                />
+                {/*<TextField*/}
+                    {/*value={this.state.date}*/}
+                    {/*onChange={this.newDateHandler}*/}
+                {/*/>*/}
                 <TextField
                     value={this.state.description}
                     onChange={this.newDescriptionHandler}
@@ -110,6 +112,15 @@ class AddOperation extends React.Component {
                     label={"SAVE IT!"}
                 />
 
+                {
+                    this.state.transactions.map((el) => (
+                            <MenuItem secondaryText={`${el.category} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`} primaryText={` Value: ${el.value}`}>Description: {el.description}</MenuItem>
+
+
+                        )
+                    )
+
+                }
 
 
             </div>
