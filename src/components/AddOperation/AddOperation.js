@@ -1,16 +1,24 @@
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
+import moment from 'moment'
+import MenuItem from 'material-ui/MenuItem'
+import Divider from 'material-ui/Divider'
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+
+
 
 
 class AddOperation extends React.Component {
 
     state = {
-        category: "Your category",
-        date: "Date",
-        description: "Description",
-        income: "True or false",
-        value: "Value",
+        category: "",
+        date: "",
+        description: "",
+        income: true,
+        value: "",
+        transactions: []
+
 
     }
 
@@ -19,12 +27,31 @@ class AddOperation extends React.Component {
 
     }
 
+    mapObjectToArray = (obj) => (
+        Object.entries(obj || {})
+            .map(([key, value]) => (
+                typeof value === 'object' ?
+                    {...value, key}
+                    :
+                    {key, value}
+            ))
+    )
+
     loadTransaction = () => {
         fetch('https://fatcash-app.firebaseio.com/transactions/.json')
             .then(r => r.json())
-            .then(data => (console.log(data)
-                )
-            )
+            .then((data) => {
+                const transactionInArray = this.mapObjectToArray(data)
+
+                this.setState({transactions: transactionInArray,
+                    category: "",
+                    date: "",
+                    description: "",
+                    income: true,
+                    value: ""
+                })
+            })
+
     }
 
     newCategoryHandler = (el, val) => {
@@ -48,7 +75,7 @@ class AddOperation extends React.Component {
 
     }
 
-    saveTaskToDatabase = () => {
+    saveTaskToDatabase = () => {console.log(this.state.income)
         fetch('https://fatcash-app.firebaseio.com/transactions/.json',
             {
                 method: 'POST',
@@ -56,44 +83,79 @@ class AddOperation extends React.Component {
                 (
                     {
                         category: this.state.category,
-                        date: this.state.date,
+                        date: Date.now(),
                         description: this.state.description,
                         income: this.state.income,
                         value: this.state.value,
                     }
                 )
             }
-        )
+        ).then(this.loadTransaction)
     }
 
 
     render() {
         return (
             <div>
+                <RadioButtonGroup
+                    name="shipSpeed"
+                    defaultSelected={true}
+                    onChange={(e, val) => this.setState({income: val})}
+                >
+                    <RadioButton
+                        value={true}
+                        label="income"
+
+                    />
+                    <RadioButton
+                        value={false}
+                        label="expenses"
+
+                    />
+                </RadioButtonGroup>
                 <TextField
                     value={this.state.category}
+                    hintText={"Your category..."}
+                    fullWidth={true}
                     onChange={this.newCategoryHandler}
                 />
-                <TextField
-                    value={this.state.date}
-                    onChange={this.newDateHandler}
-                />
+                <Divider/>
+                {/*<TextField*/}
+                    {/*value={this.state.date}*/}
+                    {/*onChange={this.newDateHandler}*/}
+                {/*/>*/}
                 <TextField
                     value={this.state.description}
+                    hintText={"description..."}
+                    fullWidth={true}
                     onChange={this.newDescriptionHandler}
                 />
-                <TextField
-                    value={this.state.income}
-                    onChange={this.newIncomeHandler}
-                />
+                <Divider/>
+
                 <TextField
                     value={this.state.value}
+                    hintText={'value'}
+                    fullWidth={true}
                     onChange={this.newValueHandler}
                 />
+                <Divider/>
                 <RaisedButton
                     onClick={this.saveTaskToDatabase}
+                    fullWidth={true}
+                    primary={true}
                     label={"SAVE IT!"}
                 />
+
+                {
+                    this.state.transactions.map((el) => (
+                            <MenuItem secondaryText={`${el.category} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`} primaryText={` Value: ${el.value}`}>Description: {el.description}</MenuItem>
+
+
+                        )
+                    )
+
+                }
+
 
             </div>
 
