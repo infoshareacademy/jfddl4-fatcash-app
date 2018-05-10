@@ -99,7 +99,7 @@ class AddOperation extends React.Component {
             <div>
                 <RadioButtonGroup
                     name="shipSpeed"
-                    defaultSelected="exp"
+                    defaultSelected={true}
                     onChange={(e, val) => this.setState({income: val})}
                 >
                     <RadioButton
