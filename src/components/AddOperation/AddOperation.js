@@ -15,7 +15,7 @@ class AddOperation extends React.Component {
         category: "",
         date: "",
         description: "",
-        income: {},
+        income: true,
         value: "",
         transactions: []
 
@@ -47,7 +47,7 @@ class AddOperation extends React.Component {
                     category: "",
                     date: "",
                     description: "",
-                    income: "",
+                    income: true,
                     value: ""
                 })
             })
@@ -75,7 +75,7 @@ class AddOperation extends React.Component {
 
     }
 
-    saveTaskToDatabase = () => {
+    saveTaskToDatabase = () => {console.log(this.state.income)
         fetch('https://fatcash-app.firebaseio.com/transactions/.json',
             {
                 method: 'POST',
