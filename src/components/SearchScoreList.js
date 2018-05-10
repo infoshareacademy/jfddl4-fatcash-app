@@ -9,8 +9,20 @@ const style = {
 };
 
 
-
 class SearchScoreList extends React.Component {
+
+    componentDidMount() {
+        this.readFromDb1()
+
+    }
+
+    readFromDb1 = () => fetch('https://fatcash-app.firebaseio.com/categories/.json')
+        .then(response => response.json())
+        .then(acctualValFromDb1 => this.setState({
+            value: acctualValFromDb1
+        }))
+
+
 
     render(){
 
@@ -19,17 +31,9 @@ class SearchScoreList extends React.Component {
             <div>
                 <Paper style={style}>
                     <Menu>
-                        <MenuItem primaryText="Maps" />
-                        <MenuItem primaryText="Books" />
+                        <MenuItem primaryText={this.acctualValFromDb1} />
                     </Menu>
                 </Paper>
-                <Paper style={style}>
-                    <Menu>
-                        <MenuItem primaryText="Refresh" />
-                        <MenuItem primaryText="Help &amp; feedback" />
-                    </Menu>
-                </Paper>
-
 
             </div>
         )

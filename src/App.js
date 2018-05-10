@@ -29,6 +29,7 @@ class App extends React.Component {
                 />
                 <ShareButton />
                 <AddCategory />
+                <SearchScoreList/>
                 <Router>
                     <div>
                         <SideBar
