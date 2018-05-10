@@ -7,6 +7,8 @@ import OperationList from './components/OperationList'
 import Dashboard from './components/Dashboard'
 import AddCategory from './components/AddCategory'
 import ShareButton from './components/Share'
+import SearchScoreList from './components/SearchScoreList'
+
 
 class App extends React.Component {
     state = {
@@ -38,6 +40,7 @@ class App extends React.Component {
                         <Route exact path={'/add-category'} component={AddCategory}/>
                         <Route path={'/operation-list'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
+                        <Route path={'/searchscore-list'} component={SearchScoreList}/>
 
                     </div>
                 </Router>

@@ -1,7 +1,7 @@
 import React from 'react'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'git
 
 
 const SideBar = (props) => (
@@ -14,6 +14,7 @@ const SideBar = (props) => (
         <Link to={'/operation-list'}><MenuItem> Operations list </MenuItem></Link>
         <Link to={'/add-new-operation'}><MenuItem> Add new operation </MenuItem></Link>
         <Link to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
+        <Link to={'/searchscore-list'}><MenuItem> Search score list </MenuItem></Link>
 
     </Drawer>
 )
