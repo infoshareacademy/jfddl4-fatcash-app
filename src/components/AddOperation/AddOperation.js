@@ -11,6 +11,8 @@ class AddOperation extends React.Component {
         description: "Description",
         income: "True or false",
         value: "Value",
+        transactions: null
+
 
     }
 
@@ -19,12 +21,25 @@ class AddOperation extends React.Component {
 
     }
 
+    mapObjectToArray = (obj) => (
+        Object.entries(obj || {})
+            .map(([key, value]) => (
+                typeof value === 'object' ?
+                    {...value, key}
+                    :
+                    {key, value}
+            ))
+    )
+
     loadTransaction = () => {
         fetch('https://fatcash-app.firebaseio.com/transactions/.json')
             .then(r => r.json())
-            .then(data => (console.log(data)
-                )
-            )
+            .then((data) => {
+                const transactionInArray = this.mapObjectToArray(data)
+
+        this.setState({transactions: transactionInArray})
+            })
+
     }
 
     newCategoryHandler = (el, val) => {
@@ -94,6 +109,8 @@ class AddOperation extends React.Component {
                     onClick={this.saveTaskToDatabase}
                     label={"SAVE IT!"}
                 />
+
+
 
             </div>
 
