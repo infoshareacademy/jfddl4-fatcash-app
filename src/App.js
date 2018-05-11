@@ -2,10 +2,11 @@ import React from 'react';
 import {BrowserRouter as Router, Route,} from 'react-router-dom'
 import AppBar from 'material-ui/AppBar';
 import SideBar from './components/SideBar'
-import AddOperation from './components/AddOperation'
+import AddOperation from './components/AddOperation/AddOperation'
 import OperationList from './components/OperationList'
 import Dashboard from './components/Dashboard'
-
+import AddCategory from './components/AddCategory'
+import ShareButton from './components/Share'
 
 class App extends React.Component {
     state = {
@@ -23,6 +24,8 @@ class App extends React.Component {
                     title="FatCash App - save money with us"
                     onLeftIconButtonClick={this.drawerBtnClickHandler}
                 />
+                <ShareButton />
+
                 <Router>
                     <div>
                         <SideBar
@@ -32,6 +35,7 @@ class App extends React.Component {
 
 
                         <Route exact path={'/'} component={Dashboard}/>
+                        <Route exact path={'/add-category'} component={AddCategory}/>
                         <Route path={'/operation-list'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
 
