@@ -25,7 +25,7 @@ class App extends React.Component {
                     onLeftIconButtonClick={this.drawerBtnClickHandler}
                 />
                 <ShareButton />
-                <AddCategory />
+
                 <Router>
                     <div>
                         <SideBar
@@ -35,6 +35,7 @@ class App extends React.Component {
 
 
                         <Route exact path={'/'} component={Dashboard}/>
+                        <Route exact path={'/add-category'} component={AddCategory}/>
                         <Route path={'/operation-list'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
 

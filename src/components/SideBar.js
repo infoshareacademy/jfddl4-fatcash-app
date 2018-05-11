@@ -13,6 +13,8 @@ const SideBar = (props) => (
         <Link to={'/'}><MenuItem> Dashboard </MenuItem></Link>
         <Link to={'/operation-list'}><MenuItem> Operations list </MenuItem></Link>
         <Link to={'/add-new-operation'}><MenuItem> Add new operation </MenuItem></Link>
+        <Link to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
+
     </Drawer>
 )
 
