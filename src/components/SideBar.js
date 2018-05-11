@@ -15,6 +15,7 @@ const SideBar = (props) => (
         <Link to={'/add-new-operation'}><MenuItem> Add new operation </MenuItem></Link>
         <Link to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
 
+
     </Drawer>
 )
 

@@ -18,29 +18,34 @@ const style = {
     marginLeft: 50,
 };
 
-
 class AddCategory extends React.Component {
     state = {
         selectedKindOfCategory: 'exp',
-        newCategoryName:''
+        newCategoryName: '',
     }
 
+
     saveNewCategory = () => {
-        fetch('https://fatcash-app.firebaseio.com/categories/'+this.state.selectedKindOfCategory+'/.json',
-            {
+        fetch('https://fatcash-app.firebaseio.com/categories/' + this.state.selectedKindOfCategory + '/.json', {
+
+
                 method: 'POST',
                 body: JSON.stringify({
                     name: this.state.newCategoryName
-                })
+                }),
             }
-        )
-    }
+        ).then(() => {
+            this.setState({newCategoryName: ''})
 
+        }).then(()=>alert('New cattegory added'))
+    }
     newTaskHandler = (event, value) => {
         this.setState({
-            newCategoryName : value
+            newCategoryName: value
         })
     }
+
+    onNewMessageChangeHandler = (e, value) => this.setState({newCategoryName: value})
 
     render() {
         return (
@@ -65,6 +70,7 @@ class AddCategory extends React.Component {
                     hintText="Type your cattegory"
                     fullWidth={true}
                     onChange={this.newTaskHandler}
+                    value={this.state.newCategoryName}
                 />
                 <br/>
                 <RaisedButton
@@ -76,8 +82,8 @@ class AddCategory extends React.Component {
                 />
             </div>
         )
-    };
-}
+    }
 
+}
 
 export default AddCategory;

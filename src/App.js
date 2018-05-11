@@ -8,6 +8,8 @@ import Dashboard from './components/Dashboard'
 import AddCategory from './components/AddCategory'
 import ShareButton from './components/Share'
 
+
+
 class App extends React.Component {
     state = {
         isDrowerOpen: false
@@ -38,6 +40,7 @@ class App extends React.Component {
                         <Route exact path={'/add-category'} component={AddCategory}/>
                         <Route path={'/operation-list'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
+
 
                     </div>
                 </Router>
