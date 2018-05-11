@@ -18,16 +18,15 @@ const style = {
     marginLeft: 50,
 };
 
-
 class AddCategory extends React.Component {
     state = {
         selectedKindOfCategory: 'exp',
-        newCategoryName:''
+        newCategoryName: '',
     }
 
-    saveNewCategory = () => {
-        fetch('https://fatcash-app.firebaseio.com/categories/'+this.state.selectedKindOfCategory+'/.json', {
 
+    saveNewCategory = () => {
+        fetch('https://fatcash-app.firebaseio.com/categories/' + this.state.selectedKindOfCategory + '/.json', {
 
 
                 method: 'POST',
@@ -36,13 +35,13 @@ class AddCategory extends React.Component {
                 }),
             }
         ).then(() => {
-            this.setState({newCategoryName:''})
+            this.setState({newCategoryName: ''})
 
-        })
+        }).then(()=>alert('New cattegory added'))
     }
     newTaskHandler = (event, value) => {
         this.setState({
-            newCategoryName : value
+            newCategoryName: value
         })
     }
 
@@ -83,8 +82,8 @@ class AddCategory extends React.Component {
                 />
             </div>
         )
-    };
-}
+    }
 
+}
 
 export default AddCategory;

@@ -1,7 +1,7 @@
 import React from 'react'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import {Link} from 'react-router-dom'git
+import {Link} from 'react-router-dom'
 
 
 const SideBar = (props) => (
