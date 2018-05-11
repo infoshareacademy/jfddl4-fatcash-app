@@ -22,6 +22,11 @@ class AddOperation extends React.Component {
         categoriesExp: [],
         categoriesInc: [],
         open: false,
+        dialog: {
+            open: false,
+            category: '',
+            description: ''
+        }
 
 
     }
@@ -89,12 +94,24 @@ class AddOperation extends React.Component {
 
     }
 
-    handleOpen = () => {
-        this.setState({open: true});
+    handleOpen = (el) => {
+
+        this.setState({
+            dialog: {
+                open: true,
+                category: el.category,
+                description: el.description
+            }
+        });
     };
 
     handleClose = () => {
-        this.setState({open: false});
+        this.setState({
+            dialog: {
+                open: false,
+
+            }
+        });
     };
 
     newCategoryHandler = (el, key, val) => {
@@ -146,7 +163,7 @@ class AddOperation extends React.Component {
                 onClick={this.handleClose}
             />,
 
-    ,];
+            ,];
 
         return (
             <div>
@@ -220,24 +237,17 @@ class AddOperation extends React.Component {
                     label={"SAVE IT!"}
                 />
 
+
                 {
                     this.state.transactions.map((el) => (
                             <MenuItem
                                 secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
-                                > Value: {el.value}
+                            > Value: {el.value}
                                 &ensp;
-                                <RaisedButton style={{margin: '10px'}} label="Clik here to read description" onClick={this.handleOpen}/>
-                                <Dialog
-                                    title="Description of your income/expence"
-                                    actions={actions}
-                                    modal={false}
-                                    open={this.state.open}
-                                    onRequestClose={this.handleClose}
-                                >
-                                    Category: {el.category}
-                                    {el.description}
-
-                                </Dialog>
+                                <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
+                                              onClick={() => {
+                                                  this.handleOpen(el);
+                                              }}/>
 
 
                             </MenuItem>
@@ -247,6 +257,18 @@ class AddOperation extends React.Component {
                     )
 
                 }
+
+                <Dialog
+                    title={this.state.dialog.category}
+                    actions={actions}
+                    modal={false}
+                    open={this.state.dialog.open}
+                    onRequestClose={this.handleClose}
+                >
+
+                    {this.state.dialog.description}
+
+                </Dialog>
 
 
             </div>
