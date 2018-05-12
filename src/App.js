@@ -7,7 +7,7 @@ import OperationList from './components/OperationList'
 import Dashboard from './components/Dashboard'
 import AddCategory from './components/AddCategory'
 import ShareButton from './components/Share'
-
+import CategoryList from './components/CategoryList'
 
 
 class App extends React.Component {
@@ -40,7 +40,7 @@ class App extends React.Component {
                         <Route exact path={'/add-category'} component={AddCategory}/>
                         <Route path={'/operation-list'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
-
+                        <Route exact path={'/category-list'} component={CategoryList}/>
 
                     </div>
                 </Router>
