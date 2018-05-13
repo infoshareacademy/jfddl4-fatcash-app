@@ -181,13 +181,13 @@ class AddOperation extends React.Component {
                     />
                     <RadioButton
                         value={false}
-                        label="expenses"
+                        label="expense"
 
                     />
                 </RadioButtonGroup>
 
                 {this.state.income === true ?
-                    <SelectField floatingLabelText="Category" fullWidth={true} onChange={this.newCategoryHandler}>
+                    <SelectField  value={this.state.category} floatingLabelText="Choose category of your income" fullWidth={true} onChange={this.newCategoryHandler}>
                         {
                             this.state.categoriesInc.map((el) => (
 
@@ -198,7 +198,7 @@ class AddOperation extends React.Component {
 
                     </SelectField>
                     :
-                    <SelectField fullWidth={true} onChange={this.newCategoryHandler}>
+                    <SelectField floatingLabelText="Choose category of your expence" fullWidth={true} onChange={this.newCategoryHandler}>
                         {this.state.categoriesExp.map((el) => (
 
                                 <MenuItem value={el.name} primaryText={el.name}/>
@@ -217,7 +217,7 @@ class AddOperation extends React.Component {
                 {/*/>*/}
                 <TextField
                     value={this.state.description}
-                    hintText={"description..."}
+                    hintText={"Write description..."}
                     fullWidth={true}
                     onChange={this.newDescriptionHandler}
                 />
@@ -225,7 +225,7 @@ class AddOperation extends React.Component {
 
                 <TextField
                     value={this.state.value}
-                    hintText={'value'}
+                    hintText={'Write value of your income or expence...'}
                     fullWidth={true}
                     onChange={this.newValueHandler}
                 />
