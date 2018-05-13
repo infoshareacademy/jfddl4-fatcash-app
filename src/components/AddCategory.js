@@ -37,7 +37,8 @@ class AddCategory extends React.Component {
         ).then(() => {
             this.setState({newCategoryName: ''})
 
-        }).then(()=>alert('New cattegory added'))
+        }).then(()=>alert('New category added'))
+
     }
     newTaskHandler = (event, value) => {
         this.setState({
@@ -66,13 +67,14 @@ class AddCategory extends React.Component {
                         style={styles.radioButton}
                     />
                 </RadioButtonGroup>
+
                 <TextField
                     hintText="Type your cattegory"
                     fullWidth={true}
                     onChange={this.newTaskHandler}
                     value={this.state.newCategoryName}
                 />
-                <br/>
+
                 <RaisedButton
                     label="Add category"
                     primary={true} style={style}

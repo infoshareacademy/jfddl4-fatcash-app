@@ -240,6 +240,7 @@ class AddOperation extends React.Component {
                     fullWidth={true}
                     primary={true}
                     label={"SAVE IT!"}
+                    disabled={this.state.value && this.state.category ? false : true}
                 />
 
 
