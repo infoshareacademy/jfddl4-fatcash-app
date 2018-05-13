@@ -1,6 +1,3 @@
-// Jak zrobić filtry!!!! Wpisując do searcha aktualizujemy state. filtry to oddzielne funkcje, które aktualizują transaction w state
-
-
 import React from 'react'
 import InputRange from 'react-input-range'
 import TextField from 'material-ui/TextField'
@@ -142,10 +139,12 @@ class OperationList extends React.Component {
 
     handleChange = (event, index, valueDrop) => (this.setState({valueDrop}));
 
-   categoryFilter = (result) => {result.category == this.state.valueDrop}
+    categoryFilter = (result) => {
+        result.category == this.state.valueDrop
+    }
 
     render() {
-
+        console.log(this.state.valueDrop)
         const actions = [
             <FlatButton
                 label="Cancel"
@@ -179,21 +178,10 @@ class OperationList extends React.Component {
                 </div>
 
 
-                <DropDownMenu value={this.state.valueDrop}
+              Incomes:  <DropDownMenu value={this.state.valueDrop}
                               onChange={this.handleChange}>
 
-                    <MenuItem value= ""
-                              primaryText="Wszystko"
-                              label=""
-                    />
 
-                    {
-                        this.state.categoriesExp.map((el) => (
-
-                                <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
-
-                            )
-                        )}
                     {this.state.categoriesInc.map((el) => (
 
                             <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
@@ -202,8 +190,28 @@ class OperationList extends React.Component {
                     )}
                 </DropDownMenu>
 
-                {
-                    this.state.transactions.map((el) => (
+               Expences: <DropDownMenu value={this.state.valueDrop}
+                              onChange={this.handleChange}>
+
+
+                    {
+                        this.state.categoriesExp.map((el) => (
+
+                                <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
+
+                            )
+                        )}
+
+                </DropDownMenu>
+
+                { this.state.transactions
+                    .filter(task => {
+
+                        return task.category === this.state.valueDrop
+                    })
+
+                    .map((el) => (
+
                             <MenuItem
                                 secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
                             > Value: {el.value}
@@ -215,12 +223,12 @@ class OperationList extends React.Component {
 
 
                             </MenuItem>
-
-
                         )
                     )
 
-                }
+            }
+
+
 
                 <Dialog
                     title={this.state.dialog.category}
