@@ -189,7 +189,7 @@ class AddOperation extends React.Component {
                 {this.state.income === true ?
                     <SelectField floatingLabelText="Category" fullWidth={true} onChange={this.newCategoryHandler}>
                         {
-                            this.state.categoriesExp.map((el) => (
+                            this.state.categoriesInc.map((el) => (
 
                                     <MenuItem value={el.name} primaryText={el.name}/>
 
@@ -199,7 +199,7 @@ class AddOperation extends React.Component {
                     </SelectField>
                     :
                     <SelectField fullWidth={true} onChange={this.newCategoryHandler}>
-                        {this.state.categoriesInc.map((el) => (
+                        {this.state.categoriesExp.map((el) => (
 
                                 <MenuItem value={el.name} primaryText={el.name}/>
 
