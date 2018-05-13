@@ -17,7 +17,7 @@ class AddOperation extends React.Component {
         date: "",
         description: "",
         income: true,
-        value: 12,
+        value: "",
         name: "",
         transactions: [],
         categoriesExp: [],
@@ -61,7 +61,7 @@ class AddOperation extends React.Component {
                     date: "",
                     description: "",
                     income: true,
-                    value: 12
+                    value: ""
                 })
             })
 
@@ -137,7 +137,9 @@ class AddOperation extends React.Component {
     }
 
     saveTaskToDatabase = () => {
-        console.log(this.state.income)
+
+        this.state.value.length===0 || this.state.category.length===0 ? alert("You must add value and choose category !!") :
+
         fetch('https://fatcash-app.firebaseio.com/transactions/.json',
             {
                 method: 'POST',
@@ -153,6 +155,7 @@ class AddOperation extends React.Component {
                 )
             }
         ).then(this.loadTransaction)
+        alert('Operation sucesfully added')
     }
 
 
