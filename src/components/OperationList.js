@@ -6,8 +6,12 @@ import InputRange from 'react-input-range'
 import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
+import RaisedButton from 'material-ui/RaisedButton'
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton'
 
 import 'react-input-range/lib/css/index.css'
+import moment from "moment/moment";
 
 class OperationList extends React.Component {
     constructor(props) {
@@ -16,20 +20,28 @@ class OperationList extends React.Component {
         this.state = {
 
             valueRange: {min: 0, max: 5000},
-            valueDrop: 1,
-            transactions: "",
+            valueDrop: "",
+            transactions: [],
             category: "",
             date: "",
             description: "",
             income: "",
             value: "",
-            categories: []
+            categories: [],
+            categoriesExp: [],
+            categoriesInc: [],
+            dialog: {
+                open: false,
+                category: '',
+                description: ''
+            }
         };
     }
 
     componentDidMount() {
         this.loadTransaction()
-
+        this.loadCategoriesExp()
+        this.loadCategoriesInc()
     }
 
     // assignCategoryFromProps() {
@@ -70,14 +82,79 @@ class OperationList extends React.Component {
 
     }
 
+    loadCategoriesExp = () => {
+        fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
+            .then(r => r.json())
+            .then((data) => {
+                const categoriesExpInArray = this.mapObjectToArray(data)
+
+                this.setState({
+                    categoriesExp: categoriesExpInArray,
+                    name: ""
+                })
+            })
+
+    }
+
+    loadCategoriesInc = () => {
+        fetch('https://fatcash-app.firebaseio.com/categories/income/.json')
+            .then(r => r.json())
+            .then((data) => {
+                const categoriesIncInArray = this.mapObjectToArray(data)
+
+                this.setState({
+                    categoriesInc: categoriesIncInArray,
+                    name: ""
+                })
+            })
+
+    }
+
+    handleOpen = (el) => {
+
+        this.setState({
+            dialog: {
+                open: true,
+                category: el.category,
+                description: el.description
+            }
+        });
+    };
+
+    handleClose = () => {
+        this.setState({
+            dialog: {
+                open: false,
+
+            }
+        });
+    };
+
+
     // loadCategories = () => {
     //
     // }
 
+    newIncomeHandler = (el, val) => {
+        this.setState({income: val})
 
-    handleChange = (event, index, valueDrop) => this.setState({valueDrop});
+    }
+
+    handleChange = (event, index, valueDrop) => (this.setState({valueDrop}));
+
+   categoryFilter = (result) => {result.category == this.state.valueDrop}
 
     render() {
+
+        const actions = [
+            <FlatButton
+                label="Cancel"
+                primary={true}
+                onClick={this.handleClose}
+            />,
+
+            ,];
+
         return (
             <div>
                 List of Operations
@@ -100,19 +177,63 @@ class OperationList extends React.Component {
 
                     />
                 </div>
+
+
                 <DropDownMenu value={this.state.valueDrop}
                               onChange={this.handleChange}>
-                    <MenuItem value={1}
-                              primaryText="Never"/>
-                    <MenuItem value={2}
-                              primaryText="Every Night"/>
-                    <MenuItem value={3}
-                              primaryText="Weeknights"/>
-                    <MenuItem value={4}
-                              primaryText="Weekends"/>
-                    <MenuItem value={5}
-                              primaryText="Weekly"/>
+
+                    <MenuItem value= ""
+                              primaryText="Wszystko"
+                              label=""
+                    />
+
+                    {
+                        this.state.categoriesExp.map((el) => (
+
+                                <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
+
+                            )
+                        )}
+                    {this.state.categoriesInc.map((el) => (
+
+                            <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
+
+                        )
+                    )}
                 </DropDownMenu>
+
+                {
+                    this.state.transactions.map((el) => (
+                            <MenuItem
+                                secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
+                            > Value: {el.value}
+                                &ensp;
+                                <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
+                                              onClick={() => {
+                                                  this.handleOpen(el);
+                                              }}/>
+
+
+                            </MenuItem>
+
+
+                        )
+                    )
+
+                }
+
+                <Dialog
+                    title={this.state.dialog.category}
+                    actions={actions}
+                    modal={false}
+                    open={this.state.dialog.open}
+                    onRequestClose={this.handleClose}
+                >
+
+                    {this.state.dialog.description}
+
+                </Dialog>
+
 
             </div>
         )
