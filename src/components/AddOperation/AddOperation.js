@@ -9,6 +9,7 @@ import SelectField from 'material-ui/SelectField'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog';
 
+
 class AddOperation extends React.Component {
 
     state = {
@@ -16,7 +17,7 @@ class AddOperation extends React.Component {
         date: "",
         description: "",
         income: true,
-        value: "",
+        value: 12,
         name: "",
         transactions: [],
         categoriesExp: [],
@@ -60,7 +61,7 @@ class AddOperation extends React.Component {
                     date: "",
                     description: "",
                     income: true,
-                    value: ""
+                    value: 12
                 })
             })
 
@@ -227,6 +228,7 @@ class AddOperation extends React.Component {
                     value={this.state.value}
                     hintText={'Write value of your income or expence...'}
                     fullWidth={true}
+                    type={'number'}
                     onChange={this.newValueHandler}
                 />
                 <Divider/>
