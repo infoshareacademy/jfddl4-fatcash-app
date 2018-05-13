@@ -7,18 +7,16 @@ class CategoryList extends React.Component {
     style = {
 
         h2: {
-            textAlign: 'center'
+            textAlign: 'center',
 
         }
     }
     state = {
 
         inc: [],
-        exp: []
-
-
+        exp: [],
+        k:this.props
     }
-
     mapObjectToArray = (obj) => (
         Object.entries(obj || {})
             .map(([key, value]) => (
@@ -28,7 +26,6 @@ class CategoryList extends React.Component {
                     {key, value}
             ))
     );
-
     componentDidMount() {
 
         fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
@@ -43,8 +40,6 @@ class CategoryList extends React.Component {
                 inc: this.mapObjectToArray(data)
             }))
     }
-
-
     render() {
 
         return (
@@ -56,7 +51,7 @@ class CategoryList extends React.Component {
                                 return (
                                     <MenuItem
 
-                                        rightIcon={<RemoveRedEye onClick={()=>alert('hello')} />}
+                                        rightIcon={<RemoveRedEye onClick={()=>alert(value.name)} />}
 
                                     >{value.name} </MenuItem>
                                 )
@@ -72,9 +67,7 @@ class CategoryList extends React.Component {
                                 return (
                                     <MenuItem
 
-                                        rightIcon={<RemoveRedEye />}
-
-
+                                        rightIcon={<RemoveRedEye onClick={()=>(value.name)}/>}
 
 
                                     >{value.name} </MenuItem>
@@ -87,5 +80,4 @@ class CategoryList extends React.Component {
         )
     }
 }
-
 export default CategoryList
