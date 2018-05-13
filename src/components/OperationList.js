@@ -207,10 +207,13 @@ class OperationList extends React.Component {
                 { this.state.transactions
                     .filter(task => {
 
-                        return task.category === this.state.valueDrop
+
+
+                        return task.category === this.state.valueDrop && task.value >= this.state.valueRange.min && task.value <= this.state.valueRange.max &&  task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
                     })
 
                     .map((el) => (
+
 
                             <MenuItem
                                 secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
@@ -223,10 +226,13 @@ class OperationList extends React.Component {
 
 
                             </MenuItem>
+
                         )
                     )
 
             }
+
+
 
 
 
