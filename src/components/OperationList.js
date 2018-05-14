@@ -138,10 +138,9 @@ class OperationList extends React.Component {
 
         return (
             <div>
-                List of Operations
-                <div>
+                <div style={{ border: '30px solid #f3f3f5' }}>
                     <TextField
-                        hintText="Wyszukaj..."
+                        hintText="Search..."
                         onChange={(e, value) => {
                             this.setState({
                                 description: value
@@ -149,7 +148,7 @@ class OperationList extends React.Component {
                         }}
                     />
                 </div>
-                <div style={{margin: '100px'}}>
+                <div style={{margin: '30px 25px 10px 25px'}}>
                     <InputRange
                         maxValue={5000}
                         minValue={0}
