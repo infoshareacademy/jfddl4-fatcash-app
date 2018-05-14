@@ -9,7 +9,8 @@ import SelectField from 'material-ui/SelectField'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog';
 import Pagination from 'material-ui-pagination';
-import {mapObjectToArray} from '../utils'
+import {mapObjectToArray, transactionFilterAndMap} from '../utils'
+import Controls from "./Controls";
 
 const ITEMS_PER_PAGE = 5
 
@@ -169,77 +170,22 @@ class AddOperation extends React.Component {
             <div style={{margin: "20px"}}>
 
 
-                    <RadioButtonGroup
-                        name="shipSpeed"
-                        defaultSelected={true}
-                        onChange={this.newIncomeHandler}
-                    >
-                        <RadioButton
-                            value={true}
-                            label="income"
+                <Controls
+                    newIncomeHandler = {this.newIncomeHandler}
+                    newCategoryHandler= {this.newCategoryHandler}
+                    newDescriptionHandler={this.newDescriptionHandler}
+                    newValueHandler={this.newValueHandler}
+                    saveTaskToDatabase={this.saveTaskToDatabase}
+                    income={this.state.income}
+                    categoriesInc={this.state.categoriesInc}
+                    category={this.state.category}
+                    categoriesExp={this.state.categoriesExp}
+                    description={this.state.description}
+                    value={this.state.value}
 
-                        />
-                        <RadioButton
-                            value={false}
-                            label="expense"
-
-                        />
-                    </RadioButtonGroup>
-
-                    {this.state.income === true ?
-                        <SelectField value={this.state.category} floatingLabelText="Choose category of your income"
-                                     fullWidth={true} onChange={this.newCategoryHandler}>
-                            {
-                                this.state.categoriesInc.map((el) => (
-
-                                        <MenuItem value={el.name} primaryText={el.name}/>
-
-                                    )
-                                )}
-
-                        </SelectField>
-                        :
-                        <SelectField value={this.state.category} floatingLabelText="Choose category of your expence"
-                                     fullWidth={true} onChange={this.newCategoryHandler}>
-                            {this.state.categoriesExp.map((el) => (
-
-                                    <MenuItem value={el.name} primaryText={el.name}/>
-
-                                )
-                            )}
-                        </SelectField>
-
-                    }
+                />
 
 
-                    <Divider/>
-                    {/*<TextField*/}
-                    {/*value={this.state.date}*/}
-                    {/*onChange={this.newDateHandler}*/}
-                    {/*/>*/}
-                    <TextField
-                        value={this.state.description}
-                        hintText={"Write description..."}
-                        fullWidth={true}
-                        onChange={this.newDescriptionHandler}
-                    />
-                    <Divider/>
-
-                    <TextField
-                        value={this.state.value}
-                        hintText={'Write value of your income or expence...'}
-                        fullWidth={true}
-                        type={'number'}
-                        onChange={this.newValueHandler}
-                    />
-                    <Divider/>
-                    <RaisedButton
-                        onClick={this.saveTaskToDatabase}
-                        fullWidth={true}
-                        primary={true}
-                        label={"SAVE IT!"}
-                        disabled={this.state.value && this.state.category ? false : true}
-                    />
 
 
                 {
@@ -256,11 +202,7 @@ class AddOperation extends React.Component {
                                               onClick={() => {
                                                   this.handleOpen(el);
                                               }}/>
-
-
                             </MenuItem>
-
-
                         )
                     )
 
@@ -284,9 +226,7 @@ class AddOperation extends React.Component {
 
                 </Dialog>
 
-
             </div>
-
         )
     }
 }

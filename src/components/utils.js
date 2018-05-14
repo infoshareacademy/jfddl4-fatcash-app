@@ -7,3 +7,4 @@ export const mapObjectToArray = (obj) => (
                 {key, value}
         ))
 )
+
