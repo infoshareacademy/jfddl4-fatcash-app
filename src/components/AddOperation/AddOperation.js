@@ -9,6 +9,7 @@ import SelectField from 'material-ui/SelectField'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog';
 import Pagination from 'material-ui-pagination';
+import {mapObjectToArray} from '../utils'
 
 const ITEMS_PER_PAGE = 5
 
@@ -43,21 +44,13 @@ class AddOperation extends React.Component {
 
     }
 
-    mapObjectToArray = (obj) => (
-        Object.entries(obj || {})
-            .map(([key, value]) => (
-                typeof value === 'object' ?
-                    {...value, key}
-                    :
-                    {key, value}
-            ))
-    )
+
 
     loadTransaction = () => {
         fetch('https://fatcash-app.firebaseio.com/transactions/.json')
             .then(r => r.json())
             .then((data) => {
-                const transactionInArray = this.mapObjectToArray(data)
+                const transactionInArray = mapObjectToArray(data)
 
                 this.setState({
                     transactions: transactionInArray.reverse(),
@@ -75,7 +68,7 @@ class AddOperation extends React.Component {
         fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
             .then(r => r.json())
             .then((data) => {
-                const categoriesExpInArray = this.mapObjectToArray(data)
+                const categoriesExpInArray = mapObjectToArray(data)
 
                 this.setState({
                     categoriesExp: categoriesExpInArray,
@@ -89,7 +82,7 @@ class AddOperation extends React.Component {
         fetch('https://fatcash-app.firebaseio.com/categories/income/.json')
             .then(r => r.json())
             .then((data) => {
-                const categoriesIncInArray = this.mapObjectToArray(data)
+                const categoriesIncInArray = mapObjectToArray(data)
 
                 this.setState({
                     categoriesInc: categoriesIncInArray,
@@ -114,7 +107,6 @@ class AddOperation extends React.Component {
         this.setState({
             dialog: {
                 open: false,
-
             }
         });
     };
