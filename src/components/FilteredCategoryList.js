@@ -1,5 +1,8 @@
 import React from 'react'
 import MenuItem from 'material-ui/MenuItem'
+import moment from 'moment'
+import Paper from 'material-ui/Paper';
+import Divider from 'material-ui/Divider'
 
 const mapObjectToArray = (obj) => (
     Object.entries(obj || {})
@@ -38,7 +41,7 @@ class FilteredCategoryList extends React.Component {
                                 value.category === this.state.category
                             ) {
                                 return (
-                                    <MenuItem>{value.category + " : " + value.description + " : " + value.date} </MenuItem>
+                                    <Paper zDepth={3}><MenuItem>{value.category + " : " + value.description + " : " + moment(value.date).format('MMMM Do YYYY, h:mm:ss a')} </MenuItem><Divider/></Paper>
                                 )
                             }
                         }
