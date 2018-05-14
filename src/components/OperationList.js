@@ -207,20 +207,25 @@ class OperationList extends React.Component {
                     <Divider/>
 
 
-                    {this.state.valueDrop === "" ? this.state.transactions.map((el) => (
+                    {this.state.valueDrop === "" ? this.state.transactions.filter(task => {
+
+                            return task.value >= this.state.valueRange.min && task.value <= this.state.valueRange.max && task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
+                        })
+
+                            .map((el) => (
 
 
-                            <MenuItem
-                                secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
-                            > Value: {el.value}
-                                &ensp;
-                                <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
-                                              onClick={() => {
-                                                  this.handleOpen(el);
-                                              }}/>
+                                    <MenuItem
+                                        secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
+                                    > Value: {el.value}
+                                        &ensp;
+                                        <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
+                                                      onClick={() => {
+                                                          this.handleOpen(el);
+                                                      }}/>
 
 
-                            </MenuItem>
+                                    </MenuItem>
 
 
                         )
