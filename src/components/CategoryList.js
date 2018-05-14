@@ -19,6 +19,16 @@ const mapObjectToArray = (obj) => (
         ))
 )
 
+const ListItem = (props) => (
+    <Link to={`/filtered-category-list/${props.value.name}`}>
+        <MenuItem
+            rightIcon={<RemoveRedEye/>}
+        >
+            {props.value.name}
+        </MenuItem>
+    </Link>
+)
+
 class CategoryList extends React.Component {
     state = {
         inc: [],
@@ -41,34 +51,12 @@ class CategoryList extends React.Component {
             <div>
                 <div>
                     <h2 style={style.h2}>Incomes</h2>
-                    {
-                        this.state.inc.map((value, index) => {
-                                return (
-                                    <Link to={`/filtered-category-list/${value.name}`}>
-                                        <MenuItem
-                                            rightIcon={<RemoveRedEye/>}
-                                        >
-                                            {value.name}
-                                        </MenuItem>
-                                    </Link>
-                                )
-                            }
-                        )
-                    }
+                    {this.state.inc.map((value) => <ListItem value={value}/>)}
                 </div>
 
                 <div>
                     <h2 style={style.h2}>Expenses</h2>
-                    {
-                        this.state.exp.map((value, index) => {
-                                return (
-                                    <MenuItem
-                                        rightIcon={<RemoveRedEye onClick={() => (value.name)}/>}
-                                    >{value.name} </MenuItem>
-                                )
-                            }
-                        )
-                    }
+                    {this.state.exp.map((value) => <ListItem value={value}/>)}
                 </div>
             </div>
         )
