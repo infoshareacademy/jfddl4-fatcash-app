@@ -77,7 +77,7 @@ class AddCategory extends React.Component {
 
                 <RaisedButton
                     label="Add category"
-                    primary={true} style={style}
+                    primary={true}
                     fullWidth={true}
                     onClick={this.saveNewCategory}
                     disabled={this.state.newCategoryName ? false : true}
