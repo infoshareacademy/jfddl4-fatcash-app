@@ -64,7 +64,7 @@ class AddOperation extends React.Component {
                     category: "",
                     date: "",
                     description: "",
-                    income: true,
+                    income: this.state.income,
                     value: ""
                 })
             })
