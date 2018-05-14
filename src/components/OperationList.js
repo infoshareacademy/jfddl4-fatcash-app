@@ -10,29 +10,26 @@ import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import moment from "moment/moment";
 
+const ITEMS_PER_PAGE = 2
+
 class OperationList extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-
-            valueRange: {min: 0, max: 5000},
-            valueDrop: "",
-            transactions: [],
-            category: "",
-            date: "",
-            description: "",
-            income: "",
-            value: "",
-            categories: [],
-            categoriesExp: [],
-            categoriesInc: [],
-            dialog: {
-                open: false,
-                category: '',
-                description: ''
-            }
-        };
+    state = {
+        valueRange: {min: 0, max: 5000},
+        valueDrop: "",
+        transactions: [],
+        category: "",
+        date: "",
+        description: "",
+        income: "",
+        value: "",
+        categories: [],
+        categoriesExp: [],
+        categoriesInc: [],
+        dialog: {
+            open: false,
+            category: '',
+            description: ''
+        }
     }
 
     componentDidMount() {
@@ -40,16 +37,6 @@ class OperationList extends React.Component {
         this.loadCategoriesExp()
         this.loadCategoriesInc()
     }
-
-    // assignCategoryFromProps() {
-    //     if (this.props.match.params.param_name) {
-    //         this.setState({
-    //             category: this.props.match.params.param_name
-    //
-    //             //Paweł przekazuje mi parametr i trzeba go wsadzić w category w state
-    //         })
-    //     }
-    // }
 
     mapObjectToArray = (obj) => (
         Object.entries(obj || {})
@@ -90,7 +77,6 @@ class OperationList extends React.Component {
                     name: ""
                 })
             })
-
     }
 
     loadCategoriesInc = () => {
@@ -104,19 +90,17 @@ class OperationList extends React.Component {
                     name: ""
                 })
             })
-
     }
 
     handleOpen = (el) => {
-
         this.setState({
             dialog: {
                 open: true,
                 category: el.category,
                 description: el.description
             }
-        });
-    };
+        })
+    }
 
     handleClose = () => {
         this.setState({
@@ -124,24 +108,10 @@ class OperationList extends React.Component {
                 open: false,
 
             }
-        });
-    };
-
-
-    // loadCategories = () => {
-    //
-    // }
-
-    newIncomeHandler = (el, val) => {
-        this.setState({income: val})
-
+        })
     }
 
     handleChange = (event, index, valueDrop) => (this.setState({valueDrop}));
-
-    categoryFilter = (result) => {
-        result.category == this.state.valueDrop
-    }
 
     render() {
         console.log(this.state.valueDrop)
@@ -150,9 +120,8 @@ class OperationList extends React.Component {
                 label="Cancel"
                 primary={true}
                 onClick={this.handleClose}
-            />,
-
-            ,];
+            />
+        ]
 
         return (
             <div>
@@ -173,107 +142,84 @@ class OperationList extends React.Component {
                         minValue={0}
                         value={this.state.valueRange}
                         onChange={valueRange => this.setState({valueRange})}
-
                     />
                 </div>
+                Incomes:
+                <DropDownMenu
+                    value={this.state.valueDrop}
+                    onChange={this.handleChange}
+                >
 
+                    {this.state.categoriesInc.map((el) => (
+                            <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
+                        )
+                    )}
+                </DropDownMenu>
+                Expences:
+                <DropDownMenu
+                    value={this.state.valueDrop}
 
-                Incomes: <DropDownMenu value={this.state.valueDrop}
-                                       onChange={this.handleChange}>
-
-
-                {this.state.categoriesInc.map((el) => (
-
-                        <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
-
-                    )
-                )}
-            </DropDownMenu>
-
-                Expences: <DropDownMenu value={this.state.valueDrop}
-                                        onChange={this.handleChange}>
+                    onChange={this.handleChange}
+                >
+                    {this.state.categoriesExp.map((el) => (
+                            <MenuItem
+                                value={el.name}
+                                primaryText={el.name}
+                                label={el.name}
+                            />
+                        )
+                    )}
+                </DropDownMenu>
+                <br/>
+                <Divider/>
 
 
                 {
-                    this.state.categoriesExp.map((el) => (
-
-                            <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
-
-                        )
-                    )}
-
-            </DropDownMenu>
-                <br/>
-                    <Divider/>
-
-
-                    {this.state.valueDrop === "" ? this.state.transactions.filter(task => {
-
-                            return task.value >= this.state.valueRange.min && task.value <= this.state.valueRange.max && task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
-                        })
-
-                            .map((el) => (
-
-
-                                    <MenuItem
-                                        secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
-                                    > Value: {el.value}
-                                        &ensp;
-                                        <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
-                                                      onClick={() => {
-                                                          this.handleOpen(el);
-                                                      }}/>
-
-
-                                    </MenuItem>
-
-
-                        )
-                        )
-                        :
-                        this.state.transactions.filter(task => {
-
-                            return task.category === this.state.valueDrop && task.value >= this.state.valueRange.min && task.value <= this.state.valueRange.max && task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
-                        })
-
-                            .map((el) => (
-
-
-                                    <MenuItem
-                                        secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
-                                    > Value: {el.value}
-                                        &ensp;
-                                        <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
-                                                      onClick={() => {
-                                                          this.handleOpen(el);
-                                                      }}/>
-
-
-                                    </MenuItem>
-
-                                )
+                    this.state.transactions.filter(task => (
+                        (this.state.valueDrop ? task.category === this.state.valueDrop : true)
+                        &&
+                        task.value >= this.state.valueRange.min
+                        &&
+                        task.value <= this.state.valueRange.max
+                        &&
+                        task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
+                    ))
+                        .map((el) => (
+                                <MenuItem
+                                    secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
+                                >
+                                    Value: {el.value}
+                                    &ensp;
+                                    <RaisedButton
+                                        style={{margin: '10px'}}
+                                        label="Clik here to read description"
+                                        onClick={() => {
+                                            this.handleOpen(el);
+                                        }}
+                                    />
+                                </MenuItem>
                             )
+                        )
+                }
 
-                    }
 
+                <Dialog
+                    title={this.state.dialog.category}
+                    actions={actions}
+                    modal={false}
+                    open={this.state.dialog.open}
+                    onRequestClose={this.handleClose}
+                >
 
-                    <Dialog
-                        title={this.state.dialog.category}
-                        actions={actions}
-                        modal={false}
-                        open={this.state.dialog.open}
-                        onRequestClose={this.handleClose}
-                    >
+                    {this.state.dialog.description}
 
-                        {this.state.dialog.description}
-
-                    </Dialog>
+                </Dialog>
 
 
             </div>
-    )
+        )
     }
-    }
+}
 
 
-    export default OperationList
+export default OperationList
