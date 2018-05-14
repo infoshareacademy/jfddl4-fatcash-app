@@ -6,8 +6,12 @@ import {Link} from 'react-router-dom'
 const style = {
     h2: {
         textAlign: 'center',
+    },
+    items:{
+        textDecoration:'none'
     }
-}
+
+};
 
 const mapObjectToArray = (obj) => (
     Object.entries(obj || {})
@@ -17,10 +21,10 @@ const mapObjectToArray = (obj) => (
                 :
                 {key, value}
         ))
-)
+);
 
 const ListItem = (props) => (
-    <Link to={`/filtered-category-list/${props.value.name}`}>
+    <Link style={style.items} to={`/filtered-category-list/${props.value.name}`}>
         <MenuItem
             rightIcon={<RemoveRedEye/>}
         >
@@ -33,7 +37,7 @@ class CategoryList extends React.Component {
     state = {
         inc: [],
         exp: [],
-        k: this.props
+
     }
 
     componentDidMount() {
@@ -51,12 +55,12 @@ class CategoryList extends React.Component {
             <div>
                 <div>
                     <h2 style={style.h2}>Incomes</h2>
-                    {this.state.inc.map((value) => <ListItem value={value}/>)}
+                    {this.state.inc.map((value) => <ListItem  value={value}/>)}
                 </div>
 
                 <div>
                     <h2 style={style.h2}>Expenses</h2>
-                    {this.state.exp.map((value) => <ListItem value={value}/>)}
+                    {this.state.exp.map((value) => <ListItem  value={value} style={style.items}/>)}
                 </div>
             </div>
         )
