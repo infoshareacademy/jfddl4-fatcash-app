@@ -2,6 +2,9 @@ import React from 'react'
 import MenuItem from 'material-ui/MenuItem'
 import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye'
 import {Link} from 'react-router-dom'
+import Pagination from 'material-ui-pagination';
+
+const ITEMS_PER_PAGE = 5
 
 const style = {
     h2: {

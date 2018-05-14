@@ -9,30 +9,29 @@ import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import moment from "moment/moment";
+import Pagination from 'material-ui-pagination';
+
+const ITEMS_PER_PAGE = 5
 
 class OperationList extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-
-            valueRange: {min: 0, max: 5000},
-            valueDrop: "",
-            transactions: [],
-            category: "",
-            date: "",
-            description: "",
-            income: "",
-            value: "",
-            categories: [],
-            categoriesExp: [],
-            categoriesInc: [],
-            dialog: {
-                open: false,
-                category: '',
-                description: ''
-            }
-        };
+    state = {
+        valueRange: {min: 0, max: 5000},
+        valueDrop: "",
+        transactions: [],
+        category: "",
+        date: "",
+        description: "",
+        income: "",
+        value: "",
+        categories: [],
+        categoriesExp: [],
+        categoriesInc: [],
+        dialog: {
+            open: false,
+            category: '',
+            description: ''
+        },
+        currentPage: 0
     }
 
     componentDidMount() {
@@ -40,16 +39,6 @@ class OperationList extends React.Component {
         this.loadCategoriesExp()
         this.loadCategoriesInc()
     }
-
-    // assignCategoryFromProps() {
-    //     if (this.props.match.params.param_name) {
-    //         this.setState({
-    //             category: this.props.match.params.param_name
-    //
-    //             //Paweł przekazuje mi parametr i trzeba go wsadzić w category w state
-    //         })
-    //     }
-    // }
 
     mapObjectToArray = (obj) => (
         Object.entries(obj || {})
@@ -90,7 +79,6 @@ class OperationList extends React.Component {
                     name: ""
                 })
             })
-
     }
 
     loadCategoriesInc = () => {
@@ -104,19 +92,17 @@ class OperationList extends React.Component {
                     name: ""
                 })
             })
-
     }
 
     handleOpen = (el) => {
-
         this.setState({
             dialog: {
                 open: true,
                 category: el.category,
                 description: el.description
             }
-        });
-    };
+        })
+    }
 
     handleClose = () => {
         this.setState({
@@ -124,156 +110,142 @@ class OperationList extends React.Component {
                 open: false,
 
             }
-        });
-    };
-
-
-    // loadCategories = () => {
-    //
-    // }
-
-    newIncomeHandler = (el, val) => {
-        this.setState({income: val})
-
+        })
     }
 
     handleChange = (event, index, valueDrop) => (this.setState({valueDrop}));
 
-    categoryFilter = (result) => {
-        result.category == this.state.valueDrop
-    }
-
     render() {
-        console.log(this.state.valueDrop)
         const actions = [
             <FlatButton
                 label="Cancel"
                 primary={true}
                 onClick={this.handleClose}
-            />,
+            />
+        ]
 
-            ,];
+        const filteredTransaction = this.state.transactions.filter(task => (
+            (this.state.valueDrop ? task.category === this.state.valueDrop : true)
+            &&
+            task.value >= this.state.valueRange.min
+            &&
+            task.value <= this.state.valueRange.max
+            &&
+            task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
+        ))
+
+        const filteredTransactionLength = filteredTransaction.length
 
         return (
             <div>
-                List of Operations
-                <div>
-                    <TextField
-                        hintText="Wyszukaj..."
-                        onChange={(e, value) => {
-                            this.setState({
-                                description: value
-                            })
-                        }}
-                    />
+
+                <div style={{border: '30px solid #f3f3f5'}}>
+                    <div style={{margin: '10px 25px 10px 25px'}}>
+                        <TextField
+                            hintText="Search..."
+                            fullWidth={true}
+                            onChange={(e, value) => {
+                                this.setState({
+                                    description: value
+                                })
+                            }}
+                        />
+                    </div>
+                    <div style={{margin: '30px 25px 10px 25px'}}>
+                        <InputRange
+                            maxValue={5000}
+                            minValue={0}
+                            value={this.state.valueRange}
+                            onChange={valueRange => this.setState({valueRange})}
+                        />
+                    </div>
+
+                    <div style={{margin: '10px 25px 10px 25px'}}>
+                        Incomes:
+                        <DropDownMenu
+                            value={this.state.valueDrop}
+                            onChange={this.handleChange}
+                        >
+
+                            {this.state.categoriesInc.map((el) => (
+                                    <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
+                                )
+                            )}
+                        </DropDownMenu>
+                        Expences:
+                        <DropDownMenu
+                            value={this.state.valueDrop}
+
+                            onChange={this.handleChange}
+                        >
+                            {this.state.categoriesExp.map((el) => (
+                                    <MenuItem
+                                        value={el.name}
+                                        primaryText={el.name}
+                                        label={el.name}
+                                    />
+                                )
+                            )}
+                        </DropDownMenu>
+                    </div>
                 </div>
-                <div style={{margin: '100px'}}>
-                    <InputRange
-                        maxValue={5000}
-                        minValue={0}
-                        value={this.state.valueRange}
-                        onChange={valueRange => this.setState({valueRange})}
+                <br/>
 
-                    />
-                </div>
-
-
-                Incomes: <DropDownMenu value={this.state.valueDrop}
-                                       onChange={this.handleChange}>
-
-
-                {this.state.categoriesInc.map((el) => (
-
-                        <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
-
-                    )
-                )}
-            </DropDownMenu>
-
-                Expences: <DropDownMenu value={this.state.valueDrop}
-                                        onChange={this.handleChange}>
-
+                <Divider/>
 
                 {
-                    this.state.categoriesExp.map((el) => (
-
-                            <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
-
-                        )
-                    )}
-
-            </DropDownMenu>
-                <br/>
-                    <Divider/>
-
-
-                    {this.state.valueDrop === "" ? this.state.transactions.filter(task => {
-
-                            return task.value >= this.state.valueRange.min && task.value <= this.state.valueRange.max && task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
-                        })
-
-                            .map((el) => (
-
-
-                                    <MenuItem
-                                        secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
-                                    > Value: {el.value}
-                                        &ensp;
-                                        <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
-                                                      onClick={() => {
-                                                          this.handleOpen(el);
-                                                      }}/>
-
-
-                                    </MenuItem>
-
-
-                        )
-                        )
-                        :
-                        this.state.transactions.filter(task => {
-
-                            return task.category === this.state.valueDrop && task.value >= this.state.valueRange.min && task.value <= this.state.valueRange.max && task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
-                        })
-
-                            .map((el) => (
-
-
-                                    <MenuItem
-                                        secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
-                                    > Value: {el.value}
-                                        &ensp;
-                                        <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
-                                                      onClick={() => {
-                                                          this.handleOpen(el);
-                                                      }}/>
-
-
-                                    </MenuItem>
-
-                                )
+                    filteredTransaction
+                        .filter((el, i) => (
+                            i >= this.state.currentPage * ITEMS_PER_PAGE
+                            &&
+                            i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
+                        ))
+                        .map((el) => (
+                                <MenuItem
+                                    secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
+                                >
+                                    Value: {el.value}
+                                    &ensp;
+                                    <RaisedButton
+                                        style={{margin: '10px'}}
+                                        label="Clik here to read description"
+                                        onClick={() => {
+                                            this.handleOpen(el);
+                                        }}
+                                    />
+                                </MenuItem>
                             )
+                        )
+                }
 
-                    }
+                <Divider/>
 
+                <Pagination
+                    total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}
+                    current={this.state.currentPage + 1}
+                    display={10}
+                    onChange={newPage => this.setState({currentPage: newPage - 1})}
+                />
 
-                    <Dialog
-                        title={this.state.dialog.category}
-                        actions={actions}
-                        modal={false}
-                        open={this.state.dialog.open}
-                        onRequestClose={this.handleClose}
-                    >
+                <Divider/>
 
-                        {this.state.dialog.description}
+                <Dialog
+                    title={this.state.dialog.category}
+                    actions={actions}
+                    modal={false}
+                    open={this.state.dialog.open}
+                    onRequestClose={this.handleClose}
+                >
 
-                    </Dialog>
+                    {this.state.dialog.description}
+
+                </Dialog>
 
 
             </div>
-    )
+        )
     }
-    }
+}
 
 
-    export default OperationList
+export default OperationList
