@@ -9,6 +9,7 @@ import SelectField from 'material-ui/SelectField'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog';
 
+
 class AddOperation extends React.Component {
 
     state = {
@@ -136,7 +137,9 @@ class AddOperation extends React.Component {
     }
 
     saveTaskToDatabase = () => {
-        console.log(this.state.income)
+
+        this.state.value.length===0 || this.state.category.length===0 ? alert("You must add value and choose category !!") :
+
         fetch('https://fatcash-app.firebaseio.com/transactions/.json',
             {
                 method: 'POST',
@@ -152,6 +155,7 @@ class AddOperation extends React.Component {
                 )
             }
         ).then(this.loadTransaction)
+        alert('Operation sucesfully added')
     }
 
 
@@ -198,7 +202,7 @@ class AddOperation extends React.Component {
 
                     </SelectField>
                     :
-                    <SelectField floatingLabelText="Choose category of your expence" fullWidth={true} onChange={this.newCategoryHandler}>
+                    <SelectField value={this.state.category} floatingLabelText="Choose category of your expence" fullWidth={true} onChange={this.newCategoryHandler}>
                         {this.state.categoriesExp.map((el) => (
 
                                 <MenuItem value={el.name} primaryText={el.name}/>
@@ -227,6 +231,7 @@ class AddOperation extends React.Component {
                     value={this.state.value}
                     hintText={'Write value of your income or expence...'}
                     fullWidth={true}
+                    type={'number'}
                     onChange={this.newValueHandler}
                 />
                 <Divider/>
@@ -235,6 +240,7 @@ class AddOperation extends React.Component {
                     fullWidth={true}
                     primary={true}
                     label={"SAVE IT!"}
+                    disabled={this.state.value && this.state.category ? false : true}
                 />
 
 
