@@ -16,7 +16,7 @@ const SideBar = (props) => (
         <Link to={'/operation-list'}><MenuItem> Operations list </MenuItem></Link>
         <Link to={'/add-new-operation'}><MenuItem> Add new operation </MenuItem></Link>
         <Link to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
-        <Link to={'/category-list/Pawel'}><MenuItem> Category List </MenuItem></Link>
+        <Link to={'/category-list'}><MenuItem> Category List </MenuItem></Link>
         <Link to={'/filtered-category-list'}><MenuItem> Filtered Category List </MenuItem></Link>
 
 

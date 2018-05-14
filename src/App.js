@@ -44,8 +44,9 @@ class App extends React.Component {
                         <Route exact path={'/add-category'} component={AddCategory}/>
                         <Route path={'/operation-list'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
-                        <Route exact path={'/category-list/:category'} component={CategoryList}/>
-                        <Route exact path={'/filtered-category-list'} component={FilteredCategoryList}/>
+                        <Route exact path={'/category-list'} component={CategoryList}/>
+                        <Route exact path={'/filtered-category-list/'} component={FilteredCategoryList}/>
+                        <Route exact path={'/filtered-category-list/:category'} component={FilteredCategoryList}/>
 
                     </div>
                 </Router>
