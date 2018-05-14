@@ -17,12 +17,19 @@ const SideBar = (props) => (
         docked={false}
         open={props.isSideBarOpen}
         onRequestChange={props.onRequestSideBarChange}
+
         width={200}
+
+
+
     >
         <Link style={styles} to={'/'}><MenuItem> Dashboard </MenuItem></Link>
         <Link style={styles} to={'/operation-list'}><MenuItem> Operations list </MenuItem></Link>
         <Link style={styles} to={'/add-new-operation'}><MenuItem> Add new operation </MenuItem></Link>
-        <Link style={styles}to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
+        <Link style={styles} to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
+        <Link style={styles} to={'/category-list'}><MenuItem> Category List </MenuItem></Link>
+        <Link style={styles} to={'/filtered-category-list'}><MenuItem> Filtered Category List </MenuItem></Link>
+
 
 
     </Drawer>
