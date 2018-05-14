@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton'
-
+import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import moment from "moment/moment";
 
@@ -68,7 +68,7 @@ class OperationList extends React.Component {
                 const transactionInArray = this.mapObjectToArray(data)
 
                 this.setState({
-                    transactions: transactionInArray,
+                    transactions: transactionInArray.reverse(),
                     category: "",
                     date: "",
                     description: "",
@@ -178,41 +178,36 @@ class OperationList extends React.Component {
                 </div>
 
 
-              Incomes:  <DropDownMenu value={this.state.valueDrop}
-                              onChange={this.handleChange}>
+                Incomes: <DropDownMenu value={this.state.valueDrop}
+                                       onChange={this.handleChange}>
 
 
-                    {this.state.categoriesInc.map((el) => (
+                {this.state.categoriesInc.map((el) => (
+
+                        <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
+
+                    )
+                )}
+            </DropDownMenu>
+
+                Expences: <DropDownMenu value={this.state.valueDrop}
+                                        onChange={this.handleChange}>
+
+
+                {
+                    this.state.categoriesExp.map((el) => (
 
                             <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
 
                         )
                     )}
-                </DropDownMenu>
 
-               Expences: <DropDownMenu value={this.state.valueDrop}
-                              onChange={this.handleChange}>
-
-
-                    {
-                        this.state.categoriesExp.map((el) => (
-
-                                <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
-
-                            )
-                        )}
-
-                </DropDownMenu>
-
-                { this.state.transactions
-                    .filter(task => {
+            </DropDownMenu>
+                <br/>
+                    <Divider/>
 
 
-
-                        return task.category === this.state.valueDrop && task.value >= this.state.valueRange.min && task.value <= this.state.valueRange.max &&  task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
-                    })
-
-                    .map((el) => (
+                    {this.state.valueDrop === "" ? this.state.transactions.map((el) => (
 
 
                             <MenuItem
@@ -227,32 +222,53 @@ class OperationList extends React.Component {
 
                             </MenuItem>
 
+
                         )
-                    )
+                        )
+                        :
+                        this.state.transactions.filter(task => {
 
-            }
+                            return task.category === this.state.valueDrop && task.value >= this.state.valueRange.min && task.value <= this.state.valueRange.max && task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
+                        })
+
+                            .map((el) => (
 
 
+                                    <MenuItem
+                                        secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
+                                    > Value: {el.value}
+                                        &ensp;
+                                        <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
+                                                      onClick={() => {
+                                                          this.handleOpen(el);
+                                                      }}/>
 
 
+                                    </MenuItem>
 
-                <Dialog
-                    title={this.state.dialog.category}
-                    actions={actions}
-                    modal={false}
-                    open={this.state.dialog.open}
-                    onRequestClose={this.handleClose}
-                >
+                                )
+                            )
 
-                    {this.state.dialog.description}
+                    }
 
-                </Dialog>
+
+                    <Dialog
+                        title={this.state.dialog.category}
+                        actions={actions}
+                        modal={false}
+                        open={this.state.dialog.open}
+                        onRequestClose={this.handleClose}
+                    >
+
+                        {this.state.dialog.description}
+
+                    </Dialog>
 
 
             </div>
-        )
+    )
     }
-}
+    }
 
 
-export default OperationList
+    export default OperationList
