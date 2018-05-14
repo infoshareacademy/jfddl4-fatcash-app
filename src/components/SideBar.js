@@ -4,20 +4,32 @@ import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router-dom'
 
 
+const styles={
+        textDecoration: 'none',
+        background: '#f3f3f5',
+        paddingTop:'20px',
+    };
+
+
+
 const SideBar = (props) => (
     <Drawer
         docked={false}
         open={props.isSideBarOpen}
         onRequestChange={props.onRequestSideBarChange}
 
+        width={200}
+
+
 
     >
-        <Link to={'/'}><MenuItem> Dashboard </MenuItem></Link>
-        <Link to={'/operation-list'}><MenuItem> Operations list </MenuItem></Link>
-        <Link to={'/add-new-operation'}><MenuItem> Add new operation </MenuItem></Link>
-        <Link to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
-        <Link to={'/category-list'}><MenuItem> Category List </MenuItem></Link>
-        <Link to={'/filtered-category-list'}><MenuItem> Filtered Category List </MenuItem></Link>
+        <Link style={styles} to={'/'}><MenuItem> Dashboard </MenuItem></Link>
+        <Link style={styles} to={'/operation-list'}><MenuItem> Operations list </MenuItem></Link>
+        <Link style={styles} to={'/add-new-operation'}><MenuItem> Add new operation </MenuItem></Link>
+        <Link style={styles} to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
+        <Link style={styles} to={'/category-list'}><MenuItem> Category List </MenuItem></Link>
+        <Link style={styles} to={'/filtered-category-list'}><MenuItem> Filtered Category List </MenuItem></Link>
+
 
 
     </Drawer>
