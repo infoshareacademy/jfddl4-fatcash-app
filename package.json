@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "material-ui": "^0.20.0",
+    "material-ui-pagination": "^1.1.6",
     "moment": "^2.22.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

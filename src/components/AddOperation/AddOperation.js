@@ -8,7 +8,9 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import SelectField from 'material-ui/SelectField'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog';
-import Paper from 'material-ui/Paper';
+import Pagination from 'material-ui-pagination';
+
+const ITEMS_PER_PAGE = 5
 
 
 class AddOperation extends React.Component {
@@ -28,7 +30,8 @@ class AddOperation extends React.Component {
             open: false,
             category: '',
             description: ''
-        }
+        },
+        currentPage: 0
 
 
     }
@@ -248,7 +251,11 @@ class AddOperation extends React.Component {
 
 
                 {
-                    this.state.transactions.map((el) => (
+                    this.state.transactions.filter((el, i) => (
+                        i >= this.state.currentPage * ITEMS_PER_PAGE
+                        &&
+                        i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
+                    )).map((el) => (
                             <MenuItem
                                 secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
                             > Value: {el.value}
@@ -266,6 +273,12 @@ class AddOperation extends React.Component {
                     )
 
                 }
+                <Pagination
+                    total={Math.ceil(this.state.transactions.length / ITEMS_PER_PAGE)}
+                    current={this.state.currentPage + 1}
+                    display={10}
+                    onChange={newPage => this.setState({currentPage: newPage - 1})}
+                />
 
                 <Dialog
                     title={this.state.dialog.category}

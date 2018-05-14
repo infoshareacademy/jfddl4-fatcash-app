@@ -9,8 +9,9 @@ import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import moment from "moment/moment";
+import Pagination from 'material-ui-pagination';
 
-const ITEMS_PER_PAGE = 2
+const ITEMS_PER_PAGE = 5
 
 class OperationList extends React.Component {
     state = {
@@ -29,7 +30,8 @@ class OperationList extends React.Component {
             open: false,
             category: '',
             description: ''
-        }
+        },
+        currentPage: 0
     }
 
     componentDidMount() {
@@ -114,7 +116,6 @@ class OperationList extends React.Component {
     handleChange = (event, index, valueDrop) => (this.setState({valueDrop}));
 
     render() {
-        console.log(this.state.valueDrop)
         const actions = [
             <FlatButton
                 label="Cancel"
@@ -122,6 +123,18 @@ class OperationList extends React.Component {
                 onClick={this.handleClose}
             />
         ]
+
+        const filteredTransaction = this.state.transactions.filter(task => (
+            (this.state.valueDrop ? task.category === this.state.valueDrop : true)
+            &&
+            task.value >= this.state.valueRange.min
+            &&
+            task.value <= this.state.valueRange.max
+            &&
+            task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
+        ))
+
+        const filteredTransactionLength = filteredTransaction.length
 
         return (
             <div>
@@ -170,20 +183,18 @@ class OperationList extends React.Component {
                         )
                     )}
                 </DropDownMenu>
+
                 <br/>
+
                 <Divider/>
 
-
                 {
-                    this.state.transactions.filter(task => (
-                        (this.state.valueDrop ? task.category === this.state.valueDrop : true)
-                        &&
-                        task.value >= this.state.valueRange.min
-                        &&
-                        task.value <= this.state.valueRange.max
-                        &&
-                        task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
-                    ))
+                    filteredTransaction
+                        .filter((el, i) => (
+                            i >= this.state.currentPage * ITEMS_PER_PAGE
+                            &&
+                            i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
+                        ))
                         .map((el) => (
                                 <MenuItem
                                     secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
@@ -202,6 +213,16 @@ class OperationList extends React.Component {
                         )
                 }
 
+                <Divider/>
+
+                <Pagination
+                    total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}
+                    current={this.state.currentPage + 1}
+                    display={10}
+                    onChange={newPage => this.setState({currentPage: newPage - 1})}
+                />
+
+                <Divider/>
 
                 <Dialog
                     title={this.state.dialog.category}
