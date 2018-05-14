@@ -56,7 +56,7 @@ class AddOperation extends React.Component {
                 const transactionInArray = this.mapObjectToArray(data)
 
                 this.setState({
-                    transactions: transactionInArray,
+                    transactions: transactionInArray.reverse(),
                     category: "",
                     date: "",
                     description: "",
