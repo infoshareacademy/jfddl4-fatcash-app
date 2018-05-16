@@ -4,9 +4,11 @@ import moment from 'moment'
 import MenuItem from 'material-ui/MenuItem'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog';
-import Pagination from 'material-ui-pagination';
+import Pagination from '../../components/Pagination';
 import {mapObjectToArray, transactionFilterAndMap} from '../utils'
 import Controls from "./Controls";
+import PaginationDiv from "../Pagination";
+
 
 const ITEMS_PER_PAGE = 5
 
@@ -26,7 +28,8 @@ class AddOperation extends React.Component {
         dialog: {
             open: false,
             category: '',
-            description: ''
+            description: '',
+            image:''
         },
         currentPage: 0
     }
@@ -50,7 +53,9 @@ class AddOperation extends React.Component {
                     date: "",
                     description: "",
                     income: this.state.income,
-                    value: ""
+                    value: "",
+                    image: ''
+
                 })
             })
 
@@ -89,7 +94,8 @@ class AddOperation extends React.Component {
             dialog: {
                 open: true,
                 category: el.category,
-                description: el.description
+                description: el.description,
+                image: el.image
             }
         })
     }
@@ -106,7 +112,7 @@ class AddOperation extends React.Component {
         this.setState({category: val})
 
     }
-    newOperationHandler = (stateProperty, value) => this.setState({ [stateProperty]: value })
+    newOperationHandler = (stateProperty, value) => this.setState({[stateProperty]: value})
 
     saveTaskToDatabase = () => {
 
@@ -123,6 +129,7 @@ class AddOperation extends React.Component {
                             description: this.state.description,
                             income: this.state.income,
                             value: this.state.value,
+                            image: this.state.image
                         }
                     )
                 }
@@ -143,9 +150,9 @@ class AddOperation extends React.Component {
 
 
                 <Controls
-                    newIncomeHandler = {(e, val) => this.newOperationHandler('income', val)}
-                    newImageHandler = {(e, val) => this.newOperationHandler('image', val)}
-                    newCategoryHandler= {this.newCategoryHandler}
+                    newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
+                    newImageHandler={(e, val) => this.newOperationHandler('image', val)}
+                    newCategoryHandler={this.newCategoryHandler}
                     newDescriptionHandler={(e, val) => this.newOperationHandler('description', val)}
                     newValueHandler={(e, val) => this.newOperationHandler('value', val)}
                     saveTaskToDatabase={this.saveTaskToDatabase}
@@ -178,21 +185,21 @@ class AddOperation extends React.Component {
                     )
 
                 }
-                <Pagination
-                    total={Math.ceil(this.state.transactions.length / ITEMS_PER_PAGE)}
-                    current={this.state.currentPage + 1}
-                    display={10}
-                    onChange={newPage => this.setState({currentPage: newPage - 1})}
-                />
+                <Pagination transactions={this.state.transactions}
+                            itemsPerPage={ITEMS_PER_PAGE}
+                            currentPage={this.state.currentPage}
+                            newPageHandler={newPage => this.setState({currentPage: newPage - 1})}
+               />
 
                 <Dialog
+
                     title={this.state.dialog.category}
                     actions={actions}
                     modal={false}
                     open={this.state.dialog.open}
                     onRequestClose={this.handleClose}
                 >
-
+                    <img src={this.state.dialog.image}/>
                     {this.state.dialog.description}
 
                 </Dialog>
