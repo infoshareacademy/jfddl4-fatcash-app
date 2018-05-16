@@ -63,12 +63,8 @@ const Controls = ({
 
         }
 
-
         <Divider/>
-        {/*<TextField*/}
-        {/*value={date}*/}
-        {/*onChange={this.newDateHandler}*/}
-        {/*/>*/}
+
         <TextField
             value={description}
             hintText={"Write description..."}

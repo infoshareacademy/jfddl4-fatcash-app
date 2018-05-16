@@ -1,11 +1,7 @@
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField'
 import moment from 'moment'
 import MenuItem from 'material-ui/MenuItem'
-import Divider from 'material-ui/Divider'
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import SelectField from 'material-ui/SelectField'
 import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog';
 import Pagination from 'material-ui-pagination';
@@ -14,15 +10,14 @@ import Controls from "./Controls";
 
 const ITEMS_PER_PAGE = 5
 
-
 class AddOperation extends React.Component {
-
     state = {
         category: "",
         date: "",
         description: "",
         income: true,
         value: "",
+        image: '',
         name: "",
         transactions: [],
         categoriesExp: [],
@@ -34,8 +29,6 @@ class AddOperation extends React.Component {
             description: ''
         },
         currentPage: 0
-
-
     }
 
     componentDidMount() {
@@ -44,8 +37,6 @@ class AddOperation extends React.Component {
         this.loadCategoriesInc()
 
     }
-
-
 
     loadTransaction = () => {
         fetch('https://fatcash-app.firebaseio.com/transactions/.json')
@@ -94,16 +85,14 @@ class AddOperation extends React.Component {
     }
 
     handleOpen = (el) => {
-
         this.setState({
             dialog: {
                 open: true,
                 category: el.category,
                 description: el.description
             }
-        });
-    };
-
+        })
+    }
     handleClose = () => {
         this.setState({
             dialog: {
@@ -112,26 +101,12 @@ class AddOperation extends React.Component {
         });
     };
 
+
     newCategoryHandler = (el, key, val) => {
         this.setState({category: val})
 
     }
-    newDateHandler = (el, val) => {
-        this.setState({date: val})
-
-    }
-    newDescriptionHandler = (el, val) => {
-        this.setState({description: val})
-
-    }
-    newIncomeHandler = (el, val) => {
-        this.setState({income: val})
-
-    }
-    newValueHandler = (el, val) => {
-        this.setState({value: val})
-
-    }
+    newOperationHandler = (stateProperty, value) => this.setState({ [stateProperty]: value })
 
     saveTaskToDatabase = () => {
 
@@ -155,26 +130,24 @@ class AddOperation extends React.Component {
         alert('Operation sucesfully added')
     }
 
-
     render() {
         const actions = [
             <FlatButton
                 label="Cancel"
                 primary={true}
                 onClick={this.handleClose}
-            />,
-
-            ,];
+            />];
 
         return (
             <div style={{margin: "20px"}}>
 
 
                 <Controls
-                    newIncomeHandler = {this.newIncomeHandler}
+                    newIncomeHandler = {(e, val) => this.newOperationHandler('income', val)}
+                    newImageHandler = {(e, val) => this.newOperationHandler('image', val)}
                     newCategoryHandler= {this.newCategoryHandler}
-                    newDescriptionHandler={this.newDescriptionHandler}
-                    newValueHandler={this.newValueHandler}
+                    newDescriptionHandler={(e, val) => this.newOperationHandler('description', val)}
+                    newValueHandler={(e, val) => this.newOperationHandler('value', val)}
                     saveTaskToDatabase={this.saveTaskToDatabase}
                     income={this.state.income}
                     categoriesInc={this.state.categoriesInc}
@@ -182,11 +155,9 @@ class AddOperation extends React.Component {
                     categoriesExp={this.state.categoriesExp}
                     description={this.state.description}
                     value={this.state.value}
+                    image={this.state.image}
 
                 />
-
-
-
 
                 {
                     this.state.transactions.filter((el, i) => (
@@ -230,6 +201,5 @@ class AddOperation extends React.Component {
         )
     }
 }
-
 
 export default AddOperation
