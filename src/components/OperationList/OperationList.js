@@ -3,13 +3,13 @@ import InputRange from 'react-input-range'
 import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
-import RaisedButton from 'material-ui/RaisedButton'
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
-import moment from "moment/moment";
 import Pagination from 'material-ui-pagination';
+
+import ItemFromList from './ItemFromList'
 
 const ITEMS_PER_PAGE = 5
 
@@ -201,19 +201,10 @@ class OperationList extends React.Component {
                             i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
                         ))
                         .map((el) => (
-                                <MenuItem
-                                    secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
-                                >
-                                    Value: {el.value}
-                                    &ensp;
-                                    <RaisedButton
-                                        style={{margin: '10px'}}
-                                        label="Clik here to read description"
-                                        onClick={() => {
-                                            this.handleOpen(el);
-                                        }}
-                                    />
-                                </MenuItem>
+                                <ItemFromList
+                                    el={el}
+                                    handleOpen={this.handleOpen}
+                                />
                             )
                         )
                 }
