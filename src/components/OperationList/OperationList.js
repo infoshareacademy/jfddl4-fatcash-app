@@ -10,6 +10,7 @@ import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
 
 import ItemFromList from './ItemFromList'
+import Search from './Search'
 
 const ITEMS_PER_PAGE = 5
 
@@ -113,6 +114,14 @@ class OperationList extends React.Component {
         })
     }
 
+    handleText = (e, value) => {
+        this.setState({
+            description: value
+        })
+    }
+
+    handleRange = valueRange => this.setState({valueRange})
+
     handleChange = (event, index, valueDrop) => (this.setState({valueDrop}));
 
     render() {
@@ -138,59 +147,16 @@ class OperationList extends React.Component {
 
         return (
             <div>
-<Search
-    handleChange={this.handleChange}
-/>
-                {/*<div style={{border: '30px solid #f3f3f5'}}>*/}
-                    {/*<div style={{margin: '10px 25px 10px 25px'}}>*/}
-                        {/*<TextField*/}
-                            {/*hintText="Search..."*/}
-                            {/*fullWidth={true}*/}
-                            {/*onChange={(e, value) => {*/}
-                                {/*this.setState({*/}
-                                    {/*description: value*/}
-                                {/*})*/}
-                            {/*}}*/}
-                        {/*/>*/}
-                    {/*</div>*/}
-                    {/*<div style={{margin: '30px 25px 10px 25px'}}>*/}
-                        {/*<InputRange*/}
-                            {/*maxValue={5000}*/}
-                            {/*minValue={0}*/}
-                            {/*value={this.state.valueRange}*/}
-                            {/*onChange={valueRange => this.setState({valueRange})}*/}
-                        {/*/>*/}
-                    {/*</div>*/}
+                <Search
+                    handleChange={this.handleChange}
+                    handleText={this.handleText}
+                    handleRange={this.handleRange}
+                    valueRange={this.state.valueRange}
+                    valueDrop={this.state.valueDrop}
+                    categoriesInc={this.state.categoriesInc}
+                    categoriesExp={this.state.categoriesExp}
+                />
 
-                    {/*<div style={{margin: '10px 25px 10px 25px'}}>*/}
-                        {/*Incomes:*/}
-                        {/*<DropDownMenu*/}
-                            {/*value={this.state.valueDrop}*/}
-                            {/*onChange={this.handleChange}*/}
-                        {/*>*/}
-
-                            {/*{this.state.categoriesInc.map((el) => (*/}
-                                    {/*<MenuItem value={el.name} primaryText={el.name} label={el.name}/>*/}
-                                {/*)*/}
-                            {/*)}*/}
-                        {/*</DropDownMenu>*/}
-                        {/*Expences:*/}
-                        {/*<DropDownMenu*/}
-                            {/*value={this.state.valueDrop}*/}
-
-                            {/*onChange={this.handleChange}*/}
-                        {/*>*/}
-                            {/*{this.state.categoriesExp.map((el) => (*/}
-                                    {/*<MenuItem*/}
-                                        {/*value={el.name}*/}
-                                        {/*primaryText={el.name}*/}
-                                        {/*label={el.name}*/}
-                                    {/*/>*/}
-                                {/*)*/}
-                            {/*)}*/}
-                        {/*</DropDownMenu>*/}
-                    {/*</div>*/}
-                {/*</div>*/}
                 <br/>
 
                 <Divider/>

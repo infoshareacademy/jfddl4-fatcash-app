@@ -1,47 +1,48 @@
 import React from 'react'
 
+import InputRange from 'react-input-range'
+import TextField from 'material-ui/TextField'
+import DropDownMenu from 'material-ui/DropDownMenu'
+import MenuItem from 'material-ui/MenuItem'
 
-const Search = (handleChange) => (
+
+const Search = (props) => (
     <div style={{border: '30px solid #f3f3f5'}}>
         <div style={{margin: '10px 25px 10px 25px'}}>
             <TextField
                 hintText="Search..."
                 fullWidth={true}
-                onChange={(e, value) => {
-                    this.setState({
-                        description: value
-                    })
-                }}
+                onChange={props.handleText}
             />
         </div>
         <div style={{margin: '30px 25px 10px 25px'}}>
             <InputRange
                 maxValue={5000}
                 minValue={0}
-                value={this.state.valueRange}
-                onChange={valueRange => this.setState({valueRange})}
+                value={props.valueRange}
+                onChange={props.handleRange}
             />
         </div>
 
         <div style={{margin: '10px 25px 10px 25px'}}>
             Incomes:
             <DropDownMenu
-                value={this.state.valueDrop}
-                onChange={handleChange}
+                value={props.valueDrop}
+                onChange={props.handleChange}
             >
 
-                {this.state.categoriesInc.map((el) => (
+                {props.categoriesInc.map((el) => (
                         <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
                     )
                 )}
             </DropDownMenu>
             Expences:
             <DropDownMenu
-                value={this.state.valueDrop}
+                value={props.valueDrop}
 
-                onChange={handleChange}
+                onChange={props.handleChange}
             >
-                {this.state.categoriesExp.map((el) => (
+                {props.categoriesExp.map((el) => (
                         <MenuItem
                             value={el.name}
                             primaryText={el.name}
