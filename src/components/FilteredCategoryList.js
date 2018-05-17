@@ -4,6 +4,29 @@ import moment from 'moment'
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider'
 
+
+
+const styles={
+
+    p:{
+
+        margin:'10px',
+        padding:'20px',
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
 const mapObjectToArray = (obj) => (
     Object.entries(obj || {})
         .map(([key, value]) => (
@@ -41,7 +64,7 @@ class FilteredCategoryList extends React.Component {
                                 value.category === this.state.category
                             ) {
                                 return (
-                                    <Paper zDepth={3}><MenuItem>{value.category + " : " + value.description + " : " + moment(value.date).format('MMMM Do YYYY, h:mm:ss a')} </MenuItem><Divider/></Paper>
+                                    <Paper zDepth={3} style={styles.p}><MenuItem>{"Category: "+value.category + " | "+"Value: "+value.value+"  |  "+"Description: "+ value.description + " |         " + moment(value.date).format('MMMM Do YYYY, h:mm:ss a')} </MenuItem></Paper>
                                 )
                             }
                         }
