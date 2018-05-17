@@ -22,7 +22,7 @@ class AddCategory extends React.Component {
     state = {
         selectedKindOfCategory: 'exp',
         newCategoryName: '',
-        open: true
+        open: false
     };
 
     handleRequestClose = () => {
