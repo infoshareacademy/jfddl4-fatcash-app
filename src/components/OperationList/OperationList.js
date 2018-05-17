@@ -63,7 +63,8 @@ class OperationList extends React.Component {
                     date: "",
                     description: "",
                     income: "",
-                    value: ""
+                    value: "",
+                    image: ""
                 })
             })
 

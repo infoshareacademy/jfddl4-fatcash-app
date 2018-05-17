@@ -13,6 +13,8 @@ const Controls = ({
                       newValueHandler,
                       saveTaskToDatabase,
                       income,
+                      image,
+                      newImageHandler,
                       categoriesInc,
                       category,
                       categoriesExp,
@@ -70,6 +72,14 @@ const Controls = ({
             hintText={"Write description..."}
             fullWidth={true}
             onChange={newDescriptionHandler}
+        />
+        <Divider/>
+
+        <TextField
+            value={image}
+            hintText={"Add URL of your image..."}
+            fullWidth={true}
+            onChange={newImageHandler}
         />
         <Divider/>
 
