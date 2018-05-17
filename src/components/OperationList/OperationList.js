@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
-import {mapObjectToArray} from '../utils'
+import {mapObjectToArray} from '../../utils'
 
 import ItemFromList from './ItemFromList'
 import Search from './Search'
