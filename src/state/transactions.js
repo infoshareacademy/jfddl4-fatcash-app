@@ -13,7 +13,7 @@ export const initTransactionsSync  = () => (dispatch, getState) => {
         'value',
         (snapshot) => dispatch(
             set(
-                mapObjectToArray(snapshot.val())
+                mapObjectToArray(snapshot.val()).reverse()
             )
         )
     )

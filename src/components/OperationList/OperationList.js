@@ -9,6 +9,8 @@ import {mapObjectToArray} from '../../utils'
 import ItemFromList from './ItemFromList'
 import Search from './Search'
 
+import {connect} from 'react-redux'
+
 const ITEMS_PER_PAGE = 5
 
 class OperationList extends React.Component {
@@ -33,29 +35,9 @@ class OperationList extends React.Component {
     }
 
     componentDidMount() {
-        this.loadTransaction()
+        // this.loadTransaction()
         this.loadCategoriesExp()
         this.loadCategoriesInc()
-    }
-
-
-    loadTransaction = () => {
-        fetch('https://fatcash-app.firebaseio.com/transactions/.json')
-            .then(r => r.json())
-            .then((data) => {
-                const transactionInArray = mapObjectToArray(data)
-
-                this.setState({
-                    transactions: transactionInArray.reverse(),
-                    category: "",
-                    date: "",
-                    description: "",
-                    income: "",
-                    value: "",
-                    image: ""
-                })
-            })
-
     }
 
     loadCategoriesExp = () => {
@@ -122,7 +104,7 @@ class OperationList extends React.Component {
             />
         ]
 
-        const filteredTransaction = this.state.transactions.filter(task => (
+        const filteredTransaction = this.props.transactions && this.props.transactions.filter(task => (
             (this.state.valueDrop ? task.category === this.state.valueDrop : true)
             &&
             task.value >= this.state.valueRange.min
@@ -132,68 +114,76 @@ class OperationList extends React.Component {
             task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
         ))
 
-        const filteredTransactionLength = filteredTransaction.length
+        const filteredTransactionLength = filteredTransaction && filteredTransaction.length
 
         return (
-            <div>
-                <Search
-                    handleChange={this.handleChange}
-                    handleText={this.handleText}
-                    handleRange={this.handleRange}
-                    valueRange={this.state.valueRange}
-                    valueDrop={this.state.valueDrop}
-                    categoriesInc={this.state.categoriesInc}
-                    categoriesExp={this.state.categoriesExp}
-                />
+            !filteredTransaction ?
+                'Loading...'
+                :
+                <div>
+                    <Search
+                        handleChange={this.handleChange}
+                        handleText={this.handleText}
+                        handleRange={this.handleRange}
+                        valueRange={this.state.valueRange}
+                        valueDrop={this.state.valueDrop}
+                        categoriesInc={this.state.categoriesInc}
+                        categoriesExp={this.state.categoriesExp}
+                    />
 
-                <br/>
+                    <br/>
 
-                <Divider/>
+                    <Divider/>
 
-                {
-                    filteredTransaction
-                        .filter((el, i) => (
-                            i >= this.state.currentPage * ITEMS_PER_PAGE
-                            &&
-                            i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
-                        ))
-                        .map((el) => (
-                                <ItemFromList
-                                    el={el}
-                                    handleOpen={this.handleOpen}
-                                />
+                    {
+                        filteredTransaction
+                            .filter((el, i) => (
+                                i >= this.state.currentPage * ITEMS_PER_PAGE
+                                &&
+                                i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
+                            ))
+                            .map((el) => (
+                                    <ItemFromList
+                                        el={el}
+                                        handleOpen={this.handleOpen}
+                                    />
+                                )
                             )
-                        )
-                }
+                    }
 
-                <Divider/>
+                    <Divider/>
 
-                <Pagination
-                    total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}
-                    current={this.state.currentPage + 1}
-                    display={10}
-                    onChange={newPage => this.setState({currentPage: newPage - 1})}
-                />
+                    <Pagination
+                        total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}
+                        current={this.state.currentPage + 1}
+                        display={10}
+                        onChange={newPage => this.setState({currentPage: newPage - 1})}
+                    />
 
-                <Divider/>
+                    <Divider/>
 
-                <Dialog
-                    title={this.state.dialog.category}
-                    actions={actions}
-                    modal={false}
-                    open={this.state.dialog.open}
-                    onRequestClose={this.handleClose}
-                >
+                    <Dialog
+                        title={this.state.dialog.category}
+                        actions={actions}
+                        modal={false}
+                        open={this.state.dialog.open}
+                        onRequestClose={this.handleClose}
+                    >
 
-                    {this.state.dialog.description}
+                        {this.state.dialog.description}
 
-                </Dialog>
+                    </Dialog>
 
 
-            </div>
+                </div>
         )
     }
 }
 
+const mapStateToProps = state => ({
+    transactions: state.transactions.transactions
+})
 
-export default OperationList
+export default connect(
+    mapStateToProps
+)(OperationList)
