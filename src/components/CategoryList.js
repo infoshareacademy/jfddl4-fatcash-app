@@ -5,7 +5,8 @@ const style = {
     h2: {
         textAlign: 'center',
     }
-}
+
+};
 
 const mapObjectToArray = (obj) => (
     Object.entries(obj || {})
@@ -15,7 +16,7 @@ const mapObjectToArray = (obj) => (
                 :
                 {key, value}
         ))
-)
+);
 
 
 class CategoryList extends React.Component {
