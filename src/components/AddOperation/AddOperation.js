@@ -7,9 +7,6 @@ import Dialog from 'material-ui/Dialog';
 import Pagination from '../../components/Pagination';
 import {mapObjectToArray, transactionFilterAndMap} from '../utils'
 import Controls from "./Controls";
-import PaginationDiv from "../Pagination";
-
-
 const ITEMS_PER_PAGE = 5
 
 class AddOperation extends React.Component {
@@ -33,14 +30,12 @@ class AddOperation extends React.Component {
         },
         currentPage: 0
     }
-
     componentDidMount() {
         this.loadTransaction()
         this.loadCategoriesExp()
         this.loadCategoriesInc()
 
     }
-
     loadTransaction = () => {
         fetch('https://fatcash-app.firebaseio.com/transactions/.json')
             .then(r => r.json())
@@ -60,7 +55,6 @@ class AddOperation extends React.Component {
             })
 
     }
-
     loadCategoriesExp = () => {
         fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
             .then(r => r.json())
@@ -74,7 +68,6 @@ class AddOperation extends React.Component {
             })
 
     }
-
     loadCategoriesInc = () => {
         fetch('https://fatcash-app.firebaseio.com/categories/income/.json')
             .then(r => r.json())
@@ -88,7 +81,6 @@ class AddOperation extends React.Component {
             })
 
     }
-
     handleOpen = (el) => {
         this.setState({
             dialog: {
@@ -107,10 +99,8 @@ class AddOperation extends React.Component {
         });
     };
 
-
     newCategoryHandler = (el, key, val) => {
         this.setState({category: val})
-
     }
     newOperationHandler = (stateProperty, value) => this.setState({[stateProperty]: value})
 
@@ -208,5 +198,4 @@ class AddOperation extends React.Component {
         )
     }
 }
-
 export default AddOperation
