@@ -1,10 +1,9 @@
 import React from 'react'
-import FlatButton from 'material-ui/FlatButton'
-import Dialog from 'material-ui/Dialog';
 import Pagination from '../../components/Pagination';
 import {mapObjectToArray, transactionFilterAndMap} from '../utils'
 import Controls from "./Controls";
 import ListItemForOperationList from './ListItemForOperationList'
+import Snackbar from 'material-ui/Snackbar';
 
 const ITEMS_PER_PAGE = 5
 
@@ -21,12 +20,6 @@ class AddOperation extends React.Component {
         categoriesExp: [],
         categoriesInc: [],
         open: false,
-        dialog: {
-            open: false,
-            category: '',
-            description: '',
-            image: ''
-        },
         currentPage: 0
     }
 
@@ -82,21 +75,10 @@ class AddOperation extends React.Component {
             })
 
     }
-    handleOpen = (el) => {
+
+    handleRequestClose = () => {
         this.setState({
-            dialog: {
-                open: true,
-                category: el.category,
-                description: el.description,
-                image: el.image
-            }
-        })
-    }
-    handleClose = () => {
-        this.setState({
-            dialog: {
-                open: false,
-            }
+            open: false,
         });
     };
 
@@ -124,22 +106,15 @@ class AddOperation extends React.Component {
                         }
                     )
                 }
-            ).then(this.loadTransaction)
-        alert('Operation sucesfully added')
+            ).then(this.loadTransaction).then(() => {
+                this.setState({
+                    open: true
+                })
+            })
     }
-
     render() {
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onClick={this.handleClose}
-            />];
-
         return (
             <div style={{margin: "20px"}}>
-
-
                 <Controls
                     newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
                     newImageHandler={(e, val) => this.newOperationHandler('image', val)}
@@ -178,21 +153,12 @@ class AddOperation extends React.Component {
                             currentPage={this.state.currentPage}
                             newPageHandler={newPage => this.setState({currentPage: newPage - 1})}
                 />
-
-
-                <Dialog
-
-                    title={this.state.dialog.category}
-                    actions={actions}
-                    modal={false}
-                    open={this.state.dialog.open}
-                    onRequestClose={this.handleClose}
-                >
-                    <img src={this.state.dialog.image}/>
-                    {this.state.dialog.description}
-
-                </Dialog>
-
+                <Snackbar
+                    open={this.state.open}
+                    message="  Operation succesfully added to your list"
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
+                />
             </div>
         )
     }
