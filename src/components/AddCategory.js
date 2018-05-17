@@ -2,7 +2,7 @@ import React from 'react'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import Snackbar from 'material-ui/Snackbar';
 const styles = {
     block: {
         maxWidth: 250,
@@ -22,23 +22,28 @@ class AddCategory extends React.Component {
     state = {
         selectedKindOfCategory: 'exp',
         newCategoryName: '',
-    }
+        open: true
+    };
 
+    handleRequestClose = () => {
+        this.setState({
+            open: false,
+        });
+    };
 
     saveNewCategory = () => {
         fetch('https://fatcash-app.firebaseio.com/categories/' + this.state.selectedKindOfCategory + '/.json', {
-
-
                 method: 'POST',
                 body: JSON.stringify({
                     name: this.state.newCategoryName
                 }),
             }
         ).then(() => {
-            this.setState({newCategoryName: ''})
-
-        }).then(()=>alert('New category added'))
-
+            this.setState({
+                newCategoryName: '',
+                open: true
+            })
+        })
     }
     newTaskHandler = (event, value) => {
         this.setState({
@@ -81,6 +86,12 @@ class AddCategory extends React.Component {
                     fullWidth={true}
                     onClick={this.saveNewCategory}
                     disabled={this.state.newCategoryName ? false : true}
+                />
+                <Snackbar
+                    open={this.state.open}
+                    message="  Cattegory added to yours list of cattegories"
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
                 />
             </div>
         )
