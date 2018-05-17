@@ -9,7 +9,7 @@ const ListItemForCategoryList = (props) => (
         <MenuItem
             rightIcon={<RemoveRedEye/>}
         >
-            {props.name}
+            {props.value}
         </MenuItem>
     </Link>
 )
