@@ -7,6 +7,8 @@ import Dialog from 'material-ui/Dialog';
 import Pagination from '../../components/Pagination';
 import {mapObjectToArray, transactionFilterAndMap} from '../utils'
 import Controls from "./Controls";
+import ListItemForOperationList from './ListItemForOperationList'
+
 const ITEMS_PER_PAGE = 5
 
 class AddOperation extends React.Component {
@@ -26,16 +28,18 @@ class AddOperation extends React.Component {
             open: false,
             category: '',
             description: '',
-            image:''
+            image: ''
         },
         currentPage: 0
     }
+
     componentDidMount() {
         this.loadTransaction()
         this.loadCategoriesExp()
         this.loadCategoriesInc()
 
     }
+
     loadTransaction = () => {
         fetch('https://fatcash-app.firebaseio.com/transactions/.json')
             .then(r => r.json())
@@ -153,7 +157,6 @@ class AddOperation extends React.Component {
                     description={this.state.description}
                     value={this.state.value}
                     image={this.state.image}
-
                 />
 
                 {
@@ -162,15 +165,13 @@ class AddOperation extends React.Component {
                         &&
                         i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
                     )).map((el) => (
-                            <MenuItem
-                                secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
-                            > Value: {el.value}
-                                &ensp;
-                                <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
-                                              onClick={() => {
-                                                  this.handleOpen(el);
-                                              }}/>
-                            </MenuItem>
+                            <ListItemForOperationList
+                                k={el.key}
+                                category={el.category}
+                                cash={el.value}
+                                date={el.date}
+                            >
+                            </ListItemForOperationList>
                         )
                     )
 
@@ -179,7 +180,8 @@ class AddOperation extends React.Component {
                             itemsPerPage={ITEMS_PER_PAGE}
                             currentPage={this.state.currentPage}
                             newPageHandler={newPage => this.setState({currentPage: newPage - 1})}
-               />
+                />
+
 
                 <Dialog
 
@@ -198,4 +200,5 @@ class AddOperation extends React.Component {
         )
     }
 }
+
 export default AddOperation
