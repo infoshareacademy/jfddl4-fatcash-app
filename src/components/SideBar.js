@@ -31,7 +31,6 @@ const SideBar = (props) => (
         <Link style={styles} to={'/add-new-operation'}><MenuItem> Add new operation </MenuItem></Link>
         <Link style={styles} to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
         <Link style={styles} to={'/category-list'}><MenuItem> Category List </MenuItem></Link>
-        <Link style={styles} to={'/filtered-category-list'}><MenuItem> Filtered Category List </MenuItem></Link>
 
     </Drawer>
 
