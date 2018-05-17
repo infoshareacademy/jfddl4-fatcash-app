@@ -1,17 +1,9 @@
 import React from 'react'
-import MenuItem from 'material-ui/MenuItem'
-import RemoveRedEye from 'material-ui/svg-icons/image/remove-red-eye'
-import {Link} from 'react-router-dom'
-import Pagination from 'material-ui-pagination';
-
-const ITEMS_PER_PAGE = 5
+import ListItemForCategoryList from './ListItemForCategoryList'
 
 const style = {
     h2: {
         textAlign: 'center',
-    },
-    items:{
-        textDecoration:'none'
     }
 
 };
@@ -26,21 +18,11 @@ const mapObjectToArray = (obj) => (
         ))
 );
 
-const ListItem = (props) => (
-    <Link style={style.items} to={`/filtered-category-list/${props.value.name}`}>
-        <MenuItem
-            rightIcon={<RemoveRedEye/>}
-        >
-            {props.value.name}
-        </MenuItem>
-    </Link>
-)
 
 class CategoryList extends React.Component {
     state = {
         inc: [],
         exp: [],
-
     }
 
     componentDidMount() {
@@ -58,12 +40,12 @@ class CategoryList extends React.Component {
             <div>
                 <div>
                     <h2 style={style.h2}>Incomes</h2>
-                    {this.state.inc.map((value) => <ListItem  value={value}/>)}
+                    {this.state.inc.map((value) => <ListItemForCategoryList value={value.name}/>)}
                 </div>
 
                 <div>
                     <h2 style={style.h2}>Expenses</h2>
-                    {this.state.exp.map((value) => <ListItem  value={value} style={style.items}/>)}
+                    {this.state.exp.map((value) => <ListItemForCategoryList value={value.name}/>)}
                 </div>
             </div>
         )

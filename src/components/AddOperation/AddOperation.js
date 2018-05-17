@@ -1,12 +1,9 @@
 import React from 'react'
-import RaisedButton from 'material-ui/RaisedButton'
-import moment from 'moment'
-import MenuItem from 'material-ui/MenuItem'
-import FlatButton from 'material-ui/FlatButton'
-import Dialog from 'material-ui/Dialog';
-import Pagination from 'material-ui-pagination';
+import Pagination from '../../components/Pagination';
 import {mapObjectToArray, transactionFilterAndMap} from '../utils'
 import Controls from "./Controls";
+import ListItemForOperationList from './ListItemForOperationList'
+import Snackbar from 'material-ui/Snackbar';
 
 const ITEMS_PER_PAGE = 5
 
@@ -23,11 +20,6 @@ class AddOperation extends React.Component {
         categoriesExp: [],
         categoriesInc: [],
         open: false,
-        dialog: {
-            open: false,
-            category: '',
-            description: ''
-        },
         currentPage: 0
     }
 
@@ -50,12 +42,13 @@ class AddOperation extends React.Component {
                     date: "",
                     description: "",
                     income: this.state.income,
-                    value: ""
+                    value: "",
+                    image: ''
+
                 })
             })
 
     }
-
     loadCategoriesExp = () => {
         fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
             .then(r => r.json())
@@ -69,7 +62,6 @@ class AddOperation extends React.Component {
             })
 
     }
-
     loadCategoriesInc = () => {
         fetch('https://fatcash-app.firebaseio.com/categories/income/.json')
             .then(r => r.json())
@@ -84,29 +76,16 @@ class AddOperation extends React.Component {
 
     }
 
-    handleOpen = (el) => {
+    handleRequestClose = () => {
         this.setState({
-            dialog: {
-                open: true,
-                category: el.category,
-                description: el.description
-            }
-        })
-    }
-    handleClose = () => {
-        this.setState({
-            dialog: {
-                open: false,
-            }
+            open: false,
         });
     };
 
-
     newCategoryHandler = (el, key, val) => {
         this.setState({category: val})
-
     }
-    newOperationHandler = (stateProperty, value) => this.setState({ [stateProperty]: value })
+    newOperationHandler = (stateProperty, value) => this.setState({[stateProperty]: value})
 
     saveTaskToDatabase = () => {
 
@@ -123,29 +102,23 @@ class AddOperation extends React.Component {
                             description: this.state.description,
                             income: this.state.income,
                             value: this.state.value,
+                            image: this.state.image
                         }
                     )
                 }
-            ).then(this.loadTransaction)
-        alert('Operation sucesfully added')
+            ).then(this.loadTransaction).then(() => {
+                this.setState({
+                    open: true
+                })
+            })
     }
-
     render() {
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onClick={this.handleClose}
-            />];
-
         return (
             <div style={{margin: "20px"}}>
-
-
                 <Controls
-                    newIncomeHandler = {(e, val) => this.newOperationHandler('income', val)}
-                    newImageHandler = {(e, val) => this.newOperationHandler('image', val)}
-                    newCategoryHandler= {this.newCategoryHandler}
+                    newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
+                    newImageHandler={(e, val) => this.newOperationHandler('image', val)}
+                    newCategoryHandler={this.newCategoryHandler}
                     newDescriptionHandler={(e, val) => this.newOperationHandler('description', val)}
                     newValueHandler={(e, val) => this.newOperationHandler('value', val)}
                     saveTaskToDatabase={this.saveTaskToDatabase}
@@ -156,7 +129,6 @@ class AddOperation extends React.Component {
                     description={this.state.description}
                     value={this.state.value}
                     image={this.state.image}
-
                 />
 
                 {
@@ -165,38 +137,28 @@ class AddOperation extends React.Component {
                         &&
                         i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
                     )).map((el) => (
-                            <MenuItem
-                                secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
-                            > Value: {el.value}
-                                &ensp;
-                                <RaisedButton style={{margin: '10px'}} label="Clik here to read description"
-                                              onClick={() => {
-                                                  this.handleOpen(el);
-                                              }}/>
-                            </MenuItem>
+                            <ListItemForOperationList
+                                k={el.key}
+                                category={el.category}
+                                cash={el.value}
+                                date={el.date}
+                            >
+                            </ListItemForOperationList>
                         )
                     )
 
                 }
-                <Pagination
-                    total={Math.ceil(this.state.transactions.length / ITEMS_PER_PAGE)}
-                    current={this.state.currentPage + 1}
-                    display={10}
-                    onChange={newPage => this.setState({currentPage: newPage - 1})}
+                <Pagination transactions={this.state.transactions}
+                            itemsPerPage={ITEMS_PER_PAGE}
+                            currentPage={this.state.currentPage}
+                            newPageHandler={newPage => this.setState({currentPage: newPage - 1})}
                 />
-
-                <Dialog
-                    title={this.state.dialog.category}
-                    actions={actions}
-                    modal={false}
-                    open={this.state.dialog.open}
-                    onRequestClose={this.handleClose}
-                >
-
-                    {this.state.dialog.description}
-
-                </Dialog>
-
+                <Snackbar
+                    open={this.state.open}
+                    message="  Operation succesfully added to your list"
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
+                />
             </div>
         )
     }

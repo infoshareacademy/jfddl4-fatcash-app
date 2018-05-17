@@ -26,3 +26,9 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.sidebar-custom div:nth-child(1){
+    background-image: url("./img/photo.jpg");
+  background-size: cover;
+
+}
