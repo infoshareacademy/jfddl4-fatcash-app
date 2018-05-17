@@ -1,13 +1,10 @@
 import React from 'react'
-import InputRange from 'react-input-range'
-import TextField from 'material-ui/TextField'
-import DropDownMenu from 'material-ui/DropDownMenu'
-import MenuItem from 'material-ui/MenuItem'
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
+import {mapObjectToArray} from '../utils'
 
 import ItemFromList from './ItemFromList'
 import Search from './Search'
@@ -41,21 +38,12 @@ class OperationList extends React.Component {
         this.loadCategoriesInc()
     }
 
-    mapObjectToArray = (obj) => (
-        Object.entries(obj || {})
-            .map(([key, value]) => (
-                typeof value === 'object' ?
-                    {...value, key}
-                    :
-                    {key, value}
-            ))
-    )
 
     loadTransaction = () => {
         fetch('https://fatcash-app.firebaseio.com/transactions/.json')
             .then(r => r.json())
             .then((data) => {
-                const transactionInArray = this.mapObjectToArray(data)
+                const transactionInArray = mapObjectToArray(data)
 
                 this.setState({
                     transactions: transactionInArray.reverse(),
@@ -74,7 +62,7 @@ class OperationList extends React.Component {
         fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
             .then(r => r.json())
             .then((data) => {
-                const categoriesExpInArray = this.mapObjectToArray(data)
+                const categoriesExpInArray = mapObjectToArray(data)
 
                 this.setState({
                     categoriesExp: categoriesExpInArray,
@@ -87,7 +75,7 @@ class OperationList extends React.Component {
         fetch('https://fatcash-app.firebaseio.com/categories/income/.json')
             .then(r => r.json())
             .then((data) => {
-                const categoriesIncInArray = this.mapObjectToArray(data)
+                const categoriesIncInArray = mapObjectToArray(data)
 
                 this.setState({
                     categoriesInc: categoriesIncInArray,
