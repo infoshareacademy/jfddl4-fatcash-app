@@ -23,10 +23,10 @@ const SideBar = (props) => (
 
     > <center><img src={wallet} alt="Fatcash Logo"/></center>
         <Link onClick={props.onRequestSideBarChange} style={styles} to={'/'}><MenuItem> Dashboard </MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} to={'/operation-list'}><MenuItem> Operations list </MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} to={'/add-new-operation'}><MenuItem> Add new operation </MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} to={'/category-list'}><MenuItem> Category List </MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={styles} to={'/operation-list'}><MenuItem> Operations list </MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={styles} to={'/add-new-operation'}><MenuItem> Add new operation </MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={styles} to={'/add-category'}><MenuItem> Add category </MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={styles} to={'/category-list'}><MenuItem> Category List </MenuItem></Link>
 
     </Drawer>
 
