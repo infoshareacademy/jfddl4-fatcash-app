@@ -5,7 +5,6 @@ import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 
-
 const Search = (props) => (
     <div style={{border: '30px solid #f3f3f5'}}>
         <div style={{margin: '10px 25px 10px 25px'}}>
@@ -24,12 +23,33 @@ const Search = (props) => (
             />
         </div>
 
-        <div style={{margin: '10px 25px 10px 25px'}}>
-            Incomes:
+        <div style={{
+            margin: '35px 25px 10px 25px',
+            display: 'flex',
+            alignItems: 'center',
+
+        }}>
+
             <DropDownMenu
-                value={props.valueDrop}
+                value={props.valueDropInc}
                 onChange={props.handleChange}
+                listStyle={{
+                    padding: '1px 1px 35px 1px',
+                    height: '20px',
+                    width: '150px',
+                    backgroundColor: '#f3f3f5',
+                }}
+                labelStyle={{
+                    backgroundColor: '#f3f3f5',
+                    margin: '10px',
+                }}
             >
+                <MenuItem
+                    value={1}
+                    primaryText={'Income'}
+                    label={'Income'}
+                    disabled={true}
+                />
 
                 {props.categoriesInc.map((el) => (
                         <MenuItem
@@ -40,12 +60,29 @@ const Search = (props) => (
                     )
                 )}
             </DropDownMenu>
-            Expences:
-            <DropDownMenu
-                value={props.valueDrop}
 
+
+            <DropDownMenu
+                value={props.valueDropExp}
                 onChange={props.handleChange}
+                listStyle={{
+                    padding: '1px 1px 35px 1px',
+                    height: '20px',
+                    width: '150px',
+                    backgroundColor: '#f3f3f5',
+                }}
+                labelStyle={{
+                    backgroundColor: '#f3f3f5',
+                    margin: '10px',
+                }}
             >
+                <MenuItem
+                    value={1}
+                    primaryText={'Expenses'}
+                    label={'Expenses'}
+                    disabled={true}
+                />
+
                 {props.categoriesExp.map((el) => (
                         <MenuItem
                             value={el.key}
