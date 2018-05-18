@@ -40,12 +40,12 @@ class CategoryList extends React.Component {
             <div>
                 <div>
                     <h2 style={style.h2}>Incomes</h2>
-                    {this.state.inc.map((value) => <ListItemForCategoryList value={value.name}/>)}
+                    {this.state.inc.map((category) => <ListItemForCategoryList item={category}/>)}
                 </div>
 
                 <div>
                     <h2 style={style.h2}>Expenses</h2>
-                    {this.state.exp.map((value) => <ListItemForCategoryList value={value.name}/>)}
+                    {this.state.exp.map((category) => <ListItemForCategoryList item={category} />)}
                 </div>
             </div>
         )

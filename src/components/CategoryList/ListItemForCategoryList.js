@@ -5,11 +5,11 @@ import {Link} from 'react-router-dom'
 
 
 const ListItemForCategoryList = (props) => (
-    <Link to={`/filtered-category-list/${props.value}`}>
+    <Link to={`/operation-list/${props.item.key}`}>
         <MenuItem
             rightIcon={<RemoveRedEye/>}
         >
-            {props.value}
+            {props.item.name}
         </MenuItem>
     </Link>
 )
