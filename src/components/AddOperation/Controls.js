@@ -46,7 +46,7 @@ const Controls = ({
                 {
                     categoriesInc.map((el) => (
 
-                            <MenuItem value={el.name} primaryText={el.name}/>
+                            <MenuItem value={el.key} primaryText={el.name}/>
 
                         )
                     )}
@@ -57,7 +57,7 @@ const Controls = ({
                          fullWidth={true} onChange={newCategoryHandler}>
                 {categoriesExp.map((el) => (
 
-                        <MenuItem value={el.name} primaryText={el.name}/>
+                        <MenuItem value={el.key} primaryText={el.name}/>
 
                     )
                 )}

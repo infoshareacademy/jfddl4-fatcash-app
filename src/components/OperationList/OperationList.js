@@ -142,12 +142,16 @@ class OperationList extends React.Component {
                                 &&
                                 i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
                             ))
-                            .map((el) => (
-                                    <ItemFromList
-                                        el={el}
+                            .map((transaction) => {
+                                    const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
+                                    const categoryOfTransaction = categories.find(category => category.key === transaction.category)
+
+                                    return <ItemFromList
+                                        el={transaction}
+                                        categoryName={categoryOfTransaction ? categoryOfTransaction.name : ''}
                                         handleOpen={this.handleOpen}
                                     />
-                                )
+                                }
                             )
                     }
 
