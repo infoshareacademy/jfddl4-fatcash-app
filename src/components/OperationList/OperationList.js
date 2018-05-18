@@ -16,7 +16,7 @@ const ITEMS_PER_PAGE = 5
 class OperationList extends React.Component {
     state = {
         valueRange: {min: 0, max: 5000},
-        valueDrop: "",
+        valueDrop: this.props.match.params.categoryId || "",
         transactions: [],
         category: "",
         date: "",
@@ -142,12 +142,16 @@ class OperationList extends React.Component {
                                 &&
                                 i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
                             ))
-                            .map((el) => (
-                                    <ItemFromList
-                                        el={el}
+                            .map((transaction) => {
+                                    const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
+                                    const categoryOfTransaction = categories.find(category => category.key === transaction.category)
+
+                                    return <ItemFromList
+                                        el={transaction}
+                                        categoryName={categoryOfTransaction ? categoryOfTransaction.name : ''}
                                         handleOpen={this.handleOpen}
                                     />
-                                )
+                                }
                             )
                     }
 

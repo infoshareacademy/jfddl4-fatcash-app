@@ -112,6 +112,7 @@ class AddOperation extends React.Component {
                 })
             })
     }
+
     render() {
         return (
             <div style={{margin: "20px"}}>
@@ -136,15 +137,19 @@ class AddOperation extends React.Component {
                         i >= this.state.currentPage * ITEMS_PER_PAGE
                         &&
                         i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
-                    )).map((el) => (
-                            <ListItemForOperationList
-                                k={el.key}
-                                category={el.category}
-                                cash={el.value}
-                                date={el.date}
+                    )).map((transaction) => {
+                            const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
+                            const categoryOfTransaction = categories.find(category => category.key === transaction.category)
+
+
+                            return <ListItemForOperationList
+                                k={transaction.key}
+                                category={categoryOfTransaction ? categoryOfTransaction.name : ''}
+                                cash={transaction.value}
+                                date={transaction.date}
                             >
                             </ListItemForOperationList>
-                        )
+                        }
                     )
 
                 }
