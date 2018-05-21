@@ -19,19 +19,10 @@ class OperationList extends React.Component {
         valueRange: {min: 0, max: 5000},
         valueDrop: this.props.match.params.categoryId || "",
         transactions: [],
-        category: "",
-        date: "",
-        description: "",
-        income: "",
-        value: "",
-        categories: [],
+
         categoriesExp: [],
         categoriesInc: [],
-        dialog: {
-            open: false,
-            category: '',
-            description: ''
-        },
+
         currentPage: 0
     }
 
@@ -112,7 +103,7 @@ class OperationList extends React.Component {
             &&
             task.value <= this.state.valueRange.max
             &&
-            task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
+            task.description.toLowerCase().indexOf(task.description.toLowerCase()) !== -1
         ))
 
         const filteredTransactionLength = filteredTransaction && filteredTransaction.length
@@ -170,17 +161,7 @@ class OperationList extends React.Component {
 
                     <Divider/>
 
-                    <Dialog
-                        title={this.state.dialog.category}
-                        actions={actions}
-                        modal={false}
-                        open={this.state.dialog.open}
-                        onRequestClose={this.handleClose}
-                    >
 
-                        {this.state.dialog.description}
-
-                    </Dialog>
 
 
                 </div>
