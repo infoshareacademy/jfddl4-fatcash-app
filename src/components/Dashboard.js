@@ -13,7 +13,7 @@ const styles = {
         padding: '5vh'
     },
     row: {
-        backgroundColor: '#efecde',
+        backgroundColor: '#b2e3f4',
         padding: '2vh',
         borderRadius: '30px'
 
@@ -35,14 +35,11 @@ const data = [
         name: 'Słodycze',
         color: '#FFBB28'
     },
-
     {
         value: 20,
         name: 'Alkohol',
         color: '#FF804'
     },
-
-
 ];
 const data1 = [
     {
