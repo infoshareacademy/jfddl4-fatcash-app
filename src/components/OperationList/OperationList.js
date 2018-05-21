@@ -5,6 +5,7 @@ import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
 import {mapObjectToArray} from '../../utils'
+import ListItemForOperationList from '../AddOperation/ListItemForOperationList'
 
 import ItemFromList from './ItemFromList'
 import Search from './Search'
@@ -19,19 +20,10 @@ class OperationList extends React.Component {
         valueDropInc: this.props.match.params.categoryId || 1,
         valueDropExp: this.props.match.params.categoryId || 1,
         transactions: [],
-        category: "",
-        date: "",
-        description: "",
-        income: "",
-        value: "",
-        categories: [],
+
         categoriesExp: [],
         categoriesInc: [],
-        dialog: {
-            open: false,
-            category: '',
-            description: ''
-        },
+
         currentPage: 0
     }
 
@@ -112,7 +104,7 @@ class OperationList extends React.Component {
             &&
             task.value <= this.state.valueRange.max
             &&
-            task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
+            task.description.toLowerCase().indexOf(task.description.toLowerCase()) !== -1
         ))
 
         const filteredTransactionLength = filteredTransaction && filteredTransaction.length
@@ -143,18 +135,21 @@ class OperationList extends React.Component {
                                 i >= this.state.currentPage * ITEMS_PER_PAGE
                                 &&
                                 i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
-                            ))
-                            .map((transaction) => {
-                                    const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
-                                    const categoryOfTransaction = categories.find(category => category.key === transaction.category)
+                            )).map((transaction) => {
+                                const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
+                                const categoryOfTransaction = categories.find(category => category.key === transaction.category)
 
-                                    return <ItemFromList
-                                        el={transaction}
-                                        categoryName={categoryOfTransaction ? categoryOfTransaction.name : ''}
-                                        handleOpen={this.handleOpen}
-                                    />
-                                }
-                            )
+
+                                return <ListItemForOperationList
+                                    k={transaction.key}
+                                    category={categoryOfTransaction ? categoryOfTransaction.name : ''}
+                                    cash={transaction.value}
+                                    date={transaction.date}
+                                >
+                                </ListItemForOperationList>
+
+                            }
+                        )
                     }
 
                     <Divider/>
@@ -168,17 +163,7 @@ class OperationList extends React.Component {
 
                     <Divider/>
 
-                    <Dialog
-                        title={this.state.dialog.category}
-                        actions={actions}
-                        modal={false}
-                        open={this.state.dialog.open}
-                        onRequestClose={this.handleClose}
-                    >
 
-                        {this.state.dialog.description}
-
-                    </Dialog>
 
 
                 </div>
