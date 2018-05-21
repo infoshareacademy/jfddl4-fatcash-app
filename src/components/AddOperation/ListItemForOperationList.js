@@ -7,7 +7,7 @@ import moment from 'moment'
 
 
 const ListItemForOperationList = (props) => (
-    <Link to={`/add-new-opperation/${props.k}`}>
+    <Link to={`/add-new-operation/${props.k}`}>
         <MenuItem
             rightIcon={<RemoveRedEye/>}
 

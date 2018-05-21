@@ -20,7 +20,8 @@ class AddOperation extends React.Component {
         categoriesExp: [],
         categoriesInc: [],
         open: false,
-        currentPage: 0
+        currentPage: 0,
+        transactionId: this.props.match.params.transactionId
     }
 
     componentDidMount() {
@@ -113,27 +114,36 @@ class AddOperation extends React.Component {
             })
     }
 
-    render() {
-        return (
-            <div style={{margin: "20px"}}>
-                <Controls
-                    newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
-                    newImageHandler={(e, val) => this.newOperationHandler('image', val)}
-                    newCategoryHandler={this.newCategoryHandler}
-                    newDescriptionHandler={(e, val) => this.newOperationHandler('description', val)}
-                    newValueHandler={(e, val) => this.newOperationHandler('value', val)}
-                    saveTaskToDatabase={this.saveTaskToDatabase}
-                    income={this.state.income}
-                    categoriesInc={this.state.categoriesInc}
-                    category={this.state.category}
-                    categoriesExp={this.state.categoriesExp}
-                    description={this.state.description}
-                    value={this.state.value}
-                    image={this.state.image}
-                />
 
+    render() {
+
+        console.log(this.props)
+
+        return (
+
+
+            <div style={{margin: "20px"}}>
+
+                {this.state.transactionId===false ?
+                    <Controls
+                        newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
+                        newImageHandler={(e, val) => this.newOperationHandler('image', val)}
+                        newCategoryHandler={this.newCategoryHandler}
+                        newDescriptionHandler={(e, val) => this.newOperationHandler('description', val)}
+                        newValueHandler={(e, val) => this.newOperationHandler('value', val)}
+                        saveTaskToDatabase={this.saveTaskToDatabase}
+                        income={this.state.income}
+                        categoriesInc={this.state.categoriesInc}
+                        category={this.state.category}
+                        categoriesExp={this.state.categoriesExp}
+                        description={this.state.description}
+                        value={this.state.value}
+                        image={this.state.image}
+                    />
+                : false
+                }
                 {
-                    this.state.transactions.filter((el, i) => (
+                    this.state.transactionId===false ? this.state.transactions.filter((el, i) => (
                         i >= this.state.currentPage * ITEMS_PER_PAGE
                         &&
                         i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
@@ -150,14 +160,20 @@ class AddOperation extends React.Component {
                             >
                             </ListItemForOperationList>
                         }
-                    )
+                    ) : false
+
+                    })
+
 
                 }
-                <Pagination transactions={this.state.transactions}
-                            itemsPerPage={ITEMS_PER_PAGE}
-                            currentPage={this.state.currentPage}
-                            newPageHandler={newPage => this.setState({currentPage: newPage - 1})}
-                />
+                {this.state.transactionId===false ?
+                    <Pagination transactions={this.state.transactions}
+                                itemsPerPage={ITEMS_PER_PAGE}
+                                currentPage={this.state.currentPage}
+                                newPageHandler={newPage => this.setState({currentPage: newPage - 1})}
+                    />
+               : false
+                }
                 <Snackbar
                     open={this.state.open}
                     message="  Operation succesfully added to your list"

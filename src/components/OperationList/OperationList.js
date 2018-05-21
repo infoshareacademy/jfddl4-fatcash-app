@@ -25,6 +25,7 @@ class OperationList extends React.Component {
         currentPage: 0
     }
 
+
     componentDidMount() {
         // this.loadTransaction()
         this.loadCategoriesExp()
@@ -106,6 +107,8 @@ class OperationList extends React.Component {
         ))
 
         const filteredTransactionLength = filteredTransaction && filteredTransaction.length
+
+console.log(this.props)
 
         return (
             !filteredTransaction ?
