@@ -5,6 +5,7 @@ import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
 import {mapObjectToArray} from '../../utils'
+import ListItemForOperationList from '../AddOperation/ListItemForOperationList'
 
 import ItemFromList from './ItemFromList'
 import Search from './Search'
@@ -141,18 +142,21 @@ class OperationList extends React.Component {
                                 i >= this.state.currentPage * ITEMS_PER_PAGE
                                 &&
                                 i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
-                            ))
-                            .map((transaction) => {
-                                    const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
-                                    const categoryOfTransaction = categories.find(category => category.key === transaction.category)
+                            )).map((transaction) => {
+                                const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
+                                const categoryOfTransaction = categories.find(category => category.key === transaction.category)
 
-                                    return <ItemFromList
-                                        el={transaction}
-                                        categoryName={categoryOfTransaction ? categoryOfTransaction.name : ''}
-                                        handleOpen={this.handleOpen}
-                                    />
-                                }
-                            )
+
+                                return <ListItemForOperationList
+                                    k={transaction.key}
+                                    category={categoryOfTransaction ? categoryOfTransaction.name : ''}
+                                    cash={transaction.value}
+                                    date={transaction.date}
+                                >
+                                </ListItemForOperationList>
+
+                            }
+                        )
                     }
 
                     <Divider/>
