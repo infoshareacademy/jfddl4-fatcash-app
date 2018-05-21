@@ -18,7 +18,6 @@ class OperationList extends React.Component {
     state = {
         valueRange: {min: 0, max: 5000},
         valueDrop: this.props.match.params.categoryId || "",
-        transactions: [],
 
         categoriesExp: [],
         categoriesInc: [],
