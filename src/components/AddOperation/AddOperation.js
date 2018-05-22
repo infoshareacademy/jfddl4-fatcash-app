@@ -5,6 +5,7 @@ import Controls from "./Controls";
 import ListItemForOperationList from './ListItemForOperationList'
 import Snackbar from 'material-ui/Snackbar';
 import MenuItem from 'material-ui/MenuItem'
+import moment from "moment/moment";
 
 const ITEMS_PER_PAGE = 5
 
@@ -147,7 +148,10 @@ class AddOperation extends React.Component {
                     this.state.transactions.filter((el, i, arr) =>
                         (this.state.transactionId === el.key))
                         .map((el, i, arr) => {
-                            return <MenuItem>{el.description} {el.income}</MenuItem>
+                            return <MenuItem>{el.description} {el.income} {el.category}{moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}</MenuItem>
+
+
+
                         })
                 }
                 {
