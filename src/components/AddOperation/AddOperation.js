@@ -4,6 +4,7 @@ import {mapObjectToArray, transactionFilterAndMap} from '../../utils'
 import Controls from "./Controls";
 import ListItemForOperationList from './ListItemForOperationList'
 import Snackbar from 'material-ui/Snackbar';
+import MenuItem from 'material-ui/MenuItem'
 
 const ITEMS_PER_PAGE = 5
 
@@ -21,7 +22,7 @@ class AddOperation extends React.Component {
         categoriesInc: [],
         open: false,
         currentPage: 0,
-        transactionId: this.props.match.params.transactionId
+        transactionId: this.props.match.params.transactionId || ''
     }
 
     componentDidMount() {
@@ -117,14 +118,15 @@ class AddOperation extends React.Component {
 
     render() {
 
-        console.log(this.props)
+        console.log(this.state.transactionId.length)
 
         return (
 
 
             <div style={{margin: "20px"}}>
 
-                {this.state.transactionId===false ?
+
+                {this.state.transactionId.length === 0 ?
                     <Controls
                         newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
                         newImageHandler={(e, val) => this.newOperationHandler('image', val)}
@@ -140,39 +142,45 @@ class AddOperation extends React.Component {
                         value={this.state.value}
                         image={this.state.image}
                     />
-                : false
+                    :
+
+                    this.state.transactions.filter((el, i, arr) =>
+                        (this.state.transactionId === el.key))
+                        .map((el, i, arr) => {
+                            return <MenuItem>{el.description} {el.income}</MenuItem>
+                        })
                 }
                 {
-                    this.state.transactionId===false ? this.state.transactions.filter((el, i) => (
-                        i >= this.state.currentPage * ITEMS_PER_PAGE
-                        &&
-                        i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
-                    )).map((transaction) => {
-                            const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
-                            const categoryOfTransaction = categories.find(category => category.key === transaction.category)
+                    this.state.transactionId.length === 0 ?
+                        this.state.transactions.filter((el, i) => (
+                            i >= this.state.currentPage * ITEMS_PER_PAGE
+                            &&
+                            i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
+                        )).map((transaction) => {
+                                const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
+                                const categoryOfTransaction = categories.find(category => category.key === transaction.category)
 
 
-                            return <ListItemForOperationList
-                                k={transaction.key}
-                                category={categoryOfTransaction ? categoryOfTransaction.name : ''}
-                                cash={transaction.value}
-                                date={transaction.date}
-                            >
-                            </ListItemForOperationList>
-                        }
-                    ) : false
-
-                    })
+                                return <ListItemForOperationList
+                                    k={transaction.key}
+                                    category={categoryOfTransaction ? categoryOfTransaction.name : ''}
+                                    cash={transaction.value}
+                                    date={transaction.date}
+                                >
+                                </ListItemForOperationList>
+                            }
+                        ) : false
 
 
                 }
-                {this.state.transactionId===false ?
+
+                {this.state.transactionId.length === 0 ?
                     <Pagination transactions={this.state.transactions}
                                 itemsPerPage={ITEMS_PER_PAGE}
                                 currentPage={this.state.currentPage}
                                 newPageHandler={newPage => this.setState({currentPage: newPage - 1})}
                     />
-               : false
+                    : false
                 }
                 <Snackbar
                     open={this.state.open}

@@ -40,9 +40,9 @@ class App extends React.Component {
                         <Route exact path={'/'} component={Dashboard}/>
                         <Route exact path={'/add-category'} component={AddCategory}/>
                         <Route path={'/operation-list/:categoryId?'} component={OperationList}/>
-                        {/*<Route path={'/add-new-operation'} component={AddOperation}/>*/}
+                        <Route path={'/add-new-operation'} component={AddOperation}/>
                         <Route exact path={'/category-list'} component={CategoryList}/>
-                        <Route exact path={'/add-new-operation/:transactionId?'} component={AddOperation}/>
+                        <Route exact path={'/operation/:transactionId?'} component={AddOperation}/>
                     </div>
                 </Router>
 
