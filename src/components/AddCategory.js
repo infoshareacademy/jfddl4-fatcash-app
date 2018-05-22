@@ -10,13 +10,14 @@ const styles = {
         maxWidth: 250,
     },
     radioButton: {
+        marginTop:30,
         marginLeft: 50,
-        marginBottom: 16,
+        marginBottom: 10,
     },
 };
 
 const style = {
-    margin: 10,
+    margin: 15,
     marginLeft: 50,
 };
 

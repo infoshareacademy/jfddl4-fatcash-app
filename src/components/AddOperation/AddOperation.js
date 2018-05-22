@@ -1,14 +1,15 @@
 import React from 'react'
-import Pagination from '../../components/Pagination';
-import {mapObjectToArray, transactionFilterAndMap} from '../utils'
+import {mapObjectToArray, transactionFilterAndMap} from '../../utils'
 import Controls from "./Controls";
-import ListItemForOperationList from './ListItemForOperationList'
 import Snackbar from 'material-ui/Snackbar';
+import MenuItem from 'material-ui/MenuItem'
+import moment from "moment/moment";
+import {connect} from "react-redux";
 
-const ITEMS_PER_PAGE = 5
 
 class AddOperation extends React.Component {
     state = {
+      //  --------------------------For save transaction
         category: "",
         date: "",
         description: "",
@@ -16,39 +17,22 @@ class AddOperation extends React.Component {
         value: "",
         image: '',
         name: "",
-        transactions: [],
+        // -------------------
         categoriesExp: [],
         categoriesInc: [],
-        open: false,
-        currentPage: 0
+
+        open: false, // for snackbar
+        transactionId: this.props.match.params.transactionId || '' // for hyperlinks of operations
     }
 
     componentDidMount() {
-        this.loadTransaction()
+        // this.loadTransaction()
         this.loadCategoriesExp()
         this.loadCategoriesInc()
 
     }
 
-    loadTransaction = () => {
-        fetch('https://fatcash-app.firebaseio.com/transactions/.json')
-            .then(r => r.json())
-            .then((data) => {
-                const transactionInArray = mapObjectToArray(data)
 
-                this.setState({
-                    transactions: transactionInArray.reverse(),
-                    category: "",
-                    date: "",
-                    description: "",
-                    income: this.state.income,
-                    value: "",
-                    image: ''
-
-                })
-            })
-
-    }
     loadCategoriesExp = () => {
         fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
             .then(r => r.json())
@@ -112,47 +96,42 @@ class AddOperation extends React.Component {
                 })
             })
     }
+
+
     render() {
         return (
+
+
             <div style={{margin: "20px"}}>
-                <Controls
-                    newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
-                    newImageHandler={(e, val) => this.newOperationHandler('image', val)}
-                    newCategoryHandler={this.newCategoryHandler}
-                    newDescriptionHandler={(e, val) => this.newOperationHandler('description', val)}
-                    newValueHandler={(e, val) => this.newOperationHandler('value', val)}
-                    saveTaskToDatabase={this.saveTaskToDatabase}
-                    income={this.state.income}
-                    categoriesInc={this.state.categoriesInc}
-                    category={this.state.category}
-                    categoriesExp={this.state.categoriesExp}
-                    description={this.state.description}
-                    value={this.state.value}
-                    image={this.state.image}
-                />
 
-                {
-                    this.state.transactions.filter((el, i) => (
-                        i >= this.state.currentPage * ITEMS_PER_PAGE
-                        &&
-                        i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
-                    )).map((el) => (
-                            <ListItemForOperationList
-                                k={el.key}
-                                category={el.category}
-                                cash={el.value}
-                                date={el.date}
-                            >
-                            </ListItemForOperationList>
-                        )
-                    )
 
+                {this.state.transactionId.length === 0 ?
+                    <Controls
+                        newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
+                        newImageHandler={(e, val) => this.newOperationHandler('image', val)}
+                        newCategoryHandler={this.newCategoryHandler}
+                        newDescriptionHandler={(e, val) => this.newOperationHandler('description', val)}
+                        newValueHandler={(e, val) => this.newOperationHandler('value', val)}
+                        saveTaskToDatabase={this.saveTaskToDatabase}
+                        income={this.state.income}
+                        categoriesInc={this.state.categoriesInc}
+                        category={this.state.category}
+                        categoriesExp={this.state.categoriesExp}
+                        description={this.state.description}
+                        value={this.state.value}
+                        image={this.state.image}
+                    />
+                    :
+
+                    this.props.transactions.filter((el, i, arr) =>
+                        (this.state.transactionId === el.key))
+                        .map((el, i, arr) => {
+                            return <MenuItem>{el.description} {el.income}<img src={el.image} alt={"logo"}/> {el.category}{moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}</MenuItem>
+
+
+                        })
                 }
-                <Pagination transactions={this.state.transactions}
-                            itemsPerPage={ITEMS_PER_PAGE}
-                            currentPage={this.state.currentPage}
-                            newPageHandler={newPage => this.setState({currentPage: newPage - 1})}
-                />
+
                 <Snackbar
                     open={this.state.open}
                     message="  Operation succesfully added to your list"
@@ -164,4 +143,10 @@ class AddOperation extends React.Component {
     }
 }
 
-export default AddOperation
+const mapStateToProps = state => ({
+    transactions: state.transactions.transactions
+})
+
+export default connect(
+    mapStateToProps
+)(AddOperation)

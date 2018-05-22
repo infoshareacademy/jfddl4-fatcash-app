@@ -4,9 +4,9 @@ import MenuItem from "material-ui/MenuItem"
 import RaisedButton from "material-ui/RaisedButton"
 import moment from "moment"
 
-const ItemFromList = ({el, handleOpen}) => (
+const ItemFromList = ({el, handleOpen, categoryName}) => (
     <MenuItem
-        secondaryText={`${el.category} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
+        secondaryText={`${categoryName} || ${el.income === true ? "Income" : "Expence"} || ${moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}`}
     >
         Value: {el.value}
         &ensp;

@@ -32,7 +32,11 @@ const Search = (props) => (
             >
 
                 {props.categoriesInc.map((el) => (
-                        <MenuItem value={el.name} primaryText={el.name} label={el.name}/>
+                        <MenuItem
+                            value={el.key}
+                            primaryText={el.name}
+                            label={el.name}
+                        />
                     )
                 )}
             </DropDownMenu>
@@ -44,7 +48,7 @@ const Search = (props) => (
             >
                 {props.categoriesExp.map((el) => (
                         <MenuItem
-                            value={el.name}
+                            value={el.key}
                             primaryText={el.name}
                             label={el.name}
                         />

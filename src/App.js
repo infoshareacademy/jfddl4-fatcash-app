@@ -7,8 +7,13 @@ import OperationList from './components/OperationList/OperationList'
 import Dashboard from './components/Dashboard'
 import AddCategory from './components/AddCategory'
 import ShareButton from './components/Share'
-import CategoryList from './components/CategoryList'
-import FilteredCategoryList from './components/FilteredCategoryList'
+import CategoryList from './components/CategoryList/CategoryList'
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import FlatButton from 'material-ui/FlatButton';
+
+
 
 class App extends React.Component {
 
@@ -25,10 +30,13 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <MuiThemeProvider>
                 <AppBar
-                    title="FatCash App - save money with us"
+                    title="Fatcash web application - save money with us"
                     onLeftIconButtonClick={this.drawerBtnClickHandler}
+                    iconElementRight={<FlatButton label="Logout"/>}
                 />
+                </MuiThemeProvider>
                 <ShareButton />
 
                 <Router>
@@ -36,18 +44,14 @@ class App extends React.Component {
                         <SideBar
                             onRequestSideBarChange={this.drawerBtnClickHandler}
                             isSideBarOpen={this.state.isDrowerOpen}
-
-
                         />
 
                         <Route exact path={'/'} component={Dashboard}/>
                         <Route exact path={'/add-category'} component={AddCategory}/>
-                        <Route path={'/operation-list'} component={OperationList}/>
+                        <Route path={'/operation-list/:categoryId?'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
                         <Route exact path={'/category-list'} component={CategoryList}/>
-                        <Route exact path={'/filtered-category-list/'} component={FilteredCategoryList}/>
-                        <Route exact path={'/filtered-category-list/:category'} component={FilteredCategoryList}/>
-
+                        <Route exact path={'/operation/:transactionId?'} component={AddOperation}/>
                     </div>
                 </Router>
 
