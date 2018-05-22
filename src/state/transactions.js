@@ -8,15 +8,19 @@ const set = (transactions) => ({
     transactions
 })
 
+
+
 export const initTransactionsSync  = () => (dispatch, getState) => {
-    database.ref('/transactions').on(
+
+    const state = getState()
+    state.auth.isUserLoggedIn === true ?database.ref(`users/${state.auth.user.uid}/transactions`).on(
         'value',
         (snapshot) => dispatch(
             set(
                 mapObjectToArray(snapshot.val()).reverse()
             )
         )
-    )
+    ) : false
 
 }
 
