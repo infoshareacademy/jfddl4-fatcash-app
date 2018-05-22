@@ -75,7 +75,7 @@ class AddOperation extends React.Component {
 
         this.state.value.length === 0 || this.state.category.length === 0 ? alert("You must add value and choose category !!") :
 
-            fetch('https://fatcash-app.firebaseio.com/transactions/.json',
+            fetch(`https://fatcash-app.firebaseio.com/users/${this.props.userUid}/transactions/.json`,
                 {
                     method: 'POST',
                     body: JSON.stringify
@@ -99,6 +99,7 @@ class AddOperation extends React.Component {
 
 
     render() {
+
         return (
 
 
@@ -144,6 +145,7 @@ class AddOperation extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    userUid: state.auth.user.uid,
     transactions: state.transactions.transactions
 })
 

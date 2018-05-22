@@ -5,13 +5,16 @@ import './index.css'
 import {store} from './store'
 import {Provider} from 'react-redux'
 import App from './App'
+import Auth from './components/Auth'
 
 
 
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
+            <Auth>
             <App />
+            </Auth>
         </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')

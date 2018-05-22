@@ -8,15 +8,17 @@ const set = (categories) => ({
     categories
 })
 
+
+
 export const initCategoriesIncomeSync  = () => (dispatch, getState) => {
-    database.ref('/categories/income').on(
+    getState().auth.isUserLoggedIn === true ?  database.ref(`users/${getState().auth.user.uid}/categories/income`).on(
         'value',
         (snapshot) => dispatch(
             set(
                 mapObjectToArray(snapshot.val()).reverse()
             )
         )
-    )
+    ) : false
 
 }
 

@@ -9,14 +9,14 @@ const set = (categories) => ({
 })
 
 export const initCategoriesExpSync  = () => (dispatch, getState) => {
-    database.ref('/categories/exp').on(
+    getState().auth.isUserLoggedIn === true ?  database.ref(`users/${getState().auth.user.uid}/categories/exp`).on(
         'value',
         (snapshot) => dispatch(
             set(
                 mapObjectToArray(snapshot.val()).reverse()
             )
         )
-    )
+    ) : false
 
 }
 
