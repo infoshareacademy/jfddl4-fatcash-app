@@ -10,13 +10,16 @@ import FontIcon from 'material-ui/FontIcon';
 const iconStyles = {
     marginRight: 20,
     paddingTop: '20px',
+    marginHeight:'auto'
 
 };
 
 const styles = {
     textDecoration: 'none',
     background: '#f3f3f5',
-    paddingBottom: '20px',
+    paddingBottom: 'auto',
+    paddingTop: 'auto',
+    marginHeight:'auto'
     //backgroundPosition: 'cover',
     //fontcolor: "white",
 
