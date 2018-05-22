@@ -12,7 +12,8 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import FlatButton from 'material-ui/FlatButton';
-
+import {logOut} from "./state/auth";
+import {connect} from 'react-redux'
 
 
 class App extends React.Component {
@@ -34,6 +35,7 @@ class App extends React.Component {
                 <AppBar
                     title="Fatcash web application - save money with us"
                     onLeftIconButtonClick={this.drawerBtnClickHandler}
+                    onRightIconButtonClick={this.props.logOut}
                     iconElementRight={<FlatButton label="Logout"/>}
                 />
                 </MuiThemeProvider>
@@ -60,4 +62,19 @@ class App extends React.Component {
     }
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        logOut: () => dispatch(logOut())
+    }
+
+};
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
