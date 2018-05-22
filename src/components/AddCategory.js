@@ -3,6 +3,8 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
+import Paper from 'material-ui/Paper';
+
 const styles = {
     block: {
         maxWidth: 250,
@@ -56,6 +58,7 @@ class AddCategory extends React.Component {
     render() {
         return (
             <div>
+                <Paper zDepth={3} rounded={true}>
                 <RadioButtonGroup
                     name="shipSpeed"
                     defaultSelected="exp"
@@ -93,6 +96,7 @@ class AddCategory extends React.Component {
                     autoHideDuration={4000}
                     onRequestClose={this.handleRequestClose}
                 />
+                </Paper>
             </div>
         )
     }
