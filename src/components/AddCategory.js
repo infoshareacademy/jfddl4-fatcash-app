@@ -4,6 +4,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
 import Paper from 'material-ui/Paper';
+import {connect} from "react-redux";
 
 const styles = {
     block: {
@@ -35,7 +36,7 @@ class AddCategory extends React.Component {
     };
 
     saveNewCategory = () => {
-        fetch('https://fatcash-app.firebaseio.com/categories/' + this.state.selectedKindOfCategory + '/.json', {
+        fetch(`https://fatcash-app.firebaseio.com/users/${this.props.userUid}/categories/` + this.state.selectedKindOfCategory + '/.json', {
                 method: 'POST',
                 body: JSON.stringify({
                     name: this.state.newCategoryName
@@ -104,4 +105,12 @@ class AddCategory extends React.Component {
 
 }
 
-export default AddCategory;
+
+const mapStateToProps = state => ({
+    userUid: state.auth.user.uid,
+    transactions: state.transactions.transactions
+})
+
+export default connect(
+    mapStateToProps
+)(AddCategory)
