@@ -2,34 +2,36 @@ import React from 'react'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router-dom';
-import wallet from '../img/wallet.png';
+import wallet from '../../src/img/wallet.png';
 import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
-
-
-const iconStyles = {
-    marginRight: 20,
-    paddingTop: '20px',
-    marginHeight:'auto'
-
-};
-
-const styles = {
-    textDecoration: 'none',
-    background: '#f3f3f5',
-    paddingBottom: 'auto',
-    paddingTop: 'auto',
-    marginHeight:'auto'
-    //backgroundPosition: 'cover',
-    //fontcolor: "white",
-
-};
-
-
-const draverstyle = {
-    backgroundColor: "#CCDCE5",
+import MyClock from './Clock'
+const imgstyle ={
+    marginTop:'5vh',
+    marginBottom:'5vh'
+}
+const menuitemstyl={
+    fontSize:16,
+    fontWeight:500,
+    textShadow:"0px 1px lightgray",
 
 }
+
+const iconStyles = {
+    marginRight: 15,
+    marginLeft:28,
+    marginTop:20,
+    marginBottom:10,
+    fontSize: 16
+};
+const linkstyles = {
+    textAlign:"left",
+    textDecoration: 'none',
+    background: '#f3f3f5',
+};
+const draverstyle = {
+    backgroundColor: "#CCDCE5"}
+
 
 const SideBar = (props) => (
 
@@ -41,29 +43,30 @@ const SideBar = (props) => (
         containerStyle={draverstyle}
 
     >
-        <center><img src={wallet} alt="Fatcash Logo"/></center>
+        <center><img src={wallet} style={imgstyle} alt="Fatcash Logo"/></center>
         <Divider/>
-
-        <Link onClick={props.onRequestSideBarChange} style={styles} to={'/'}><MenuItem><FontIcon
+        <MyClock/>
+        <Divider/>
+        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/'}><MenuItem style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>trending_up</FontIcon>DASHBOARD</MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} style={styles} to={'/operation-list'}><MenuItem><FontIcon
+            color={'#3aa1ba'}>trending_up</FontIcon>Dashboard</MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/operation-list'}><MenuItem style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>receipt</FontIcon>OPERATIONS
-            LISTS</MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} style={styles} to={'/add-new-operation'}><MenuItem><FontIcon
+            color={'#3aa1ba'}>receipt</FontIcon>Operations
+            Lists</MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/add-new-operation'}><MenuItem style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>payment</FontIcon>ADD
-            OPERATION</MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} style={styles} to={'/add-category'}><MenuItem><FontIcon
+            color={'#3aa1ba'}>payment</FontIcon>Add
+            Operation</MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/add-category'}><MenuItem style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>input</FontIcon>ADD
-            CATTEGORY</MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} style={styles} to={'/category-list'}><MenuItem><FontIcon
+            color={'#3aa1ba'}>input</FontIcon>Add
+            Cattegory</MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/category-list'}><MenuItem style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>search</FontIcon>CATTEGORY
-            LIST</MenuItem></Link>
-
+            color={'#3aa1ba'}>search</FontIcon>Cattegory
+            List</MenuItem></Link>
+        <Divider/>
 
     </Drawer>
 

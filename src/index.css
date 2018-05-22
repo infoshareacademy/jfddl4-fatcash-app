@@ -4,3 +4,16 @@ body {
   font-family: sans-serif;
   background-color: aliceblue;
 }
+.clockclass {
+  font-size: 2.2vh;
+  color: white;
+  font-family:Helvetica, sans-serif;
+  margin:auto;
+}
+
+.dateclass {
+  font-size: 1.2vh;
+  color: white;
+  font-family:Helvetica, sans-serif;
+  margin:auto;
+}

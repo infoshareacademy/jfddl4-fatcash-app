@@ -12,9 +12,9 @@ import Auth from './components/Auth'
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
-            <Auth>
+<Auth>
             <App />
-            </Auth>
+</Auth>
         </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')
