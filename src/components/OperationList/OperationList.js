@@ -7,6 +7,7 @@ import ListItemForOperationList from '../AddOperation/ListItemForOperationList'
 import Search from './Search'
 import {connect} from 'react-redux'
 
+
 const ITEMS_PER_PAGE = 5
 
 class OperationList extends React.Component {
@@ -27,9 +28,9 @@ class OperationList extends React.Component {
     handleChange = (event, index, valueDrop) => (this.setState({valueDrop}));
 
     render() {
-console.log(this.props)
 
-        const filteredTransaction = this.props.transactions && this.props.transactions.filter(task => (
+
+        const filteredTransaction =  this.props.transactions && this.props.transactions.filter(task => (
             (this.state.valueDrop ? task.category === this.state.valueDrop : true)
             &&
             task.value >= this.state.valueRange.min
@@ -37,9 +38,12 @@ console.log(this.props)
             task.value <= this.state.valueRange.max
             &&
             task.description.toLowerCase().indexOf(task.description.toLowerCase()) !== -1
-        ))
+
+        )
+    )
 
         const filteredTransactionLength = filteredTransaction && filteredTransaction.length
+
 
         return (
             !filteredTransaction ?
@@ -66,7 +70,7 @@ console.log(this.props)
                             )).map((transaction) => {
                                 const categories = this.props.categoriesInc.concat(this.props.categoriesExp)
                                 const categoryOfTransaction = categories.find(category => category.key === transaction.category)
-
+console.log(filteredTransaction)
 
                                 return <ListItemForOperationList
                                     k={transaction.key}
@@ -89,7 +93,12 @@ console.log(this.props)
 
                     <Divider/>
 
+
+
                 </div>
+
+
+
         )
     }
 }
