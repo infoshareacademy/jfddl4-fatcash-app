@@ -22,7 +22,6 @@ export const store = createStore(
     )
 )
 
-store.dispatch(initTransactionsSync())
 store.dispatch(initCategoriesIncomeSync())
 store.dispatch(initCategoriesExpSync())
 store.dispatch(initAuthUserSync())

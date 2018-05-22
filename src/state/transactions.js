@@ -8,12 +8,13 @@ const set = (transactions) => ({
     transactions
 })
 
+    // `https://fatcash-app.firebaseio.com/users/${this.props.useUid}/transactions/.json`
 
 
 export const initTransactionsSync  = () => (dispatch, getState) => {
 
     const state = getState()
-    state.auth.isUserLoggedIn === true ?database.ref(`users/${state.auth.user.uid}/transactions`).on(
+    state.auth.isUserLoggedIn === true ? database.ref(`users/${state.auth.user.uid}/transactions`).on(
         'value',
         (snapshot) => dispatch(
             set(
