@@ -13,21 +13,9 @@ class OperationList extends React.Component {
     state = {
         valueRange: {min: 0, max: 5000},
         valueDrop: this.props.match.params.categoryId || "",
-
-        categoriesExp: [],
-        categoriesInc: [],
-
         currentPage: 0
     }
 
-    handleClose = () => {
-        this.setState({
-            dialog: {
-                open: false,
-
-            }
-        })
-    }
     handleText = (e, value) => {
         this.setState({
             description: value
@@ -39,13 +27,7 @@ class OperationList extends React.Component {
     handleChange = (event, index, valueDrop) => (this.setState({valueDrop}));
 
     render() {
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onClick={this.handleClose}
-            />
-        ]
+
 
         const filteredTransaction = this.props.transactions && this.props.transactions.filter(task => (
             (this.state.valueDrop ? task.category === this.state.valueDrop : true)
