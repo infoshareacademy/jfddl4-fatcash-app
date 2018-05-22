@@ -1,12 +1,13 @@
 import React from 'react'
 import {PieChart, Pie, Tooltip, BarChart, Bar, CartesianGrid, XAxis, YAxis, Cell} from 'recharts'
 import {Row, Col} from 'react-flexbox-grid'
+import Paper from 'material-ui/Paper';
 
 const styles = {
     pie: {
         margin: '0 auto',
+    },
 
-    }
 };
 
 const data = [
@@ -33,7 +34,7 @@ const data1 = [
     {
         value: 70,
         name: 'Papierosy',
-        color: 'green'
+        color: 'pink'
     },
     {
         value: 10,
@@ -50,6 +51,9 @@ const data1 = [
 ];
 const Dashboard = () => {
     return (
+        <div>
+            <h1>Dashboard</h1>
+        <Paper zDepth={3} rounded={true}>
         <Row>
             <Col xs={12} sm={6}>
                 <PieChart style={styles.pie} width={320} height={320}>
@@ -91,6 +95,8 @@ const Dashboard = () => {
 
             </Col>
         </Row>
+        </Paper>
+        </div>
     )
 };
 export default Dashboard
