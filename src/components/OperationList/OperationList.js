@@ -27,7 +27,7 @@ class OperationList extends React.Component {
     handleChange = (event, index, valueDrop) => (this.setState({valueDrop}));
 
     render() {
-
+console.log(this.props)
 
         const filteredTransaction = this.props.transactions && this.props.transactions.filter(task => (
             (this.state.valueDrop ? task.category === this.state.valueDrop : true)
