@@ -1,15 +1,15 @@
 import {database, databse} from '../firebase'
 import { mapObjectToArray } from '../utils'
 
-const SET = 'transactions/SET'
+const SET = 'categoriesIncome/SET'
 
-const set = (transactions) => ({
+const set = (categories) => ({
     type: SET,
-    transactions
+    categories
 })
 
-export const initTransactionsSync  = () => (dispatch, getState) => {
-    database.ref('/transactions').on(
+export const initCategoriesIncomeSync  = () => (dispatch, getState) => {
+    database.ref('/categories/income').on(
         'value',
         (snapshot) => dispatch(
             set(
@@ -21,7 +21,7 @@ export const initTransactionsSync  = () => (dispatch, getState) => {
 }
 
 const initialState = {
-    transactions: []
+    categories: []
 }
 
 export default (state = initialState, action) => {
@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         case SET:
             return {
                 ...state,
-                transactions: action.transactions
+                categories: action.categories
             }
         default:
             return state
