@@ -28,6 +28,14 @@ class OperationList extends React.Component {
     }
 
     componentDidMount() {
+
+        if (this.props.match.params.categoryId){
+            console.log(this.props.match.params.categoryId)
+
+        }
+        else{
+            console.log('no params')
+        }
         // this.loadTransaction()
         this.loadCategoriesExp()
         this.loadCategoriesInc()
@@ -37,8 +45,7 @@ class OperationList extends React.Component {
         fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
             .then(r => r.json())
             .then((data) => {
-                const categoriesExpInArray = mapObjectToArray(data)
-
+                const categoriesExpInArray = mapObjectToArray(data);
                 this.setState({
                     categoriesExp: categoriesExpInArray,
                     name: ""
@@ -97,7 +104,7 @@ class OperationList extends React.Component {
             />
         ]
 
-        const filteredTransaction = this.props.transactions && this.props.transactions.filter(task => (
+        let filteredTransaction = this.props.transactions && this.props.transactions.filter(task => (
             (this.state.valueDrop ? task.category === this.state.valueDrop : true)
             &&
             task.value >= this.state.valueRange.min
@@ -106,6 +113,8 @@ class OperationList extends React.Component {
             &&
             task.description.toLowerCase().indexOf(task.description.toLowerCase()) !== -1
         ))
+
+
 
         const filteredTransactionLength = filteredTransaction && filteredTransaction.length
 
@@ -131,6 +140,17 @@ class OperationList extends React.Component {
 
                     {
                         filteredTransaction
+                            .filter((e)=>{
+
+                                if (this.props.match.params.categoryId){
+                                    return e.category === this.props.match.params.categoryId
+                                }
+                                else{
+                                    return true
+                                }
+
+
+                            })
                             .filter((el, i) => (
                                 i >= this.state.currentPage * ITEMS_PER_PAGE
                                 &&
