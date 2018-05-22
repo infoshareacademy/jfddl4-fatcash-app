@@ -126,7 +126,7 @@ class AddOperation extends React.Component {
                     this.props.transactions.filter((el, i, arr) =>
                         (this.state.transactionId === el.key))
                         .map((el, i, arr) => {
-                            return <MenuItem>{el.description} {el.income} {el.category}{moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}</MenuItem>
+                            return <MenuItem>{el.description} {el.income}<img src={el.image} alt={"logo"}/> {el.category}{moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}</MenuItem>
 
 
                         })

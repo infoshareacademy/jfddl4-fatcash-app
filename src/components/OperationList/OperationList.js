@@ -1,15 +1,10 @@
 import React from 'react'
-import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
-import {mapObjectToArray} from '../../utils'
 import ListItemForOperationList from '../AddOperation/ListItemForOperationList'
-
-import ItemFromList from './ItemFromList'
 import Search from './Search'
-
 import {connect} from 'react-redux'
 
 const ITEMS_PER_PAGE = 5
@@ -25,49 +20,6 @@ class OperationList extends React.Component {
         currentPage: 0
     }
 
-
-    componentDidMount() {
-        // this.loadTransaction()
-        this.loadCategoriesExp()
-        this.loadCategoriesInc()
-    }
-
-    loadCategoriesExp = () => {
-        fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
-            .then(r => r.json())
-            .then((data) => {
-                const categoriesExpInArray = mapObjectToArray(data)
-
-                this.setState({
-                    categoriesExp: categoriesExpInArray,
-                    name: ""
-                })
-            })
-    }
-
-    loadCategoriesInc = () => {
-        fetch('https://fatcash-app.firebaseio.com/categories/income/.json')
-            .then(r => r.json())
-            .then((data) => {
-                const categoriesIncInArray = mapObjectToArray(data)
-
-                this.setState({
-                    categoriesInc: categoriesIncInArray,
-                    name: ""
-                })
-            })
-    }
-
-    handleOpen = (el) => {
-        this.setState({
-            dialog: {
-                open: true,
-                category: el.category,
-                description: el.description
-            }
-        })
-    }
-
     handleClose = () => {
         this.setState({
             dialog: {
@@ -76,7 +28,6 @@ class OperationList extends React.Component {
             }
         })
     }
-
     handleText = (e, value) => {
         this.setState({
             description: value
@@ -108,8 +59,6 @@ class OperationList extends React.Component {
 
         const filteredTransactionLength = filteredTransaction && filteredTransaction.length
 
-console.log(this.props)
-
         return (
             !filteredTransaction ?
                 'Loading...'
@@ -121,14 +70,11 @@ console.log(this.props)
                         handleRange={this.handleRange}
                         valueRange={this.state.valueRange}
                         valueDrop={this.state.valueDrop}
-                        categoriesInc={this.state.categoriesInc}
-                        categoriesExp={this.state.categoriesExp}
+                        categoriesInc={this.props.categoriesInc}
+                        categoriesExp={this.props.categoriesExp}
                     />
-
                     <br/>
-
                     <Divider/>
-
                     {
                         filteredTransaction
                             .filter((el, i) => (
@@ -136,7 +82,7 @@ console.log(this.props)
                                 &&
                                 i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
                             )).map((transaction) => {
-                                const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
+                                const categories = this.props.categoriesInc.concat(this.props.categoriesExp)
                                 const categoryOfTransaction = categories.find(category => category.key === transaction.category)
 
 
@@ -151,9 +97,7 @@ console.log(this.props)
                             }
                         )
                     }
-
                     <Divider/>
-
                     <Pagination
                         total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}
                         current={this.state.currentPage + 1}
@@ -163,15 +107,14 @@ console.log(this.props)
 
                     <Divider/>
 
-
-
-
                 </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
+    categoriesInc: state.categoriesIncome.categories,
+    categoriesExp: state.categoriesExp.categories,
     transactions: state.transactions.transactions
 })
 
