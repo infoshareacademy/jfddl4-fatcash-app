@@ -8,6 +8,7 @@ const style = {
 
 };
 
+
 const mapObjectToArray = (obj) => (
     Object.entries(obj || {})
         .map(([key, value]) => (
@@ -40,7 +41,7 @@ class CategoryList extends React.Component {
             <div>
                 <div>
                     <h2 style={style.h2}>Incomes</h2>
-                    {this.state.inc.map((category) => <ListItemForCategoryList item={category}/>)}
+                    {this.state.inc.map((category) => <ListItemForCategoryList  item={category}/>)}
                 </div>
 
                 <div>

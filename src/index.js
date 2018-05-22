@@ -6,10 +6,12 @@ import {store} from './store'
 import {Provider} from 'react-redux'
 import App from './App'
 
+
+
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
-            <App/>
+            <App />
         </MuiThemeProvider>
     </Provider>,
     document.getElementById('root')
