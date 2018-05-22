@@ -51,6 +51,7 @@ class App extends React.Component {
                         <Route path={'/operation-list/:categoryId?'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
                         <Route exact path={'/category-list'} component={CategoryList}/>
+                        <Route exact path={'/operation/:transactionId?'} component={AddOperation}/>
                     </div>
                 </Router>
 
