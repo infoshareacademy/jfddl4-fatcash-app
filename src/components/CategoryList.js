@@ -1,11 +1,17 @@
 import React from 'react'
 import ListItemForCategoryList from './ListItemForCategoryList'
+import Paper from 'material-ui/Paper';
 
 const style = {
     h2: {
-        textAlign: 'center',
-    }
 
+        marginTop:25,
+        textAlign: 'center',
+    },
+    Paper: {
+        textDecoration:'none',
+
+    }
 };
 
 const mapObjectToArray = (obj) => (
@@ -38,14 +44,17 @@ class CategoryList extends React.Component {
 
         return (
             <div>
-                <div>
+                <div><Paper style={style.paper} zDepth={3} rounded={true}>
                     <h2 style={style.h2}>Incomes</h2>
                     {this.state.inc.map((value) => <ListItemForCategoryList value={value.name}/>)}
+                </Paper>
                 </div>
 
                 <div>
-                    <h2 style={style.h2}>Expenses</h2>
-                    {this.state.exp.map((value) => <ListItemForCategoryList value={value.name}/>)}
+                    <Paper style={style.paper} zDepth={3} rounded={true}>
+                        <h2 style={style.h2}>Expenses</h2>
+                        {this.state.exp.map((value) => <ListItemForCategoryList value={value.name}/>)}
+                    </Paper>
                 </div>
             </div>
         )
