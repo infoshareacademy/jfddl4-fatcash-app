@@ -63,6 +63,10 @@ const SideBar = (props) => (
             className="material-icons" style={iconStyles}
             color={'#3aa1ba'}>search</FontIcon>CATTEGORY
             LIST</MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={styles} to={'/data-chart'}><MenuItem><FontIcon
+            className="material-icons" style={iconStyles}
+            color={'#3aa1ba'}>search</FontIcon>DATACHART
+            LIST</MenuItem></Link>
 
 
     </Drawer>

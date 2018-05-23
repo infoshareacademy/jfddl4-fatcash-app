@@ -18,46 +18,8 @@ class AddOperation extends React.Component {
         image: '',
         name: "",
         // -------------------
-        categoriesExp: [],
-        categoriesInc: [],
-
         open: false, // for snackbar
         transactionId: this.props.match.params.transactionId || '' // for hyperlinks of operations
-    }
-
-    componentDidMount() {
-        // this.loadTransaction()
-        this.loadCategoriesExp()
-        this.loadCategoriesInc()
-
-    }
-
-
-    loadCategoriesExp = () => {
-        fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
-            .then(r => r.json())
-            .then((data) => {
-                const categoriesExpInArray = mapObjectToArray(data)
-
-                this.setState({
-                    categoriesExp: categoriesExpInArray,
-                    name: ""
-                })
-            })
-
-    }
-    loadCategoriesInc = () => {
-        fetch('https://fatcash-app.firebaseio.com/categories/income/.json')
-            .then(r => r.json())
-            .then((data) => {
-                const categoriesIncInArray = mapObjectToArray(data)
-
-                this.setState({
-                    categoriesInc: categoriesIncInArray,
-                    name: ""
-                })
-            })
-
     }
 
     handleRequestClose = () => {
@@ -85,7 +47,7 @@ class AddOperation extends React.Component {
                             date: Date.now(),
                             description: this.state.description,
                             income: this.state.income,
-                            value: this.state.value,
+                            value: this.state.value*1,
                             image: this.state.image
                         }
                     )
@@ -115,9 +77,9 @@ class AddOperation extends React.Component {
                         newValueHandler={(e, val) => this.newOperationHandler('value', val)}
                         saveTaskToDatabase={this.saveTaskToDatabase}
                         income={this.state.income}
-                        categoriesInc={this.state.categoriesInc}
+                        categoriesInc={this.props.categoriesInc}
                         category={this.state.category}
-                        categoriesExp={this.state.categoriesExp}
+                        categoriesExp={this.props.categoriesExp}
                         description={this.state.description}
                         value={this.state.value}
                         image={this.state.image}
@@ -145,6 +107,8 @@ class AddOperation extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    categoriesInc: state.categoriesIncome.categories,
+    categoriesExp: state.categoriesExp.categories,
     userUid: state.auth.user.uid,
     transactions: state.transactions.transactions
 })
