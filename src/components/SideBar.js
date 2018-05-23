@@ -44,7 +44,7 @@ const SideBar = (props) => (
 
     >
         <center><img src={wallet} style={imgstyle} alt="Fatcash Logo"/></center>
-        <Divider/>
+
         <MyClock/>
         <Divider/>
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/'}><MenuItem style={menuitemstyl}><FontIcon
