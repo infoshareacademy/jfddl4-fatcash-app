@@ -6,6 +6,7 @@ import wallet from '../../src/img/wallet.png';
 import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
 import MyClock from './Clock'
+
 const imgstyle ={
     marginTop:'5vh',
     marginBottom:'5vh'
@@ -13,7 +14,7 @@ const imgstyle ={
 const menuitemstyl={
     fontSize:16,
     fontWeight:500,
-    textShadow:"0px 1px lightgray",
+    textShadow:"0px 1px white",
 
 }
 
@@ -30,7 +31,7 @@ const linkstyles = {
     background: '#f3f3f5',
 };
 const draverstyle = {
-    backgroundColor: "#CCDCE5"}
+    backgroundColor: "white"}
 
 
 const SideBar = (props) => (
@@ -39,7 +40,7 @@ const SideBar = (props) => (
         docked={false}
         open={props.isSideBarOpen}
         onRequestChange={props.onRequestSideBarChange}
-        width={250}
+        width={260}
         containerStyle={draverstyle}
 
     >
@@ -67,6 +68,7 @@ const SideBar = (props) => (
             color={'#3aa1ba'}>search</FontIcon>Cattegory
             List</MenuItem></Link>
         <Divider/>
+
 
     </Drawer>
 

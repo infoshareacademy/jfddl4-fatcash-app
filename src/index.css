@@ -7,7 +7,7 @@ body {
 .clockclass {
   font-size: 2.5vh;
   font-weight: 500;
-  color: white;
+  color: black;
   font-family:Helvetica, sans-serif;
   margin:auto;
   -webkit-text-stroke-width: 0.1px;
@@ -18,7 +18,7 @@ body {
 
 .dateclass {
   font-size: 1.3vh;
-  color: white;
+  color: black;
   font-family:Helvetica, sans-serif;
   margin:auto;
 }

@@ -9,6 +9,7 @@
     "material-ui-pagination": "^1.1.6",
     "moment": "^2.22.1",
     "react": "^16.3.2",
+    "react-calendar": "^2.14.0",
     "react-dom": "^16.3.2",
     "react-flexbox-grid": "^2.1.0",
     "react-form": "^3.5.5",
