@@ -62,10 +62,10 @@ const SideBar = (props) => (
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/add-category'}><MenuItem style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
             color={'#3aa1ba'}>input</FontIcon>Add
-            Cattegory</MenuItem></Link>
+            Category</MenuItem></Link>
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/category-list'}><MenuItem style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>search</FontIcon>Cattegory
+            color={'#3aa1ba'}>search</FontIcon>Category
             List</MenuItem></Link>
         <Divider/>
 
