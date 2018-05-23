@@ -13,14 +13,25 @@ const DataChart = (props) => {
     const expences = props.transactions.filter((el, i, arr) => el.income === false)
 
 
-    const expencesValues = expences.map((el, i, arr) => el.value)
+    const expencesValues = expences.filter((el, i, arr) => el.date>Date.now()-86400000).map((el, i, arr) => el.value) // filter by 24h
     const incomesValues = incomes.map((el, i, arr) => el.value)
 
-    props.transactions.reduce(function (previousValue, currentValue, index, array) {
+    const incomesSum = incomesValues.reduce(function (previousValue, currentValue, index, array) {
         return previousValue + currentValue;
 
 
     }, 0);
+
+    const expencesSum = expencesValues.reduce(function (previousValue, currentValue, index, array) {
+        return previousValue + currentValue;
+
+
+    }, 0);
+
+    const expencesAndIncomes = [{value: incomesSum, color:'green', name:'Incomes'}, {value: expencesSum, color:'red', name:'Expences'}]
+
+
+console.log(expencesAndIncomes)
 
     return (
         <div>
@@ -28,13 +39,14 @@ const DataChart = (props) => {
             {incomes.length>0 ?
                 <PieChart  width={320} height={320}>
                     <Pie
-                        data={incomes}
+                        data={expencesAndIncomes}
                         dataKey="value"
+                        nameKey="name"
 
                     >
                         {
-                            incomes.map((value, index) => (
-                                <Cell key={`cell-${index}`} fill={'red'}/>
+                            expencesAndIncomes.map((value, index) => (
+                                <Cell key={`cell-${value.value}`} fill={value.color}/>
                             ))
                         }
                     </Pie>
