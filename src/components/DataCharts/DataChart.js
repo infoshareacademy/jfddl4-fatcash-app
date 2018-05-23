@@ -30,6 +30,11 @@ class DataChart extends React.Component {
             timeDifference: 86400000 * 30,
         });
     };
+    clickForAll = () => {
+        this.setState({
+            timeDifference: 0,
+        });
+    };
 
     getElementsWithDateLowerThanCurrentDate = (el, i, arr) => {
         if (this && this.state.timeDifference === 0) {
@@ -128,6 +133,13 @@ class DataChart extends React.Component {
                     fullWidth={true}
                     primary={true}
                     label={"Click for 30 days "}
+                    // disabled={value && category ? false : true}
+                />
+                <RaisedButton
+                    onClick={this.clickForAll}
+                    fullWidth={true}
+                    primary={true}
+                    label={"Click for all days "}
                     // disabled={value && category ? false : true}
                 />
 
