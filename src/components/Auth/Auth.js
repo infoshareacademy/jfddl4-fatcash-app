@@ -4,18 +4,18 @@ import {logInByGoogle} from "../../state/auth";
 import LogInByGoogle from "./LogInByGoogle";
 
 const Auth = (props) => (
-            <div>
-                {
-                    props.isUserLoggedIn ?
+    <div>
+        {
+            props.isUserLoggedIn ?
                 props.children
-                        :
-                        <LogInByGoogle
-                        onLogInHandler = {props.logInByGoogle}
+                :
+                <LogInByGoogle
+                    onLogInHandler = {props.logInByGoogle}
 
-                        />
-                }
-            </div>
-        );
+                />
+        }
+    </div>
+);
 
 
 
