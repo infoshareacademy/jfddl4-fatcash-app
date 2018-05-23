@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 
 class AddOperation extends React.Component {
     state = {
-      //  --------------------------For save transaction
+        //  --------------------------For save transaction
         category: "",
         date: "",
         description: "",

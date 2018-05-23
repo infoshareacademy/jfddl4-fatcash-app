@@ -16,12 +16,10 @@ const styles = {
         marginBottom: 10,
     },
 };
-
 const style = {
     margin: 15,
     marginLeft: 50,
 };
-
 class AddCategory extends React.Component {
     state = {
         selectedKindOfCategory: 'exp',
@@ -60,7 +58,7 @@ class AddCategory extends React.Component {
     render() {
         return (
             <div>
-                <Paper zDepth={3} rounded={true}>
+                <Paper style={styles} zDepth={3} rounded={true}>
                 <RadioButtonGroup
                     name="shipSpeed"
                     defaultSelected="exp"
