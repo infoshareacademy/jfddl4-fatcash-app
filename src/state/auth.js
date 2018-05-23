@@ -26,9 +26,9 @@ export const initAuthUserSync = () => (dispatch, getState) => {
             if (user) {
                 dispatch(loggedIn(user))
                 dispatch(logUserLogIn())
-                dispatch(initTransactionsSync())
                 dispatch(initCategoriesExpSync())
                 dispatch(initCategoriesIncomeSync())
+                dispatch(initTransactionsSync())
 
             } else {
                 dispatch(loggedOut())

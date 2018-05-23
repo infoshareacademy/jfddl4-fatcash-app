@@ -2,7 +2,7 @@ import React from 'react'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router-dom';
-import wallet from '../../src/img/wallet.png';
+import wallet from '../img/wallet.png';
 import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
 import MyClock from './Clock'

@@ -14,6 +14,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import FlatButton from 'material-ui/FlatButton';
 import {logOut} from "./state/auth";
 import {connect} from 'react-redux'
+import DataChart from "./components/DataCharts/DataChart";
 
 
 class App extends React.Component {
@@ -54,6 +55,7 @@ class App extends React.Component {
                         <Route path={'/add-new-operation'} component={AddOperation}/>
                         <Route exact path={'/category-list'} component={CategoryList}/>
                         <Route exact path={'/operation/:transactionId?'} component={AddOperation}/>
+                        <Route exact path={'/data-chart'} component={DataChart}/>
                     </div>
                 </Router>
 
