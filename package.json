@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "firebase": "^5.0.2",
+    "firebase": "^5.0.3",
     "material-design-icons": "^3.0.1",
     "material-ui": "^0.20.1",
     "material-ui-pagination": "^1.1.6",
