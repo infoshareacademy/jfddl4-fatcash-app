@@ -13,7 +13,7 @@ ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
             <Auth>
-            <App />
+                <App />
             </Auth>
         </MuiThemeProvider>
     </Provider>,
