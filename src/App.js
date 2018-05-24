@@ -15,6 +15,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {logOut} from "./state/auth";
 import {connect} from 'react-redux'
 import DataChart from "./components/DataCharts/DataChart";
+import FullOperationView from './components/OperationList/FullOperationView'
 
 
 class App extends React.Component {
@@ -54,7 +55,7 @@ class App extends React.Component {
                         <Route path={'/operation-list/:categoryId?'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
                         <Route exact path={'/category-list'} component={CategoryList}/>
-                        <Route exact path={'/operation/:transactionId?'} component={AddOperation}/>
+                        <Route exact path={'/operation/:transactionId?'} component={FullOperationView}/>
                         <Route exact path={'/data-chart'} component={DataChart}/>
                     </div>
                 </Router>
