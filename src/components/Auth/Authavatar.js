@@ -3,6 +3,12 @@ import ListItem from 'material-ui/List/ListItem';
 import React from 'react'
 import {connect} from "react-redux";
 
+const styleAvatar ={
+   margin:'0,auto'
+}
+
+
+
 class UserAvatar extends React.Component {
     // state = {
     //     photoURL: '',
@@ -22,20 +28,25 @@ class UserAvatar extends React.Component {
     // }
     render() {
         return (
-            <div>
+            <div><center>
                 <ListItem
                     disabled={true}
                     leftAvatar={
                         <Avatar
                             src={this.props.userPhotoUrl}
                             size={40}
-                            // style={style}
+                            style={styleAvatar}
                         />
                     }
                 >
+
+                </ListItem>
+                <ListItem>
                     <h5> Hello, {this.props.displayName ? this.props.displayName : 'User'} !</h5>
                 </ListItem>
+            </center>
             </div>
+
         );
     }
 
