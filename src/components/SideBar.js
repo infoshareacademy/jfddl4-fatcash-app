@@ -74,6 +74,11 @@ const SideBar = (props) => (
             className="material-icons" style={iconStyles}
             color={'#3aa1ba'}>search</FontIcon>Category
             List</MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/data-chart'}><MenuItem
+            style={menuitemstyl}><FontIcon
+            className="material-icons" style={iconStyles}
+            color={'#3aa1ba'}>star</FontIcon> Bilans chart
+            </MenuItem></Link>
         <Divider/>
 
 
