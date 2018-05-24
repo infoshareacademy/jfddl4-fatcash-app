@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {logInByEmail, logInByGoogle} from "../../state/auth";
 import LogInByGoogle from "./LogInByGoogle";
 import LogInByEmail from "./LogInByEmail";
-import CreateUser from '../../components/Auth/CreateUser'
+ import CreateUser from '../../components/Auth/CreateUser'
 
 
 const Auth = (props) => (

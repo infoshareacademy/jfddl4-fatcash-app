@@ -1,13 +1,16 @@
+import {auth} from "../firebase";
+
+
 const ADDEMAIL = 'createUser/ADDEMAIL';
 const ADDPASSWORD = 'createUser/ADDPASSWORD';
 const ADDRETYPEDPASSWORD = 'createUser/ADDRETYPEDPASSWORD';
+const SENDUSERTODATABASE = 'createUser/SENDUSERTODATABASE';
 
 
 export const addEmail = (email) => ({
     type: ADDEMAIL,
     email
 });
-
 export const addPassword = (password) => ({
     type: ADDPASSWORD,
     password
@@ -18,36 +21,48 @@ export const addRetypedPassword = (rpassword) => ({
     rpassword
 });
 
+export const sendUserToDatabase = () => ({
+    type: SENDUSERTODATABASE,
 
-
+});
 
 const initialState = {
     email: "",
     password: "",
     retypedPassword: ""
 };
-
-export default (state=initialState,action)=>{
+export default (state = initialState, action) => {
 
     switch (action.type) {
         case ADDEMAIL:
             return {
                 ...state,
-                email:action.email
-            }
+                email: action.email
+            };
         case ADDPASSWORD:
             return {
                 ...state,
-                password:action.password
-
-            }
+                password: action.password
+            };
         case ADDRETYPEDPASSWORD:
             return {
                 ...state,
-                retypedPassword:action.rpassword
-            }
-            default:
-            return state
+                retypedPassword: action.rpassword
+            };
+        case SENDUSERTODATABASE:
 
+            if(state.password!==state.retypedPassword)
+            {
+                alert("Please type the same password")
+                return state
+            }
+
+            return (
+                auth.createUserWithEmailAndPassword(state.email, state.password)
+            );
+
+        default:
+            return state
     }
 }
+
