@@ -63,7 +63,7 @@ class AddOperation extends React.Component {
     render() {
 
         return (
-            <Paper style={{margin: "10px", padding: '10px'}}>
+            <Paper style={{margin: "20px", padding: '20px'}}>
 
                     <Controls
                         newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
