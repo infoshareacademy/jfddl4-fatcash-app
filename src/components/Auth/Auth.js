@@ -1,7 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {logInByGoogle} from "../../state/auth";
+import {logInByEmail, logInByGoogle} from "../../state/auth";
 import LogInByGoogle from "./LogInByGoogle";
+import LogInByEmail from "./LogInByEmail";
+// import LogInByEmailAndPassword from './LoginByEmailAndPassword'
 
 const Auth = (props) => (
     <div>
@@ -9,16 +11,18 @@ const Auth = (props) => (
             props.isUserLoggedIn ?
                 props.children
                 :
-                <LogInByGoogle
-                    onLogInHandler = {props.logInByGoogle}
+                <div>
+                    <LogInByEmail
+                        onLogInHandler={props.logInByEmail}
+                    />
+                    <LogInByGoogle
+                        onLogInHandler={props.logInByGoogle}
 
-                />
+                    />
+                </div>
         }
     </div>
 );
-
-
-
 
 
 const mapStateToProps = state => ({
@@ -26,7 +30,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    logInByGoogle: () => dispatch(logInByGoogle())
+    logInByGoogle: () => dispatch(logInByGoogle()),
+    logInByEmail: (email, password) => dispatch(logInByEmail(email, password))
 
 })
 
