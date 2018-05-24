@@ -3,7 +3,8 @@ import {connect} from 'react-redux';
 import {logInByEmail, logInByGoogle} from "../../state/auth";
 import LogInByGoogle from "./LogInByGoogle";
 import LogInByEmail from "./LogInByEmail";
-// import LogInByEmailAndPassword from './LoginByEmailAndPassword'
+import CreateUser from '../../components/Auth/CreateUser'
+
 
 const Auth = (props) => (
     <div>
@@ -19,6 +20,7 @@ const Auth = (props) => (
                         onLogInHandler={props.logInByGoogle}
 
                     />
+                    <CreateUser/>
                 </div>
         }
     </div>
