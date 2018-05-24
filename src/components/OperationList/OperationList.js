@@ -3,9 +3,10 @@ import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
-import ListItemForOperationList from '../AddOperation/ListItemForOperationList'
+import ListItemForOperationList from './ListItemForOperationList'
 import Search from './Search'
 import {connect} from 'react-redux'
+import FullOperationView from './FullOperationView'
 
 
 const ITEMS_PER_PAGE = 5
@@ -70,8 +71,6 @@ class OperationList extends React.Component {
                             )).map((transaction) => {
                                 const categories = this.props.categoriesInc.concat(this.props.categoriesExp)
                                 const categoryOfTransaction = categories.find(category => category.key === transaction.category)
-console.log(filteredTransaction)
-
                                 return <ListItemForOperationList
                                     k={transaction.key}
                                     category={categoryOfTransaction ? categoryOfTransaction.name : ''}
@@ -83,6 +82,7 @@ console.log(filteredTransaction)
                             }
                         )
                     }
+
                     <Divider/>
                     <Pagination
                         total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}
@@ -92,13 +92,7 @@ console.log(filteredTransaction)
                     />
 
                     <Divider/>
-
-
-
                 </div>
-
-
-
         )
     }
 }

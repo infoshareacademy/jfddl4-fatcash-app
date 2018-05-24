@@ -3,8 +3,10 @@ import {mapObjectToArray, transactionFilterAndMap} from '../../utils'
 import Controls from "./Controls";
 import Snackbar from 'material-ui/Snackbar';
 import MenuItem from 'material-ui/MenuItem'
+import Paper from 'material-ui/Paper'
 import moment from "moment/moment";
 import {connect} from "react-redux";
+import categoriesIncome from "../../state/categoriesIncome";
 
 
 class AddOperation extends React.Component {
@@ -47,7 +49,7 @@ class AddOperation extends React.Component {
                             date: Date.now(),
                             description: this.state.description,
                             income: this.state.income,
-                            value: this.state.value*1,
+                            value: this.state.value * 1,
                             image: this.state.image
                         }
                     )
@@ -58,17 +60,11 @@ class AddOperation extends React.Component {
                 })
             })
     }
-
-
     render() {
 
         return (
+            <Paper style={{margin: "10px", padding: '10px'}}>
 
-
-            <div style={{margin: "20px"}}>
-
-
-                {this.state.transactionId.length === 0 ?
                     <Controls
                         newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
                         newImageHandler={(e, val) => this.newOperationHandler('image', val)}
@@ -84,24 +80,13 @@ class AddOperation extends React.Component {
                         value={this.state.value}
                         image={this.state.image}
                     />
-                    :
-
-                    this.props.transactions.filter((el, i, arr) =>
-                        (this.state.transactionId === el.key))
-                        .map((el, i, arr) => {
-                            return <MenuItem>{el.description} {el.income}<img src={el.image} alt={"logo"}/> {el.category}{moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}</MenuItem>
-
-
-                        })
-                }
-
                 <Snackbar
                     open={this.state.open}
                     message="  Operation succesfully added to your list"
                     autoHideDuration={4000}
                     onRequestClose={this.handleRequestClose}
                 />
-            </div>
+            </Paper>
         )
     }
 }
