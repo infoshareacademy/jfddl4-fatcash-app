@@ -9,8 +9,8 @@ import MyClock from './Clock'
 import UserAvatar from '../../src/components/Auth/Authavatar'
 
 const imgstyle = {
-    marginTop: '5vh',
-    marginBottom: '5vh'
+    marginTop: '3vh',
+    marginBottom: '3vh'
 }
 const menuitemstyl = {
     fontSize: 16,
