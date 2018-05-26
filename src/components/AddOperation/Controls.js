@@ -23,6 +23,9 @@ const Controls = ({
 
                   }) => (
     <div>
+
+        <h2>Add new operation</h2>
+        <br/>
         <RadioButtonGroup
             name="shipSpeed"
             defaultSelected={true}

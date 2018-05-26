@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: beige;
 }
 
 .App-logo {
@@ -19,7 +20,7 @@
 }
 
 .App-intro {
-  font-size: large;
+  font-size: medium;
 }
 
 @keyframes App-logo-spin {
@@ -27,8 +28,8 @@
   to { transform: rotate(360deg); }
 }
 
-.sidebar-custom div:nth-child(1){
-    background-image: url("./img/photo.jpg");
-  background-size: cover;
-
+.clockclass {
+  font-size: 2vh;
+  color: white;
+  font-family:Arial, Helvetica, sans-serif;
 }

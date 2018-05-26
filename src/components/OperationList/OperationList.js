@@ -1,92 +1,21 @@
 import React from 'react'
-import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
-import {mapObjectToArray} from '../../utils'
-
-import ItemFromList from './ItemFromList'
+import ListItemForOperationList from './ListItemForOperationList'
 import Search from './Search'
-
 import {connect} from 'react-redux'
+import FullOperationView from './FullOperationView'
+
 
 const ITEMS_PER_PAGE = 5
 
 class OperationList extends React.Component {
     state = {
         valueRange: {min: 0, max: 5000},
-        // valueDrop: this.props.match.params.categoryId || '',
-        // valueDrop: {inc: this.props.match.params.categoryId || 1, exp: this.props.match.params.categoryId || 1,},
-        valueDropInc: this.props.match.params.categoryId || 1,
-        valueDropExp: this.props.match.params.categoryId || 1,
-        valueDrop: this.props.match.params.categoryId || '',
-        transactions: [],
-        category: "",
-        date: "",
-        description: "",
-        income: "",
-        value: "",
-        categories: [],
-        categoriesExp: [],
-        categoriesInc: [],
-        dialog: {
-            open: false,
-            category: '',
-            description: ''
-        },
+        valueDrop: this.props.match.params.categoryId || "",
         currentPage: 0
-    }
-
-    componentDidMount() {
-        // this.loadTransaction()
-        this.loadCategoriesExp()
-        this.loadCategoriesInc()
-    }
-
-    loadCategoriesExp = () => {
-        fetch('https://fatcash-app.firebaseio.com/categories/exp/.json')
-            .then(r => r.json())
-            .then((data) => {
-                const categoriesExpInArray = mapObjectToArray(data)
-
-                this.setState({
-                    categoriesExp: categoriesExpInArray,
-                    name: ""
-                })
-            })
-    }
-
-    loadCategoriesInc = () => {
-        fetch('https://fatcash-app.firebaseio.com/categories/income/.json')
-            .then(r => r.json())
-            .then((data) => {
-                const categoriesIncInArray = mapObjectToArray(data)
-
-                this.setState({
-                    categoriesInc: categoriesIncInArray,
-                    name: ""
-                })
-            })
-    }
-
-    handleOpen = (el) => {
-        this.setState({
-            dialog: {
-                open: true,
-                category: el.category,
-                description: el.description
-            }
-        })
-    }
-
-    handleClose = () => {
-        this.setState({
-            dialog: {
-                open: false,
-
-            }
-        })
     }
 
     handleText = (e, value) => {
@@ -100,25 +29,22 @@ class OperationList extends React.Component {
     handleChange = (event, index, valueDrop) => (this.setState({valueDrop}));
 
     render() {
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onClick={this.handleClose}
-            />
-        ]
 
-        const filteredTransaction = this.props.transactions && this.props.transactions.filter(task => (
+
+        const filteredTransaction =  this.props.transactions && this.props.transactions.filter(task => (
             (this.state.valueDrop ? task.category === this.state.valueDrop : true)
             &&
             task.value >= this.state.valueRange.min
             &&
             task.value <= this.state.valueRange.max
             &&
-            task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
-        ))
+            task.description.toLowerCase().indexOf(task.description.toLowerCase()) !== -1
+
+        )
+    )
 
         const filteredTransactionLength = filteredTransaction && filteredTransaction.length
+
 
         return (
             !filteredTransaction ?
@@ -130,38 +56,34 @@ class OperationList extends React.Component {
                         handleText={this.handleText}
                         handleRange={this.handleRange}
                         valueRange={this.state.valueRange}
-                        valueDropInc={this.state.valueDropInc}
-                        valueDropExp={this.state.valueDropExp}
-                        categoriesInc={this.state.categoriesInc}
-                        categoriesExp={this.state.categoriesExp}
+                        valueDrop={this.state.valueDrop}
+                        categoriesInc={this.props.categoriesInc}
+                        categoriesExp={this.props.categoriesExp}
                     />
-
                     <br/>
-
                     <Divider/>
-
                     {
                         filteredTransaction
                             .filter((el, i) => (
                                 i >= this.state.currentPage * ITEMS_PER_PAGE
                                 &&
                                 i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
-                            ))
-                            .map((transaction) => {
-                                    const categories = this.state.categoriesInc.concat(this.state.categoriesExp)
-                                    const categoryOfTransaction = categories.find(category => category.key === transaction.category)
+                            )).map((transaction) => {
+                                const categories = this.props.categoriesInc.concat(this.props.categoriesExp)
+                                const categoryOfTransaction = categories.find(category => category.key === transaction.category)
+                                return <ListItemForOperationList
+                                    k={transaction.key}
+                                    category={categoryOfTransaction ? categoryOfTransaction.name : ''}
+                                    cash={transaction.value}
+                                    date={transaction.date}
+                                >
+                                </ListItemForOperationList>
 
-                                    return <ItemFromList
-                                        el={transaction}
-                                        categoryName={categoryOfTransaction ? categoryOfTransaction.name : ''}
-                                        handleOpen={this.handleOpen}
-                                    />
-                                }
-                            )
+                            }
+                        )
                     }
 
                     <Divider/>
-
                     <Pagination
                         total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}
                         current={this.state.currentPage + 1}
@@ -170,26 +92,14 @@ class OperationList extends React.Component {
                     />
 
                     <Divider/>
-
-                    <Dialog
-                        title={this.state.dialog.category}
-                        actions={actions}
-                        modal={false}
-                        open={this.state.dialog.open}
-                        onRequestClose={this.handleClose}
-                    >
-
-                        {this.state.dialog.description}
-
-                    </Dialog>
-
-
                 </div>
         )
     }
 }
 
 const mapStateToProps = state => ({
+    categoriesInc: state.categoriesIncome.categories,
+    categoriesExp: state.categoriesExp.categories,
     transactions: state.transactions.transactions
 })
 

@@ -3,21 +3,23 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Snackbar from 'material-ui/Snackbar';
+import Paper from 'material-ui/Paper';
+import {connect} from "react-redux";
+
 const styles = {
     block: {
         maxWidth: 250,
     },
     radioButton: {
+        marginTop:30,
         marginLeft: 50,
-        marginBottom: 16,
+        marginBottom: 10,
     },
 };
-
 const style = {
-    margin: 10,
+    margin: 15,
     marginLeft: 50,
 };
-
 class AddCategory extends React.Component {
     state = {
         selectedKindOfCategory: 'exp',
@@ -32,7 +34,7 @@ class AddCategory extends React.Component {
     };
 
     saveNewCategory = () => {
-        fetch('https://fatcash-app.firebaseio.com/categories/' + this.state.selectedKindOfCategory + '/.json', {
+        fetch(`https://fatcash-app.firebaseio.com/users/${this.props.userUid}/categories/` + this.state.selectedKindOfCategory + '/.json', {
                 method: 'POST',
                 body: JSON.stringify({
                     name: this.state.newCategoryName
@@ -56,6 +58,7 @@ class AddCategory extends React.Component {
     render() {
         return (
             <div>
+                <Paper style={styles} zDepth={3} rounded={true}>
                 <RadioButtonGroup
                     name="shipSpeed"
                     defaultSelected="exp"
@@ -93,10 +96,19 @@ class AddCategory extends React.Component {
                     autoHideDuration={4000}
                     onRequestClose={this.handleRequestClose}
                 />
+                </Paper>
             </div>
         )
     }
 
 }
 
-export default AddCategory;
+
+const mapStateToProps = state => ({
+    userUid: state.auth.user.uid,
+    transactions: state.transactions.transactions
+})
+
+export default connect(
+    mapStateToProps
+)(AddCategory)

@@ -8,6 +8,15 @@ import Dashboard from './components/Dashboard'
 import AddCategory from './components/AddCategory'
 import ShareButton from './components/Share'
 import CategoryList from './components/CategoryList/CategoryList'
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import FlatButton from 'material-ui/FlatButton';
+import {logOut} from "./state/auth";
+import {connect} from 'react-redux'
+import DataChart from "./components/DataCharts/DataChart";
+import FullOperationView from './components/OperationList/FullOperationView'
+
 
 class App extends React.Component {
 
@@ -24,10 +33,14 @@ class App extends React.Component {
     render() {
         return (
             <div>
+                <MuiThemeProvider>
                 <AppBar
-                    title="FatCash App - save money with us"
+                    title="Fatcash web application - save money with us"
                     onLeftIconButtonClick={this.drawerBtnClickHandler}
+                    onRightIconButtonClick={this.props.logOut}
+                    iconElementRight={<FlatButton label="Logout"/>}
                 />
+                </MuiThemeProvider>
                 <ShareButton />
 
                 <Router>
@@ -42,6 +55,8 @@ class App extends React.Component {
                         <Route path={'/operation-list/:categoryId?'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
                         <Route exact path={'/category-list'} component={CategoryList}/>
+                        <Route exact path={'/operation/:transactionId?'} component={FullOperationView}/>
+                        <Route exact path={'/data-chart'} component={DataChart}/>
                     </div>
                 </Router>
 
@@ -50,4 +65,19 @@ class App extends React.Component {
     }
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {};
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        logOut: () => dispatch(logOut())
+    }
+
+};
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(App);
