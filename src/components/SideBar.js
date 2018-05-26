@@ -9,8 +9,10 @@ import MyClock from './Clock'
 import UserAvatar from '../../src/components/Auth/Authavatar'
 
 const imgstyle = {
-    marginTop: '2vh',
-    marginBottom: '2vh'
+
+    maxWidth: '20%',
+    marginLeft: '2vh'
+
 }
 const menuitemstyl = {
     fontSize: 16,
@@ -43,9 +45,12 @@ const SideBar = (props) => (
         width={260}
         containerStyle={draverstyle}
     >
+        {/*<h2 style={{}}><img src={wallet} style={imgstyle} alt="Fatcash Logo"/>FATCASH</h2>*/}
+
+        {/*<Divider/>*/}
         <UserAvatar/>
         <Divider/>
-        <center><img src={wallet} style={imgstyle} alt="Fatcash Logo"/></center>
+
         <MyClock/>
         <Divider/>
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/'}><MenuItem
