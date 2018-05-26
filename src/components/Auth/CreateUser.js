@@ -7,8 +7,6 @@ import {addEmail, addPassword, addRetypedPassword,sendUserToDatabase} from "../.
 const CreateUser = (props) => (
 
     <div>
-        <h1>{props.email}</h1>
-
         <TextField
             onChange={props.onCreateEmailHandler}
             name={"email"}
