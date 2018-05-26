@@ -4,6 +4,7 @@ import InputRange from 'react-input-range'
 import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
+import RaisedButton from 'material-ui/RaisedButton'
 
 const Search = (props) => (
     <div style={{border: '30px solid #f3f3f5'}}>
@@ -92,6 +93,19 @@ const Search = (props) => (
                     )
                 )}
             </DropDownMenu>
+
+            <RaisedButton
+                buttonStyle={{
+                    backgroundColor: '#f3f3f5',
+                }}
+
+                style={{
+                    backgroundColor: '#f3f3f5',
+                    margin: '13px 0px 0px 0px'
+
+                }}
+                label={'All categories'}
+            />
         </div>
     </div>
 

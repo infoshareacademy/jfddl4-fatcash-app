@@ -14,8 +14,10 @@ const ITEMS_PER_PAGE = 5
 class OperationList extends React.Component {
     state = {
         valueRange: {min: 0, max: 5000},
-        valueDrop: this.props.match.params.categoryId || "",
-        currentPage: 0
+        valueDropInc: this.props.match.params.categoryInc || 1,
+        valueDropExp: this.props.match.params.categoryExp || 1,
+        currentPage: 0,
+        description: ''
     }
 
     handleText = (e, value) => {
@@ -32,8 +34,10 @@ class OperationList extends React.Component {
 
 
         const filteredTransaction =  this.props.transactions && this.props.transactions.filter(task => (
-            (this.state.valueDrop ? task.category === this.state.valueDrop : true)
-            &&
+            // (this.state.valueDropInc ? task.category === this.state.valueDropInc : true)
+            // &&
+            // (this.state.valueDropExp ? task.category === this.state.valueDropExp : true)
+            // &&
             task.value >= this.state.valueRange.min
             &&
             task.value <= this.state.valueRange.max
@@ -56,7 +60,8 @@ class OperationList extends React.Component {
                         handleText={this.handleText}
                         handleRange={this.handleRange}
                         valueRange={this.state.valueRange}
-                        valueDrop={this.state.valueDrop}
+                        valueDropInc={this.state.valueDropInc}
+                        valueDropExp={this.state.valueDropExp}
                         categoriesInc={this.props.categoriesInc}
                         categoriesExp={this.props.categoriesExp}
                     />
