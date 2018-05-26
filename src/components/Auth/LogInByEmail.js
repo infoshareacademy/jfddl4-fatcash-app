@@ -31,13 +31,14 @@ class LoginByEmail extends React.Component {
                 <TextField
 
                     onChange={this.onLoginHandler}
-
+                    name={"login"}
 
                 />
                 <TextField
 
                     onChange={this.onPasswordHandler}
-
+                    name={"pass"}
+                    placeholder
 
                 />
 
