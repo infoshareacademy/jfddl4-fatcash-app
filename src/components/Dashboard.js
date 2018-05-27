@@ -52,6 +52,8 @@ const data1 = [
 
 ];
 const Dashboard = (props) => {
+    console.log(props.logins)
+
     return (
         <div>
             <h1>Dashboard</h1>
@@ -103,7 +105,7 @@ const Dashboard = (props) => {
 
 const mapStateToProps=(state)=>({
 
-    logins:state.numberOfLogins.logins,
+    logins:state.numberOfLogins,
     transact:state.transactions.transactions
 
 })
