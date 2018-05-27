@@ -123,9 +123,9 @@ const Controls = ({
 
         <br/>
 
-        <br/>
-        {imageLength>0 ? <div>We uploaded your image succesfully. </div> : false}
-        <br/>
+        <div>
+        {imageLength>0 ? 'We uploaded your image succesfully.' : "You didn't upload image, yet...."}
+    </div> <br/>
         <RaisedButton
             onClick={saveTaskToDatabase}
             fullWidth={true}

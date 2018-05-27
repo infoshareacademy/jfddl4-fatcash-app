@@ -72,7 +72,7 @@ class DataChart extends React.Component {
             <Paper style={{margin: "20px", padding: '20px'}}>
                 <h2> Bilans chart</h2>
                 {
-                    expencesAndIncomes[0].value > 0 && expencesAndIncomes[1].value > 0 ?
+                    expencesAndIncomes[0].value > 0 || expencesAndIncomes[1].value > 0 ?
                     <PieChart style={styles.pie} width={320} height={320}>
                         <Pie
                             data={expencesAndIncomes}
