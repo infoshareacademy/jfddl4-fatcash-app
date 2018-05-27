@@ -14,7 +14,7 @@ export const loggedOut = () => ({type: LOGGED_OUT})
 const logUserLogIn = () => (dispatch, getState) => {
     const userUid = getState().auth.user.uid
 
-    database.ref(`/users/loginLogs`)
+    database.ref(`/users/${userUid}/loginsLogs`)
         .push({
             timestamp: Date.now()
         })
@@ -30,6 +30,8 @@ export const initAuthUserSync = () => (dispatch, getState) => {
                 dispatch(initCategoriesExpSync())
                 dispatch(initCategoriesIncomeSync())
                 dispatch(initTransactionsSync())
+                dispatch(initNumberOfLogins())
+
 
 
             } else {
