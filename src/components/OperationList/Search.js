@@ -5,6 +5,7 @@ import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
 import RaisedButton from 'material-ui/RaisedButton'
+import {connect} from "react-redux";
 
 const Search = (props) => (
     <div style={{border: '30px solid #f3f3f5'}}>
@@ -17,7 +18,7 @@ const Search = (props) => (
         </div>
         <div style={{margin: '30px 25px 10px 25px'}}>
             <InputRange
-                maxValue={5000}
+                maxValue={Math.max.apply(null, props.transactions.map((i)=> (i.value)))}
                 minValue={0}
                 value={props.valueRange}
                 onChange={props.handleRange}
@@ -112,4 +113,12 @@ const Search = (props) => (
 )
 
 
-export default Search
+const mapStateToProps = state => ({
+    categoriesInc: state.categoriesIncome.categories,
+    categoriesExp: state.categoriesExp.categories,
+    transactions: state.transactions.transactions
+})
+
+export default connect(
+    mapStateToProps
+)(Search)

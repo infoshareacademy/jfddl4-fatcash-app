@@ -40,6 +40,13 @@ export const logInByGoogle = () => (dispatch, getState) => {
     auth.signInWithPopup(googleProvider)
 }
 
+export const logInByEmail = (email, password) => (dispatch) => {
+    // let email = 'test@test.pl';
+    // let password = 'password';
+
+    auth.signInWithEmailAndPassword(email, password);
+}
+
 export const logOut = () => (dispatch, getState) => {
     auth.signOut()
 }

@@ -11,7 +11,8 @@ const styles = {
         maxWidth: 250,
     },
     radioButton: {
-        marginTop:30,
+        paddingTop:10,
+        marginTop:10,
         marginLeft: 50,
         marginBottom: 10,
     },
@@ -58,7 +59,8 @@ class AddCategory extends React.Component {
     render() {
         return (
             <div>
-                <Paper style={styles} zDepth={3} rounded={true}>
+                <Paper style={{margin: "20px", padding: '20px'}} zDepth={3} rounded={true}>
+                    <h2>Add your own category</h2>
                 <RadioButtonGroup
                     name="shipSpeed"
                     defaultSelected="exp"

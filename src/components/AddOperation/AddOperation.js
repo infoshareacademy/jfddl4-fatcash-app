@@ -7,6 +7,7 @@ import Paper from 'material-ui/Paper'
 import moment from "moment/moment";
 import {connect} from "react-redux";
 import categoriesIncome from "../../state/categoriesIncome";
+import firebase from 'firebase';
 
 
 class AddOperation extends React.Component {
@@ -19,6 +20,7 @@ class AddOperation extends React.Component {
         value: "",
         image: '',
         name: "",
+        progress: '',
         // -------------------
         open: false, // for snackbar
         transactionId: this.props.match.params.transactionId || '' // for hyperlinks of operations
@@ -34,6 +36,18 @@ class AddOperation extends React.Component {
         this.setState({category: val})
     }
     newOperationHandler = (stateProperty, value) => this.setState({[stateProperty]: value})
+    handleProgress = (progress) => this.setState({progress});
+
+
+    handleUploadStart = () => this.setState({isUploading: true, progress: 0});
+
+    handleUploadError = (error) => {
+        this.setState({isUploading: false});
+    }
+    handleUploadSuccess = (filename) => {
+        this.setState({image: filename, progress: 100, isUploading: false});
+        firebase.storage().ref(`images`).child(filename).getDownloadURL().then(url => this.setState({image: url}));
+    };
 
     saveTaskToDatabase = () => {
 
@@ -63,7 +77,7 @@ class AddOperation extends React.Component {
     render() {
 
         return (
-            <Paper style={{margin: "10px", padding: '10px'}}>
+            <Paper style={{margin: "20px", padding: '20px'}}>
 
                     <Controls
                         newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
@@ -79,7 +93,15 @@ class AddOperation extends React.Component {
                         description={this.state.description}
                         value={this.state.value}
                         image={this.state.image}
+                        storageRef={firebase.storage().ref('images')}
+                        onUploadStart={this.handleUploadStart}
+                        onUploadError={this.handleUploadError}
+                        onUploadSuccess={this.handleUploadSuccess}
+                        onProgress={this.handleProgress}
+                        imageLength={this.state.image.length}
                     />
+
+
                 <Snackbar
                     open={this.state.open}
                     message="  Operation succesfully added to your list"

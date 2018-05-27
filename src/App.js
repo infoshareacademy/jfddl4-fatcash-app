@@ -16,6 +16,7 @@ import {logOut} from "./state/auth";
 import {connect} from 'react-redux'
 import DataChart from "./components/DataCharts/DataChart";
 import FullOperationView from './components/OperationList/FullOperationView'
+import ProfilePage from './components/AddOperation/AddPhoto'
 
 
 class App extends React.Component {
@@ -57,6 +58,7 @@ class App extends React.Component {
                         <Route exact path={'/category-list'} component={CategoryList}/>
                         <Route exact path={'/operation/:transactionId?'} component={FullOperationView}/>
                         <Route exact path={'/data-chart'} component={DataChart}/>
+                        <Route exact path={'/profile-page'} component={ProfilePage}/>
                     </div>
                 </Router>
 

@@ -22,3 +22,7 @@ body {
   font-family:Helvetica, sans-serif;
   margin:auto;
 }
+.avatardisplay {
+
+  justify-content: center;
+}

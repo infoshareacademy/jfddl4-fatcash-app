@@ -7,6 +7,8 @@ import ListItemForOperationList from './ListItemForOperationList'
 import Search from './Search'
 import {connect} from 'react-redux'
 import FullOperationView from './FullOperationView'
+import LinearProgress from 'material-ui/LinearProgress';
+
 
 
 const ITEMS_PER_PAGE = 5
@@ -14,8 +16,7 @@ const ITEMS_PER_PAGE = 5
 class OperationList extends React.Component {
     state = {
         valueRange: {min: 0, max: 5000},
-        valueDropInc: this.props.match.params.categoryInc || 1,
-        valueDropExp: this.props.match.params.categoryExp || 1,
+        valueDrop: this.props.match.params.categoryId || "",
         currentPage: 0,
         description: ''
     }
@@ -34,15 +35,13 @@ class OperationList extends React.Component {
 
 
         const filteredTransaction =  this.props.transactions && this.props.transactions.filter(task => (
-            // (this.state.valueDropInc ? task.category === this.state.valueDropInc : true)
-            // &&
-            // (this.state.valueDropExp ? task.category === this.state.valueDropExp : true)
-            // &&
+            (this.state.valueDrop ? task.category === this.state.valueDrop : true)
+            &&
             task.value >= this.state.valueRange.min
             &&
             task.value <= this.state.valueRange.max
             &&
-            task.description.toLowerCase().indexOf(task.description.toLowerCase()) !== -1
+            task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
 
         )
     )
@@ -52,7 +51,7 @@ class OperationList extends React.Component {
 
         return (
             !filteredTransaction ?
-                'Loading...'
+                <LinearProgress mode="indeterminate" />
                 :
                 <div>
                     <Search
@@ -60,8 +59,7 @@ class OperationList extends React.Component {
                         handleText={this.handleText}
                         handleRange={this.handleRange}
                         valueRange={this.state.valueRange}
-                        valueDropInc={this.state.valueDropInc}
-                        valueDropExp={this.state.valueDropExp}
+                        valueDrop={this.state.valueDrop}
                         categoriesInc={this.props.categoriesInc}
                         categoriesExp={this.props.categoriesExp}
                     />

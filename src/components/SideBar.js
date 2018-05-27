@@ -6,12 +6,13 @@ import wallet from '../img/wallet.png';
 import Divider from 'material-ui/Divider';
 import FontIcon from 'material-ui/FontIcon';
 import MyClock from './Clock'
-import Avatar from 'material-ui/Avatar';
-import ListItem from 'material-ui/List/ListItem';
+import UserAvatar from '../../src/components/Auth/Authavatar'
 
 const imgstyle = {
-    marginTop: '5vh',
-    marginBottom: '5vh'
+
+    maxWidth: '20%',
+    marginLeft: '2vh'
+
 }
 const menuitemstyl = {
     fontSize: 16,
@@ -37,7 +38,6 @@ const draverstyle = {
 
 const SideBar = (props) => (
 
-
     <Drawer
         docked={false}
         open={props.isSideBarOpen}
@@ -45,8 +45,11 @@ const SideBar = (props) => (
         width={260}
         containerStyle={draverstyle}
     >
+        {/*<h2 style={{}}><img src={wallet} style={imgstyle} alt="Fatcash Logo"/>FATCASH</h2>*/}
 
-        <center><img src={wallet} style={imgstyle} alt="Fatcash Logo"/></center>
+        {/*<Divider/>*/}
+        <UserAvatar/>
+        <Divider/>
 
         <MyClock/>
         <Divider/>
@@ -54,6 +57,12 @@ const SideBar = (props) => (
             style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
             color={'#3aa1ba'}>trending_up</FontIcon>Dashboard</MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/data-chart'}><MenuItem
+            style={menuitemstyl}><FontIcon
+            className="material-icons" style={iconStyles}
+            color={'#3aa1ba'}>star</FontIcon> Bilans chart
+        </MenuItem></Link>
+        <Divider/>
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/operation-list'}><MenuItem
             style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
@@ -64,21 +73,18 @@ const SideBar = (props) => (
             className="material-icons" style={iconStyles}
             color={'#3aa1ba'}>payment</FontIcon>Add
             Operation</MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/add-category'}><MenuItem
-            style={menuitemstyl}><FontIcon
-            className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>input</FontIcon>Add
-            Category</MenuItem></Link>
+        <Divider/>
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/category-list'}><MenuItem
             style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
             color={'#3aa1ba'}>search</FontIcon>Category
             List</MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/data-chart'}><MenuItem
+        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/add-category'}><MenuItem
             style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>star</FontIcon> Bilans chart
-            </MenuItem></Link>
+            color={'#3aa1ba'}>input</FontIcon>Add
+            Category</MenuItem></Link>
+
         <Divider/>
 
 
