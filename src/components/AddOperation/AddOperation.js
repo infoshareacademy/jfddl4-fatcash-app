@@ -70,7 +70,11 @@ class AddOperation extends React.Component {
                 }
             ).then(this.loadTransaction).then(() => {
                 this.setState({
-                    open: true
+                    open: true,
+                    value: '',
+                    description: ''
+
+
                 })
             })
     }
@@ -99,7 +103,7 @@ class AddOperation extends React.Component {
                         onUploadSuccess={this.handleUploadSuccess}
                         onProgress={this.handleProgress}
                         imageLength={this.state.image.length}
-                    />: false }
+                    />: <h2>To add new operations, you must have one income and expense category at least</h2> }
 
 
                 <Snackbar
