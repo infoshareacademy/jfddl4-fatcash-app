@@ -29,7 +29,8 @@ export const sendUserToDatabase = () => ({
 const initialState = {
     email: "",
     password: "",
-    retypedPassword: ""
+    retypedPassword: "",
+    warning: ""
 };
 export default (state = initialState, action) => {
 
@@ -51,16 +52,18 @@ export default (state = initialState, action) => {
             };
         case SENDUSERTODATABASE:
 
-            if(state.password!==state.retypedPassword)
-            {
+            if (state.password !== state.retypedPassword) {
                 alert("Please type the same password")
                 return state
             }
+            else if (!state.email || !state.password || !state.retypedPassword) {
+                alert("Please fill all fields")
+                return state
+            }
+            else {
 
-            return (
-                auth.createUserWithEmailAndPassword(state.email, state.password)
-            );
-
+                return auth.createUserWithEmailAndPassword(state.email, state.password)
+            }
         default:
             return state
     }

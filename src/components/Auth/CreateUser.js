@@ -7,23 +7,29 @@ import {addEmail, addPassword, addRetypedPassword,sendUserToDatabase} from "../.
 const CreateUser = (props) => (
 
     <div>
+
+        <h1>{props.warn}</h1>
+
         <TextField
             onChange={props.onCreateEmailHandler}
             name={"email"}
             placeholder={"Type Your email"}
+
         />
         <TextField
             onChange={props.onCreatePasswordHandler}
             name={"password"}
             placeholder={"Type Your password"}
+            type={'password'}
         />
         <TextField
             onChange={props.onCreateRetypedPasswordHandler}
             name={"retypedpassword"}
             placeholder={"Retype Your password"}
+            type={'password'}
         />
         <RaisedButton
-            label={"Create User"}
+            label={"Create User and login"}
             primary={true}
             onClick={props.sendUser}
         />
@@ -32,8 +38,8 @@ const CreateUser = (props) => (
 
 const mapStateToProps = (state) => ({
 
-    email: state.createUser.email
-
+    email: state.createUser.email,
+    warn:state.createUser.warning
 })
 
 const mapDispatchToProps = (dispatch) => ({
