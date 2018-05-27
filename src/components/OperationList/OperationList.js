@@ -7,6 +7,7 @@ import Search from './Search'
 import {connect} from 'react-redux'
 import FullOperationView from './FullOperationView'
 import LinearProgress from 'material-ui/LinearProgress';
+import Paper from 'material-ui/Paper';
 
 
 
@@ -74,6 +75,7 @@ class OperationList extends React.Component {
                         categoriesExp={this.props.categoriesExp}
                     />
                     <br/>
+                    <Paper>
                     <Divider/>
                     {
                         filteredTransaction
@@ -81,10 +83,11 @@ class OperationList extends React.Component {
                                 i >= this.state.currentPage * ITEMS_PER_PAGE
                                 &&
                                 i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
-                            )).map((transaction) => {
+                            )).map((transaction, i) => {
                                 const categories = this.props.categoriesInc.concat(this.props.categoriesExp)
                                 const categoryOfTransaction = categories.find(category => category.key === transaction.category)
                                 return <ListItemForOperationList
+                                    key={i}
                                     k={transaction.key}
                                     category={categoryOfTransaction ? categoryOfTransaction.name : ''}
                                     cash={transaction.value}
@@ -104,6 +107,7 @@ class OperationList extends React.Component {
                     />
 
                     <Divider/>
+                    </Paper>
                 </div>
         )
     }
