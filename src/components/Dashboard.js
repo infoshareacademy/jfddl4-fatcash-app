@@ -2,6 +2,8 @@ import React from 'react'
 import {PieChart, Pie, Tooltip, BarChart, Bar, CartesianGrid, XAxis, YAxis, Cell} from 'recharts'
 import {Row, Col} from 'react-flexbox-grid'
 import Paper from 'material-ui/Paper';
+import {connect} from 'react-redux'
+
 
 const styles = {
     pie: {
@@ -49,58 +51,71 @@ const data1 = [
     }
 
 ];
-const Dashboard = () => {
+const Dashboard = (props) => {
     return (
         <div>
             <h1>Dashboard</h1>
-        <Paper zDepth={3} rounded={true}>
-        <Row>
-            <Col xs={12} sm={6}>
-                <PieChart style={styles.pie} width={320} height={320}>
-                    <Pie
-                        data={data1}
-                        dataKey="value"
-                        nameKey="name"
+            <Paper zDepth={3} rounded={true}>
+                <Row>
+                    <Col xs={12} sm={6}>
+                        <PieChart style={styles.pie} width={320} height={320}>
+                            <Pie
+                                data={props.logins}
+                                dataKey="value"
+                                nameKey="name"
 
-                    >
-                        {
-                            data1.map((value, index) => (
-                                <Cell key={`cell-${index}`} fill={value.color}/>
-                            ))
-                        }
-                    </Pie>
-                    <Tooltip/>
-                </PieChart>
-            </Col>
+                            >
+                                {
+                                    data1.map((value, index) => (
+                                        <Cell key={`cell-${index}`} fill={'red'}/>
+                                    ))
+                                }
+                            </Pie>
+                            <Tooltip/>
+                        </PieChart>
+                    </Col>
 
-            <Col xs={12} sm={6}>
+                    <Col xs={12} sm={6}>
 
+                        <BarChart width={320} height={320} data={props.logins}>
+                            <CartesianGrid strokeDasharray="3 3"/>
+                            <XAxis dataKey="name"/>
+                            <YAxis/>
 
-                <BarChart width={320} height={320} data={data}>
-                    <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="name"/>
-                    <YAxis/>
+                            <Bar label={true} dataKey="value" fill="#8884d8">
+                                {
 
-                    <Bar label={true} dataKey="value" fill="#8884d8">
-                        {
+                                    data.map((value, index) => (
+                                        <Cell key={`cell-${index}`} fill={value.color}/>
+                                    ))
 
-                            data.map((value, index) => (
-                                <Cell key={`cell-${index}`} fill={value.color}/>
-                            ))
+                                }
+                            </Bar>
+                        </BarChart>
 
-                        }
-                    </Bar>
-                </BarChart>
-
-
-            </Col>
-        </Row>
-        </Paper>
+                    </Col>
+                </Row>
+            </Paper>
         </div>
     )
 };
-export default Dashboard
 
+
+const mapStateToProps=(state)=>({
+
+    logins:state.numberOfLogins.logins,
+    transact:state.transactions.transactions
+
+})
+
+const mapDispatchToProps=(dispatch)=>({
+
+
+
+})
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Dashboard)
 
 
 
