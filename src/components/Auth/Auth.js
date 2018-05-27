@@ -3,7 +3,22 @@ import {connect} from 'react-redux';
 import {logInByEmail, logInByGoogle} from "../../state/auth";
 import LogInByGoogle from "./LogInByGoogle";
 import LogInByEmail from "./LogInByEmail";
- import CreateUser from '../../components/Auth/CreateUser'
+import CreateUser from '../../components/Auth/CreateUser'
+import Paper from 'material-ui/Paper'
+import Divider from 'material-ui/Divider';
+import AppBar from 'material-ui/AppBar';
+
+
+const style ={
+    marginTop:'3%',
+    marginBottom:'4%',
+    marginLeft:'30%',
+    marginRight:'30%',
+    textAlign: 'center',
+
+
+}
+
 
 
 const Auth = (props) => (
@@ -12,16 +27,31 @@ const Auth = (props) => (
             props.isUserLoggedIn ?
                 props.children
                 :
-                <div>
+                <Paper style={style}
+                       rounded={false}
+                >
+                    <AppBar
+                        title="Welcome to Fatcash World"
+                        showMenuIconButton={false}
+                    />
+                    <h5>Sign in by email</h5>
                     <LogInByEmail
                         onLogInHandler={props.logInByEmail}
                     />
+                    <br/>
+                    <Divider/>
+                    <br/>
                     <LogInByGoogle
                         onLogInHandler={props.logInByGoogle}
 
                     />
+                    <br/>
+                    <Divider/>
+                    <h5>Register new user</h5>
                     <CreateUser/>
-                </div>
+                    <br/>
+                </Paper>
+
         }
     </div>
 );

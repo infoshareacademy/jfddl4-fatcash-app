@@ -1,5 +1,4 @@
 import React from 'react'
-import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
@@ -21,6 +20,17 @@ class OperationList extends React.Component {
         description: ''
     }
 
+    componentWillReceiveProps(props){
+        if (props.transactions){
+            this.setState({
+                valueRange: {
+                    min: 0,
+                    max: Math.max.apply(null, props.transactions.map((i)=> (i.value)))
+                }
+            })
+        }
+    }
+
     handleText = (e, value) => {
         this.setState({
             description: value
@@ -35,7 +45,7 @@ class OperationList extends React.Component {
 
 
         const filteredTransaction =  this.props.transactions && this.props.transactions.filter(task => (
-            (this.state.valueDrop ? task.category === this.state.valueDrop : true)
+            (this.state.valueDrop && this.state.valueDrop !== 'all' ? task.category === this.state.valueDrop : true)
             &&
             task.value >= this.state.valueRange.min
             &&
@@ -85,7 +95,6 @@ class OperationList extends React.Component {
                             }
                         )
                     }
-
                     <Divider/>
                     <Pagination
                         total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}

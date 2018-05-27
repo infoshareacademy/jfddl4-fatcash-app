@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {TextField, RaisedButton} from 'material-ui'
 
 class LoginByEmail extends React.Component {
@@ -28,26 +27,31 @@ class LoginByEmail extends React.Component {
 
         return (
             <div>
-                <TextField
+                <center>
+                    <TextField
+                        hintText={"Username"}
+                        onChange={this.onLoginHandler}
+                        name={"login"}
 
-                    onChange={this.onLoginHandler}
-                    name={"login"}
 
-                />
-                <TextField
+                    />
+                    <br/>
+                    <TextField
+                        hintText={"Password"}
+                        onChange={this.onPasswordHandler}
+                        name={"pass"}
 
-                    onChange={this.onPasswordHandler}
-                    name={"pass"}
-                    placeholder
 
-                />
+                    />
+                    <br/>
+                    <RaisedButton
+                        label={'Submit'}
+                        primary={true}
+                        onClick={() =>
+                            this.props.onLogInHandler(this.state.login, this.state.password)}
 
-                <RaisedButton
-                    label={'Log in by email'}
-                    onClick={() =>
-                    this.props.onLogInHandler(this.state.login, this.state.password)}
-
-                />
+                    />
+                </center>
             </div>
         );
     }
