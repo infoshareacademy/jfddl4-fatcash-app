@@ -14,7 +14,7 @@ const ITEMS_PER_PAGE = 5
 
 class OperationList extends React.Component {
     state = {
-        valueRange: {min: 0, max: 5000},
+        valueRange: {min: 0, max: Math.max.apply(null, this.props.transactions.map((i)=> (i.value)))},
         valueDrop: this.props.match.params.categoryId || "",
         currentPage: 0,
         description: ''
