@@ -72,7 +72,7 @@ class AddOperation extends React.Component {
                 this.setState({
                     open: true,
                     value: '',
-                    description: ''
+                    description: '',
 
 
                 })
