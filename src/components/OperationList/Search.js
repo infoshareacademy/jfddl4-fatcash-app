@@ -11,7 +11,7 @@ const styles = {
         margin: 4,
         textAlign: 'center',
         backgroundColor: '#f3f3f5',
-        maxWidth: 500,
+        minWidth: 200,
     },
 }
 
@@ -33,12 +33,14 @@ const Search = (props) => (
             />
         </div>
 
-        <div style={{
-            margin: '35px 25px 10px 25px',
-            display: 'flex',
-            alignItems: 'center',
-
-        }}>
+        <div
+            style={{
+                margin: '35px 25px 10px 25px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+            }}
+        >
             <div style={styles.categorybox}>
                 <h5 style={{margin: '10px 0px 0px 0px'}}>Income:</h5>
                 <DropDownMenu
