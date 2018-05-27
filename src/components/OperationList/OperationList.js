@@ -7,6 +7,7 @@ import ListItemForOperationList from './ListItemForOperationList'
 import Search from './Search'
 import {connect} from 'react-redux'
 import FullOperationView from './FullOperationView'
+import {Row, Col} from 'react-flexbox-grid'
 
 
 const ITEMS_PER_PAGE = 5

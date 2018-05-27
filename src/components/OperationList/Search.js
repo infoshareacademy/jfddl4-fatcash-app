@@ -4,6 +4,7 @@ import InputRange from 'react-input-range'
 import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
+import {Row, Col} from 'react-flexbox-grid'
 
 
 const Search = (props) => (
@@ -24,7 +25,10 @@ const Search = (props) => (
             />
         </div>
 
-        <div style={{margin: '10px 25px 10px 25px'}}>
+
+        <div style={{margin: '30px 25px 10px 25px'}}>
+            <Row>
+                <Col xs={12} sm={4} md={4} lg={2}>
             Incomes:
             <DropDownMenu
                 value={props.valueDrop}
@@ -40,6 +44,8 @@ const Search = (props) => (
                     )
                 )}
             </DropDownMenu>
+                </Col>
+                <Col xs={12} sm={4} md={4} lg={2}>
             Expences:
             <DropDownMenu
                 value={props.valueDrop}
@@ -55,8 +61,11 @@ const Search = (props) => (
                     )
                 )}
             </DropDownMenu>
+                </Col>
+            </Row>
         </div>
     </div>
+
 
 )
 

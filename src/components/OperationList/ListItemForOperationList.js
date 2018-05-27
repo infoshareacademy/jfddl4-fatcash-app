@@ -11,9 +11,9 @@ const ListItemForOperationList = (props) => (
         <MenuItem
             rightIcon={<RemoveRedEye/>}
 
-            secondaryText={`Date ${moment(props.date).format('MMMM Do YYYY, h:mm:ss a')}`}
+            secondaryText={`${moment(props.date).format('MMMM Do YYYY, h:mm:ss a')}`}
         >
-            {`Category: ${props.category} Value: ${props.cash}`}
+            {`${props.category} Value: ${props.cash}`}
 
         </MenuItem>
     </Link>
