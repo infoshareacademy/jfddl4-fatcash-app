@@ -30,7 +30,7 @@ const styles = {
         justifyContent: 'space-between',
     },
     operation: {
-        margin: 10,
+        margin: '10px 0px 0px 0px',
 
     },
     link: {
