@@ -18,7 +18,7 @@ const Search = (props) => (
         </div>
         <div style={{margin: '30px 25px 10px 25px'}}>
             <InputRange
-                maxValue={Math.max.apply(null, props.transactions.map((i)=> (i.value)))}
+                maxValue={Math.max.apply(null, props.transactions.map((i) => (i.value)))}
                 minValue={0}
                 value={props.valueRange}
                 onChange={props.handleRange}
@@ -31,9 +31,9 @@ const Search = (props) => (
             alignItems: 'center',
 
         }}>
-
+            Income:
             <DropDownMenu
-                value={props.valueDropInc}
+                value={props.valueDrop}
                 onChange={props.handleChange}
                 listStyle={{
                     padding: '1px 1px 35px 1px',
@@ -63,9 +63,9 @@ const Search = (props) => (
                 )}
             </DropDownMenu>
 
-
+            Expenses:
             <DropDownMenu
-                value={props.valueDropExp}
+                value={props.valueDrop}
                 onChange={props.handleChange}
                 listStyle={{
                     padding: '1px 1px 35px 1px',
@@ -95,18 +95,6 @@ const Search = (props) => (
                 )}
             </DropDownMenu>
 
-            <RaisedButton
-                buttonStyle={{
-                    backgroundColor: '#f3f3f5',
-                }}
-
-                style={{
-                    backgroundColor: '#f3f3f5',
-                    margin: '13px 0px 0px 0px'
-
-                }}
-                label={'All categories'}
-            />
         </div>
     </div>
 
