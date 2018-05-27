@@ -3,17 +3,18 @@ import ListItemForCategoryList from './ListItemForCategoryList'
 import Paper from 'material-ui/Paper';
 import {connect} from "react-redux";
 import {logOut} from "../../state/auth";
+import {Row, Col} from 'react-flexbox-grid'
 
 const style = {
     h2: {
 
-        marginTop:25,
+        marginTop: 25,
         textAlign: 'center',
     },
     Paper: {
-        textDecoration:'none',
+        textDecoration: 'none',
 
-    }
+    },
 };
 //
 // const mapObjectToArray = (obj) => (
@@ -47,18 +48,23 @@ class CategoryList extends React.Component {
 
         return (
             <div>
-                <div><Paper style={style.paper} zDepth={3} rounded={true}>
-                    <h2 style={style.h2}>Incomes</h2>
-                    {this.props.categoriesInc.map((category) => <ListItemForCategoryList item={category}/>)}
-                </Paper>
-                </div>
-
-                <div>
-                    <Paper style={style.paper} zDepth={3} rounded={true}>
-                        <h2 style={style.h2}>Expenses</h2>
-                        {this.props.categoriesExp.map((category) => <ListItemForCategoryList item={category}/>)}
-                    </Paper>
-                </div>
+                <Row around="sm">
+                    <Col xs={12} sm={5}>
+                        <div><Paper style={style.paper} zDepth={3} rounded={true}>
+                            <h2 style={style.h2}>Incomes</h2>
+                            {this.props.categoriesInc.map((category) => <ListItemForCategoryList item={category}/>)}
+                        </Paper>
+                        </div>
+                    </Col>
+                    <Col xs={12} sm={5}>
+                        <div>
+                            <Paper style={style.paper} zDepth={3} rounded={true}>
+                                <h2 style={style.h2}>Expenses</h2>
+                                {this.props.categoriesExp.map((category) => <ListItemForCategoryList item={category}/>)}
+                            </Paper>
+                        </div>
+                    </Col>
+                </Row>
             </div>
         )
     }
@@ -72,9 +78,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return {
-
-    }
+    return {}
 
 };
 
