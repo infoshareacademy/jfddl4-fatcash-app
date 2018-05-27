@@ -21,6 +21,17 @@ class OperationList extends React.Component {
         description: ''
     }
 
+    componentWillReceiveProps(props){
+        if (props.transactions){
+            this.setState({
+                valueRange: {
+                    min: 0,
+                    max: Math.max.apply(null, props.transactions.map((i)=> (i.value)))
+                }
+            })
+        }
+    }
+
     handleText = (e, value) => {
         this.setState({
             description: value
