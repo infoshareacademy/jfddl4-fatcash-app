@@ -1,5 +1,5 @@
-import React from 'react'
-import {PieChart, Pie, Tooltip, BarChart, Bar, CartesianGrid, XAxis, YAxis, Cell} from 'recharts'
+import React, {Component} from 'react'
+import {PieChart, Pie, Tooltip, BarChart, Bar, CartesianGrid, XAxis, YAxis, Cell, LineChart, Line, Legend} from 'recharts'
 import {Row, Col} from 'react-flexbox-grid'
 import Paper from 'material-ui/Paper';
 import {connect} from 'react-redux'
@@ -9,100 +9,93 @@ const styles = {
     pie: {
         margin: '0 auto',
     },
+}
 
-};
+// };
+//
+// const data = [
+//     {
+//         value: 70,
+//         name: 'Papierosy',
+//         color: 'red'
+//     },
+//     {
+//         value: 10,
+//         name: 'Słodycze',
+//         color: '#FFBB28'
+//     },
+//
+//     {
+//         value: 20,
+//         name: 'Alkohol',
+//         color: '#FF804'
+//     }
+//
+// ];
+//
+// const data1 = [
+//     {
+//         value: 70,
+//         name: 'Papierosy',
+//         color: 'pink'
+//     },
+//     {
+//         value: 10,
+//         name: 'Słodycze',
+//         color: 'blue'
+//     },
+//
+//     {
+//         value: 20,
+//         name: 'Alkohol',
+//         color: 'yellow'
+//     }
+//
+// ];
 
-const data = [
-    {
-        value: 70,
-        name: 'Papierosy',
-        color: 'red'
-    },
-    {
-        value: 10,
-        name: 'Słodycze',
-        color: '#FFBB28'
-    },
+class Dashboard extends React.Component{
+state = {
+    logins: ''
+}
 
+    componentWillReceiveProps(props)
     {
-        value: 20,
-        name: 'Alkohol',
-        color: '#FF804'
+        if (props.logins) {
+            this.setState({
+                logins: props.logins
+
+
+            })
+        }
     }
-
-];
-
-const data1 = [
+    render()
     {
-        value: 70,
-        name: 'Papierosy',
-        color: 'pink'
-    },
-    {
-        value: 10,
-        name: 'Słodycze',
-        color: 'blue'
-    },
+        return (
+            <div>
+                <h1>Dashboard</h1>
+                <Paper zDepth={3} rounded={true}>
 
-    {
-        value: 20,
-        name: 'Alkohol',
-        color: 'yellow'
+                    {this.state.logins==true ?
+                    <LineChart width={730} height={250} data={this.state.logins}
+                               margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                        {console.log(this.state.logins)}
+
+                        <CartesianGrid strokeDasharray="3 3"/>
+                        <XAxis dataKey="value"/>
+                        <YAxis/>
+                        <Tooltip/>
+                        <Legend/>
+                        <Line type="monotone" dataKey="value" stroke="#8884d8"/>
+                    </LineChart>
+                    : false}
+
+                </Paper>
+            </div>
+        )
     }
+    ;
 
-];
-const Dashboard = (props) => {
-    console.log(props.logins)
-
-    return (
-        <div>
-            <h1>Dashboard</h1>
-            <Paper zDepth={3} rounded={true}>
-                <Row>
-                    <Col xs={12} sm={6}>
-                        <PieChart style={styles.pie} width={320} height={320}>
-                            <Pie
-                                data={props.logins}
-                                dataKey="value"
-                                nameKey="name"
-
-                            >
-                                {
-                                    data1.map((value, index) => (
-                                        <Cell key={`cell-${index}`} fill={'red'}/>
-                                    ))
-                                }
-                            </Pie>
-                            <Tooltip/>
-                        </PieChart>
-                    </Col>
-
-                    <Col xs={12} sm={6}>
-
-                        <BarChart width={320} height={320} data={props.logins}>
-                            <CartesianGrid strokeDasharray="3 3"/>
-                            <XAxis dataKey="name"/>
-                            <YAxis/>
-
-                            <Bar label={true} dataKey="value" fill="#8884d8">
-                                {
-
-                                    data.map((value, index) => (
-                                        <Cell key={`cell-${index}`} fill={value.color}/>
-                                    ))
-
-                                }
-                            </Bar>
-                        </BarChart>
-
-                    </Col>
-                </Row>
-            </Paper>
-        </div>
-    )
-};
-
-
+}
 const mapStateToProps=(state)=>({
 
     logins:state.numberOfLogins,

@@ -44,17 +44,18 @@ export const initNumberOfLogins = () => (dispatch, getState) => {
             )
 
             let dates = {}
-            for(let i = 0; i < 7; i++)
+            for (let i = 0; i < 7; i++)
                 dates[moment().subtract(i, 'days').format('YYYY-MM-DD')] = 0
 
-            console.log(
-                loginDates,
-                loginDates.reduce((reduced, date) => {
-                    if(reduced[date] !== undefined) // is date from this week
+
+
+                const loginsLogs = mapObjectToArray(loginDates.reduce((reduced, date) => {
+                    if (reduced[date] !== undefined) // is date from this week
                         reduced[date] = reduced[date] + 1
                     return reduced
-                }, dates)
-            )
+                }, dates))
+
+            dispatch(setnumber(loginsLogs))
 
         })
 }

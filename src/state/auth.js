@@ -3,6 +3,7 @@ import {store} from "../store";
 import {initTransactionsSync} from "./transactions";
 import {initCategoriesExpSync} from "./categoriesExp";
 import {initCategoriesIncomeSync} from "./categoriesIncome";
+import {initNumberOfLogins} from "./numberOfLogins";
 
 const LOGGED_IN = 'auth/LOGGED_IN'
 const LOGGED_OUT = 'auth/LOGGED_OUT'
@@ -29,6 +30,7 @@ export const initAuthUserSync = () => (dispatch, getState) => {
                 dispatch(initCategoriesExpSync())
                 dispatch(initCategoriesIncomeSync())
                 dispatch(initTransactionsSync())
+
 
             } else {
                 dispatch(loggedOut())

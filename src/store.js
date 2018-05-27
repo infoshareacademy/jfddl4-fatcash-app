@@ -30,3 +30,4 @@ store.dispatch(initCategoriesIncomeSync())
 store.dispatch(initCategoriesExpSync())
 store.dispatch(initAuthUserSync())
 store.dispatch(initNumberOfLogins())
+
