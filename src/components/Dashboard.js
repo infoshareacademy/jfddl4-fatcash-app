@@ -5,69 +5,10 @@ import Paper from 'material-ui/Paper';
 import {connect} from 'react-redux'
 
 
-const styles = {
-    pie: {
-        margin: '0 auto',
-    },
-}
 
-// };
-//
-// const data = [
-//     {
-//         value: 70,
-//         name: 'Papierosy',
-//         color: 'red'
-//     },
-//     {
-//         value: 10,
-//         name: 'Słodycze',
-//         color: '#FFBB28'
-//     },
-//
-//     {
-//         value: 20,
-//         name: 'Alkohol',
-//         color: '#FF804'
-//     }
-//
-// ];
-//
-// const data1 = [
-//     {
-//         value: 70,
-//         name: 'Papierosy',
-//         color: 'pink'
-//     },
-//     {
-//         value: 10,
-//         name: 'Słodycze',
-//         color: 'blue'
-//     },
-//
-//     {
-//         value: 20,
-//         name: 'Alkohol',
-//         color: 'yellow'
-//     }
-//
-// ];
 
 class Dashboard extends React.Component{
-state = {
-    logins: ''
-}
 
-    componentWillReceiveProps(props)
-    {
-        if (props.logins) {
-            this.setState({
-                logins: props.logins
-
-
-            })
-        }
-    }
     render()
     {
         return (
@@ -76,9 +17,9 @@ state = {
                 <Paper zDepth={3} rounded={true}>
 
                     {/*{this.state.logins==true ?*/}
-                    <LineChart width={730} height={250} data={this.state.logins}
+                    <LineChart width={730} height={250} data={this.props.logins}
                                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                        {console.log(this.state.logins)}
+                        {console.log(this.props.logins)}
 
                         <CartesianGrid strokeDasharray="3 3"/>
                         <XAxis dataKey="value"/>
@@ -89,6 +30,16 @@ state = {
                     </LineChart>
                     {/*: false}*/}
 
+                    <BarChart width={730} height={250} data={this.props.logins}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="key" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="value" fill="#8884d8" />
+                        {/*<Bar dataKey="uv" fill="#82ca9d" />*/}
+                    </BarChart>
+
                 </Paper>
             </div>
         )
@@ -98,7 +49,7 @@ state = {
 }
 const mapStateToProps=(state)=>({
 
-    logins:state.numberOfLogins,
+    logins:state.numberOfLogins.logins,
     transact:state.transactions.transactions
 
 })
