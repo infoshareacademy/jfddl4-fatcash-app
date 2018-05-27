@@ -78,7 +78,7 @@ class AddOperation extends React.Component {
 
         return (
             <Paper style={{margin: "20px", padding: '20px'}}>
-
+                {this.props.categoriesInc.length>0 && this.props.categoriesExp.length>0 ?
                     <Controls
                         newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
                         newImageHandler={(e, val) => this.newOperationHandler('image', val)}
@@ -99,7 +99,7 @@ class AddOperation extends React.Component {
                         onUploadSuccess={this.handleUploadSuccess}
                         onProgress={this.handleProgress}
                         imageLength={this.state.image.length}
-                    />
+                    />: false }
 
 
                 <Snackbar
