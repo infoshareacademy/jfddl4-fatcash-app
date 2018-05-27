@@ -5,6 +5,8 @@ import MenuItem from 'material-ui/MenuItem'
 import Divider from 'material-ui/Divider'
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import SelectField from 'material-ui/SelectField'
+import FileUploader from 'react-firebase-file-uploader';
+
 
 const Controls = ({
                       newIncomeHandler,
@@ -19,7 +21,13 @@ const Controls = ({
                       category,
                       categoriesExp,
                       description,
-                      value
+                      value,
+                      storageRef,
+                      onUploadStart,
+                      onUploadError,
+                      onUploadSuccess,
+                      onProgress,
+                      imageLength
 
                   }) => (
     <div>
@@ -68,7 +76,6 @@ const Controls = ({
 
         }
 
-        <Divider/>
 
         <TextField
             value={description}
@@ -76,15 +83,7 @@ const Controls = ({
             fullWidth={true}
             onChange={newDescriptionHandler}
         />
-        <Divider/>
 
-        <TextField
-            value={image}
-            hintText={"Add URL of your image..."}
-            fullWidth={true}
-            onChange={newImageHandler}
-        />
-        <Divider/>
 
         <TextField
             value={value}
@@ -93,7 +92,40 @@ const Controls = ({
             type={'number'}
             onChange={newValueHandler}
         />
-        <Divider/>
+
+        <br/>
+        <br/>
+        <label style={{
+            marginTop: '16px',
+            marginBottom: '2px',
+            backgroundColor: '#3aa1ba',
+            color: 'white',
+            padding: 10,
+            borderRadius: 4,
+            pointer: 'cursor'
+        }}>
+
+            Select picture of your bill
+            <FileUploader
+                hidden
+                accept="image/*"
+                name="Your photo"
+                randomizeFilename
+                storageRef={storageRef}
+                onUploadStart={onUploadStart}
+                onUploadError={onUploadError}
+                onUploadSuccess={onUploadSuccess}
+                onProgress={onProgress}
+            />
+        </label>
+
+        <br/>
+
+        <br/>
+
+        <div>
+        {imageLength>0 ? 'We uploaded your image succesfully.' : "You didn't upload image, yet...."}
+    </div> <br/>
         <RaisedButton
             onClick={saveTaskToDatabase}
             fullWidth={true}
