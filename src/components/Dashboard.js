@@ -75,7 +75,7 @@ state = {
                 <h1>Dashboard</h1>
                 <Paper zDepth={3} rounded={true}>
 
-                    {this.state.logins==true ?
+                    {/*{this.state.logins==true ?*/}
                     <LineChart width={730} height={250} data={this.state.logins}
                                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                         {console.log(this.state.logins)}
@@ -87,7 +87,7 @@ state = {
                         <Legend/>
                         <Line type="monotone" dataKey="value" stroke="#8884d8"/>
                     </LineChart>
-                    : false}
+                    {/*: false}*/}
 
                 </Paper>
             </div>
