@@ -14,7 +14,7 @@ const CreateUser = (props) => (
                 onChange={props.onCreateEmailHandler}
                 name={"email"}
                 hintText={"Type Your email"}
-
+                // value={props.email}
             />
             <br/>
             <TextField
@@ -22,6 +22,7 @@ const CreateUser = (props) => (
                 name={"password"}
                 hintText={"Type Your password"}
                 type={'password'}
+                // value={props.password}
             />
             <br/>
             <TextField
@@ -29,6 +30,7 @@ const CreateUser = (props) => (
                 name={"retypedpassword"}
                 hintText={"Retype Your password"}
                 type={'password'}
+                // value={props.rpassword}
             />
             <br/>
             <RaisedButton
@@ -43,7 +45,9 @@ const CreateUser = (props) => (
 const mapStateToProps = (state) => ({
 
     email: state.createUser.email,
-    warn:state.createUser.warning
+    warn:state.createUser.warning,
+    password:state.createUser.password,
+    rpassword:state.createUser.retypedPassword
 })
 
 const mapDispatchToProps = (dispatch) => ({

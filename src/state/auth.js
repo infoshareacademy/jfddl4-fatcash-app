@@ -46,7 +46,7 @@ export const logInByEmail = (email, password) => (dispatch) => {
     // let email = 'test@test.pl';
     // let password = 'password';
 
-    auth.signInWithEmailAndPassword(email, password);
+    auth.signInWithEmailAndPassword(email, password).catch(error=>alert(error.message));
 }
 
 export const logOut = () => (dispatch, getState) => {

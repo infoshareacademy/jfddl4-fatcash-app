@@ -55,14 +55,21 @@ export default (state = initialState, action) => {
             if (state.password !== state.retypedPassword) {
                 alert("Please type the same password")
                 return state
+            //
             }
-            else if (!state.email || !state.password || !state.retypedPassword) {
-                alert("Please fill all fields")
+            if (state.password.length<6) {
+                alert("Password must contains at least 6 letters")
                 return state
+                //
             }
             else {
 
                 return auth.createUserWithEmailAndPassword(state.email, state.password)
+                    .catch(error => {
+                        alert(error.message,error.code)
+
+
+                    })
             }
         default:
             return state

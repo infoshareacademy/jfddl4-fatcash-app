@@ -23,25 +23,23 @@ class LoginByEmail extends React.Component {
             password: value
         })
     )
+
     render() {
 
         return (
             <div>
                 <center>
                     <TextField
-                        hintText={"Username"}
+                        hintText={"Email"}
                         onChange={this.onLoginHandler}
                         name={"login"}
-
-
                     />
                     <br/>
                     <TextField
                         hintText={"Password"}
                         onChange={this.onPasswordHandler}
                         name={"pass"}
-
-
+                        type={'password'}
                     />
                     <br/>
                     <RaisedButton
@@ -49,7 +47,6 @@ class LoginByEmail extends React.Component {
                         primary={true}
                         onClick={() =>
                             this.props.onLogInHandler(this.state.login, this.state.password)}
-
                     />
                 </center>
             </div>
