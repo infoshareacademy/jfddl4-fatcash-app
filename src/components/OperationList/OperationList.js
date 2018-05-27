@@ -1,5 +1,4 @@
 import React from 'react'
-import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
@@ -46,7 +45,7 @@ class OperationList extends React.Component {
 
 
         const filteredTransaction =  this.props.transactions && this.props.transactions.filter(task => (
-            (this.state.valueDrop ? task.category === this.state.valueDrop : true)
+            (this.state.valueDrop && this.state.valueDrop !== 'all' ? task.category === this.state.valueDrop : true)
             &&
             task.value >= this.state.valueRange.min
             &&

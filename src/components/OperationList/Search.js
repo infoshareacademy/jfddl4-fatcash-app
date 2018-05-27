@@ -4,8 +4,16 @@ import InputRange from 'react-input-range'
 import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
-import RaisedButton from 'material-ui/RaisedButton'
 import {connect} from "react-redux";
+
+const styles = {
+    categorybox: {
+        margin: 4,
+        textAlign: 'center',
+        backgroundColor: '#f3f3f5',
+        maxWidth: 500,
+    },
+}
 
 const Search = (props) => (
     <div style={{border: '30px solid #f3f3f5'}}>
@@ -31,70 +39,51 @@ const Search = (props) => (
             alignItems: 'center',
 
         }}>
-            Income:
-            <DropDownMenu
-                value={props.valueDrop}
-                onChange={props.handleChange}
-                listStyle={{
-                    padding: '1px 1px 35px 1px',
-                    height: '20px',
-                    width: '150px',
-                    backgroundColor: '#f3f3f5',
-                }}
-                labelStyle={{
-                    backgroundColor: '#f3f3f5',
-                    margin: '10px',
-                }}
-            >
-                <MenuItem
-                    value={1}
-                    primaryText={'Income'}
-                    label={'Income'}
-                    disabled={true}
-                />
+            <div style={styles.categorybox}>
+                <h5 style={{margin: '10px 0px 0px 0px'}}>Income:</h5>
+                <DropDownMenu
+                    value={props.valueDrop}
+                    onChange={props.handleChange}
+                >
+                    <MenuItem
+                        value={'all'}
+                        primaryText={'all'}
+                        label={'all'}
+                    />
 
-                {props.categoriesInc.map((el) => (
-                        <MenuItem
-                            value={el.key}
-                            primaryText={el.name}
-                            label={el.name}
-                        />
-                    )
-                )}
-            </DropDownMenu>
+                    {props.categoriesInc.map((el) => (
+                            <MenuItem
+                                value={el.key}
+                                primaryText={el.name}
+                                label={el.name}
+                            />
+                        )
+                    )}
+                </DropDownMenu>
+            </div>
+            <div style={styles.categorybox}>
+                <h5 style={{margin: '10px 0px 0px 0px'}}>Expenses:</h5>
+                <DropDownMenu
+                    value={props.valueDrop}
+                    onChange={props.handleChange}
+                >
+                    <MenuItem
+                        value={'all'}
+                        primaryText={'all'}
+                        label={'all'}
+                        disabled={true}
+                    />
 
-            Expenses:
-            <DropDownMenu
-                value={props.valueDrop}
-                onChange={props.handleChange}
-                listStyle={{
-                    padding: '1px 1px 35px 1px',
-                    height: '20px',
-                    width: '150px',
-                    backgroundColor: '#f3f3f5',
-                }}
-                labelStyle={{
-                    backgroundColor: '#f3f3f5',
-                    margin: '10px',
-                }}
-            >
-                <MenuItem
-                    value={1}
-                    primaryText={'Expenses'}
-                    label={'Expenses'}
-                    disabled={true}
-                />
-
-                {props.categoriesExp.map((el) => (
-                        <MenuItem
-                            value={el.key}
-                            primaryText={el.name}
-                            label={el.name}
-                        />
-                    )
-                )}
-            </DropDownMenu>
-
+                    {props.categoriesExp.map((el) => (
+                            <MenuItem
+                                value={el.key}
+                                primaryText={el.name}
+                                label={el.name}
+                            />
+                        )
+                    )}
+                </DropDownMenu>
+            </div>
         </div>
     </div>
 
