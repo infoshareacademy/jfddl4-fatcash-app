@@ -3,6 +3,7 @@ import {store} from "../store";
 import {initTransactionsSync} from "./transactions";
 import {initCategoriesExpSync} from "./categoriesExp";
 import {initCategoriesIncomeSync} from "./categoriesIncome";
+import {initNumberOfLogins} from "./numberOfLogins";
 
 const LOGGED_IN = 'auth/LOGGED_IN'
 const LOGGED_OUT = 'auth/LOGGED_OUT'
@@ -13,7 +14,7 @@ export const loggedOut = () => ({type: LOGGED_OUT})
 const logUserLogIn = () => (dispatch, getState) => {
     const userUid = getState().auth.user.uid
 
-    database.ref(`/users/${userUid}/loginsLogs`)
+    database.ref(`/users/loginLogs`)
         .push({
             timestamp: Date.now()
         })
@@ -29,6 +30,7 @@ export const initAuthUserSync = () => (dispatch, getState) => {
                 dispatch(initCategoriesExpSync())
                 dispatch(initCategoriesIncomeSync())
                 dispatch(initTransactionsSync())
+
 
             } else {
                 dispatch(loggedOut())

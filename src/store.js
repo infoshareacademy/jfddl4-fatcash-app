@@ -5,7 +5,7 @@ import categoriesIncome, {initCategoriesIncomeSync} from "./state/categoriesInco
 import categoriesExp, {initCategoriesExpSync} from "./state/categoriesExp";
 import auth, {initAuthUserSync} from "./state/auth";
 import createUser from './state/createUser'
-import numberOfLogins from './state/numberOfLogins'
+import numberOfLogins, {initNumberOfLogins} from './state/numberOfLogins'
 
 const reducer = combineReducers({
     transactions,
@@ -29,3 +29,5 @@ export const store = createStore(
 store.dispatch(initCategoriesIncomeSync())
 store.dispatch(initCategoriesExpSync())
 store.dispatch(initAuthUserSync())
+store.dispatch(initNumberOfLogins())
+
