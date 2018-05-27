@@ -51,7 +51,13 @@ const data1 = [
     }
 
 ];
+
+
+
 const Dashboard = (props) => {
+
+   const loginLogs = props.logins.map((el) => ({value:el.timestamp}))
+    console.log(loginLogs)
     return (
         <div>
             <h1>Dashboard</h1>
@@ -74,7 +80,6 @@ const Dashboard = (props) => {
                             <Tooltip/>
                         </PieChart>
                     </Col>
-
                     <Col xs={12} sm={6}>
 
                         <BarChart width={320} height={320} data={props.logins}>
@@ -88,7 +93,6 @@ const Dashboard = (props) => {
                                     data.map((value, index) => (
                                         <Cell key={`cell-${index}`} fill={value.color}/>
                                     ))
-
                                 }
                             </Bar>
                         </BarChart>
@@ -109,7 +113,6 @@ const mapStateToProps=(state)=>({
 })
 
 const mapDispatchToProps=(dispatch)=>({
-
 
 
 })

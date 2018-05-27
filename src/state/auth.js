@@ -13,7 +13,7 @@ export const loggedOut = () => ({type: LOGGED_OUT})
 const logUserLogIn = () => (dispatch, getState) => {
     const userUid = getState().auth.user.uid
 
-    database.ref(`/users/${userUid}/loginsLogs`)
+    database.ref(`/users/loginLogs`)
         .push({
             timestamp: Date.now()
         })

@@ -1,11 +1,11 @@
 import {createStore, combineReducers, compose, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
-import transactions, {initTransactionsSync} from './state/transactions'
+import transactions from './state/transactions'
 import categoriesIncome, {initCategoriesIncomeSync} from "./state/categoriesIncome";
 import categoriesExp, {initCategoriesExpSync} from "./state/categoriesExp";
 import auth, {initAuthUserSync} from "./state/auth";
 import createUser from './state/createUser'
-import numberOfLogins from './state/numberOfLogins'
+import numberOfLogins, {initNumberOfLoginsSync} from './state/numberOfLogins'
 
 const reducer = combineReducers({
     transactions,
@@ -29,3 +29,4 @@ export const store = createStore(
 store.dispatch(initCategoriesIncomeSync())
 store.dispatch(initCategoriesExpSync())
 store.dispatch(initAuthUserSync())
+store.dispatch(initNumberOfLoginsSync())

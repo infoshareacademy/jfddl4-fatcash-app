@@ -11,18 +11,17 @@ const setnumber = (logins) => ({
 // `https://fatcash-app.firebaseio.com/users/${this.props.useUid}/transactions/.json`
 
 
-export const initNumberOfLogins  = () => (dispatch, getState) => {
+export const initNumberOfLoginsSync  = () => (dispatch, getState) => {
 
     const state = getState()
-    state.auth.isUserLoggedIn === true ? database.ref(`users/${state.auth.user.uid}/loginsLogs`).on(
+   database.ref(`users/loginLogs`).on(
         'value',
         (snapshot) => dispatch(
             setnumber(
-                mapObjectToArray(snapshot.val()).reverse()
+                mapObjectToArray(snapshot.val())
             )
         )
-    ) : false
-
+    )
 }
 
 const initialState = {
@@ -32,7 +31,6 @@ const initialState = {
 export default (state = initialState, action) => {
     switch (action.type){
         case SETNUMBER:
-         console.log(action.logins)
             return {
                 ...state,
                 logins: action.logins
