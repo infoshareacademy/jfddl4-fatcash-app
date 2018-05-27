@@ -5,8 +5,6 @@ import {connect} from "react-redux";
 import FontIcon from 'material-ui/FontIcon';
 
 const avatarlist={
-   marginLeft:85,
-    marginTop:7,
     border:"1px solid #3aa1ba"
 }
 
@@ -17,23 +15,23 @@ class UserAvatar extends React.Component {
             <center><div style={{marginTop: '10px'}}>
                 {!this.props.userPhotoUrl?
                     <FontIcon
-                        className="material-icons" size={80}
+                        className="material-icons" size={100}
                         color={'#3aa1ba'}>person</FontIcon>
                     :
-                <ListItem
-                    disabled={true}
-                    leftAvatar={
+
+
                         <Avatar
                             src={this.props.userPhotoUrl}
-                        size={55}
+
+
                             style={avatarlist}
 
                         />
                     }
-                >
-                </ListItem>}
 
-                    <h5> Hello, {this.props.displayName ? this.props.displayName : 'User'} !</h5>
+
+
+                  <div>  <h5> Hello, {this.props.displayName ? this.props.displayName : 'User'} !</h5></div>
 
             </div>
 </center>

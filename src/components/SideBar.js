@@ -57,6 +57,12 @@ const SideBar = (props) => (
             style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
             color={'#3aa1ba'}>trending_up</FontIcon>Dashboard</MenuItem></Link>
+        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/data-chart'}><MenuItem
+            style={menuitemstyl}><FontIcon
+            className="material-icons" style={iconStyles}
+            color={'#3aa1ba'}>star</FontIcon> Bilans chart
+        </MenuItem></Link>
+        <Divider/>
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/operation-list'}><MenuItem
             style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
@@ -67,21 +73,18 @@ const SideBar = (props) => (
             className="material-icons" style={iconStyles}
             color={'#3aa1ba'}>payment</FontIcon>Add
             Operation</MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/add-category'}><MenuItem
-            style={menuitemstyl}><FontIcon
-            className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>input</FontIcon>Add
-            Category</MenuItem></Link>
+        <Divider/>
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/category-list'}><MenuItem
             style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
             color={'#3aa1ba'}>search</FontIcon>Category
             List</MenuItem></Link>
-        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/data-chart'}><MenuItem
+        <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/add-category'}><MenuItem
             style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>star</FontIcon> Bilans chart
-            </MenuItem></Link>
+            color={'#3aa1ba'}>input</FontIcon>Add
+            Category</MenuItem></Link>
+
         <Divider/>
 
 

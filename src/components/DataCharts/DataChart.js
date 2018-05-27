@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {PieChart, Pie, Tooltip, Legend, Line, Cell} from 'recharts'
-import {RaisedButton} from 'material-ui'
+import {RaisedButton, Paper} from 'material-ui'
 
 const styles = {
     pie: {
@@ -51,7 +51,6 @@ class DataChart extends React.Component {
     }
 
     render() {
-
         const incomes = this.props.transactions.filter((el, i, arr) => el.income === true)
         const expences = this.props.transactions.filter((el, i, arr) => el.income === false)
         const expencesValues = expences.filter(this.getElementsWithDateLowerThanCurrentDate).map((el, i, arr) => el.value) // filter by 24h
@@ -66,11 +65,14 @@ class DataChart extends React.Component {
             value: expencesSum,
             color: 'red',
             name: 'Expences'
+
         }]
 
         return (
-            <div>
-                {incomes.length > 0 ?
+            <Paper style={{margin: "20px", padding: '20px'}}>
+                <h2> Bilans chart</h2>
+                {
+                    expencesAndIncomes[0].value > 0 && expencesAndIncomes[1].value > 0 ?
                     <PieChart style={styles.pie} width={320} height={320}>
                         <Pie
                             data={expencesAndIncomes}
@@ -82,6 +84,7 @@ class DataChart extends React.Component {
                                    <Cell key={`cell-${value.value}`} fill={value.color}/>
                                 ))
                             }
+                            {console.log(expencesAndIncomes)}
                         </Pie>
                         <Tooltip/>
                         <Legend verticalAlign="bottom" height={36}/>
@@ -89,12 +92,14 @@ class DataChart extends React.Component {
                         <Line name="Expences" type="monotone" dataKey="value"/>
 
                     </PieChart>
-                    : 'ładowanie!'}
+                    : <h2 style={{textAlign: 'center', height: '280px', margin: 0, padding: '20px'}}>You don't have transactions in this period</h2>
+                }
 
                 <RaisedButton
                     onClick={this.clickForHour}
                     fullWidth={true}
                     primary={true}
+                    style={{marginBottom:'10px'}}
                     label={"Click for Hour "}
                     // disabled={value && category ? false : true}
                 />
@@ -102,6 +107,8 @@ class DataChart extends React.Component {
                     onClick={this.clickForDay}
                     fullWidth={true}
                     primary={true}
+                    style={{marginBottom:'10px'}}
+
                     label={"Click for Day "}
                     // disabled={value && category ? false : true}
                 />
@@ -109,6 +116,8 @@ class DataChart extends React.Component {
                     onClick={this.clickForWeek}
                     fullWidth={true}
                     primary={true}
+                    style={{marginBottom:'10px'}}
+
                     label={"Click for Week "}
                     // disabled={value && category ? false : true}
                 />
@@ -116,6 +125,8 @@ class DataChart extends React.Component {
                     onClick={this.clickForThirtyDays}
                     fullWidth={true}
                     primary={true}
+                    style={{marginBottom:'10px'}}
+
                     label={"Click for 30 days "}
                     // disabled={value && category ? false : true}
                 />
@@ -123,11 +134,13 @@ class DataChart extends React.Component {
                     onClick={this.clickForAll}
                     fullWidth={true}
                     primary={true}
+                    style={{marginBottom:'10px'}}
+
                     label={"Click for all days "}
                     // disabled={value && category ? false : true}
                 />
 
-            </div>
+            </Paper>
         )
     };
 }

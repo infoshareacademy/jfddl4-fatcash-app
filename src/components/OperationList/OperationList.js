@@ -7,6 +7,8 @@ import ListItemForOperationList from './ListItemForOperationList'
 import Search from './Search'
 import {connect} from 'react-redux'
 import FullOperationView from './FullOperationView'
+import LinearProgress from 'material-ui/LinearProgress';
+
 
 
 const ITEMS_PER_PAGE = 5
@@ -15,7 +17,8 @@ class OperationList extends React.Component {
     state = {
         valueRange: {min: 0, max: 5000},
         valueDrop: this.props.match.params.categoryId || "",
-        currentPage: 0
+        currentPage: 0,
+        description: ''
     }
 
     handleText = (e, value) => {
@@ -38,7 +41,7 @@ class OperationList extends React.Component {
             &&
             task.value <= this.state.valueRange.max
             &&
-            task.description.toLowerCase().indexOf(task.description.toLowerCase()) !== -1
+            task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
 
         )
     )
@@ -48,7 +51,7 @@ class OperationList extends React.Component {
 
         return (
             !filteredTransaction ?
-                'Loading...'
+                <LinearProgress mode="indeterminate" />
                 :
                 <div>
                     <Search
