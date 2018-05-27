@@ -7,6 +7,10 @@ import Search from './Search'
 import {connect} from 'react-redux'
 import FullOperationView from './FullOperationView'
 import LinearProgress from 'material-ui/LinearProgress';
+import Paper from 'material-ui/Paper';
+import FlatButton from 'material-ui/FlatButton';
+import {Link} from 'react-router-dom';
+
 
 
 
@@ -43,7 +47,6 @@ class OperationList extends React.Component {
 
     render() {
 
-
         const filteredTransaction =  this.props.transactions && this.props.transactions.filter(task => (
             (this.state.valueDrop && this.state.valueDrop !== 'all' ? task.category === this.state.valueDrop : true)
             &&
@@ -64,6 +67,8 @@ class OperationList extends React.Component {
                 <LinearProgress mode="indeterminate" />
                 :
                 <div>
+                    <Paper style={{margin: '10px'}}>
+                    {this.props.transactions.length>0 ?
                     <Search
                         handleChange={this.handleChange}
                         handleText={this.handleText}
@@ -72,8 +77,13 @@ class OperationList extends React.Component {
                         valueDrop={this.state.valueDrop}
                         categoriesInc={this.props.categoriesInc}
                         categoriesExp={this.props.categoriesExp}
-                    />
+                    />: <h5>You havn`t transactions yet.
+                            <Link to={'/add-new-operation'}>
+                                <FlatButton label="Add your first transaction" primary={true} /></Link></h5>}
+                    </Paper>
+
                     <br/>
+                    <Paper>
                     <Divider/>
                     {
                         filteredTransaction
@@ -81,10 +91,11 @@ class OperationList extends React.Component {
                                 i >= this.state.currentPage * ITEMS_PER_PAGE
                                 &&
                                 i < (this.state.currentPage + 1) * ITEMS_PER_PAGE
-                            )).map((transaction) => {
+                            )).map((transaction, i) => {
                                 const categories = this.props.categoriesInc.concat(this.props.categoriesExp)
                                 const categoryOfTransaction = categories.find(category => category.key === transaction.category)
                                 return <ListItemForOperationList
+                                    key={i}
                                     k={transaction.key}
                                     category={categoryOfTransaction ? categoryOfTransaction.name : ''}
                                     cash={transaction.value}
@@ -96,14 +107,16 @@ class OperationList extends React.Component {
                         )
                     }
                     <Divider/>
+                        {this.props.transactions.length>0 ?
                     <Pagination
                         total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}
                         current={this.state.currentPage + 1}
                         display={10}
                         onChange={newPage => this.setState({currentPage: newPage - 1})}
-                    />
+                    /> : false}
 
                     <Divider/>
+                    </Paper>
                 </div>
         )
     }
