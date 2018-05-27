@@ -85,7 +85,6 @@ class OperationList extends React.Component {
                             }
                         )
                     }
-
                     <Divider/>
                     <Pagination
                         total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}
