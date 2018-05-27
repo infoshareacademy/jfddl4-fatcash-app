@@ -32,12 +32,15 @@ const styles = {
     operation: {
         margin: 10,
 
+    },
+    link: {
+        textDecoration: 'none',
     }
 };
 
 const ListItemForOperationList = (props) => (
 
-    <Link to={`/operation/${props.k}`}>
+    <Link style={styles.link} to={`/operation/${props.k}`}>
         <MenuItem
             // rightIcon={<RemoveRedEye/>}
             //
