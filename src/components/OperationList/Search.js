@@ -4,7 +4,16 @@ import InputRange from 'react-input-range'
 import TextField from 'material-ui/TextField'
 import DropDownMenu from 'material-ui/DropDownMenu'
 import MenuItem from 'material-ui/MenuItem'
+import {connect} from "react-redux";
 
+const styles = {
+    categorybox: {
+        margin: 4,
+        textAlign: 'center',
+        backgroundColor: '#f3f3f5',
+        maxWidth: 500,
+    },
+}
 
 const Search = (props) => (
     <div style={{border: '30px solid #f3f3f5'}}>
@@ -17,48 +26,76 @@ const Search = (props) => (
         </div>
         <div style={{margin: '30px 25px 10px 25px'}}>
             <InputRange
-                maxValue={5000}
+                maxValue={Math.max.apply(null, props.transactions.map((i) => (i.value)))}
                 minValue={0}
                 value={props.valueRange}
                 onChange={props.handleRange}
             />
         </div>
 
-        <div style={{margin: '10px 25px 10px 25px'}}>
-            Incomes:
-            <DropDownMenu
-                value={props.valueDrop}
-                onChange={props.handleChange}
-            >
+        <div style={{
+            margin: '35px 25px 10px 25px',
+            display: 'flex',
+            alignItems: 'center',
 
-                {props.categoriesInc.map((el) => (
-                        <MenuItem
-                            value={el.key}
-                            primaryText={el.name}
-                            label={el.name}
-                        />
-                    )
-                )}
-            </DropDownMenu>
-            Expences:
-            <DropDownMenu
-                value={props.valueDrop}
+        }}>
+            <div style={styles.categorybox}>
+                <h5 style={{margin: '10px 0px 0px 0px'}}>Income:</h5>
+                <DropDownMenu
+                    value={props.valueDrop}
+                    onChange={props.handleChange}
+                >
+                    <MenuItem
+                        value={'all'}
+                        primaryText={'all'}
+                        label={'all'}
+                    />
 
-                onChange={props.handleChange}
-            >
-                {props.categoriesExp.map((el) => (
-                        <MenuItem
-                            value={el.key}
-                            primaryText={el.name}
-                            label={el.name}
-                        />
-                    )
-                )}
-            </DropDownMenu>
+                    {props.categoriesInc.map((el) => (
+                            <MenuItem
+                                value={el.key}
+                                primaryText={el.name}
+                                label={el.name}
+                            />
+                        )
+                    )}
+                </DropDownMenu>
+            </div>
+            <div style={styles.categorybox}>
+                <h5 style={{margin: '10px 0px 0px 0px'}}>Expenses:</h5>
+                <DropDownMenu
+                    value={props.valueDrop}
+                    onChange={props.handleChange}
+                >
+                    <MenuItem
+                        value={'all'}
+                        primaryText={'all'}
+                        label={'all'}
+                        disabled={true}
+                    />
+
+                    {props.categoriesExp.map((el) => (
+                            <MenuItem
+                                value={el.key}
+                                primaryText={el.name}
+                                label={el.name}
+                            />
+                        )
+                    )}
+                </DropDownMenu>
+            </div>
         </div>
     </div>
 
 )
 
 
-export default Search
+const mapStateToProps = state => ({
+    categoriesInc: state.categoriesIncome.categories,
+    categoriesExp: state.categoriesExp.categories,
+    transactions: state.transactions.transactions
+})
+
+export default connect(
+    mapStateToProps
+)(Search)

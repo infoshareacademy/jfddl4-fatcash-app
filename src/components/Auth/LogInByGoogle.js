@@ -5,11 +5,13 @@ import RaisedButton from 'material-ui/RaisedButton'
 const LogInByGoogle = props => {
     return (
         <div>
-            <RaisedButton
-                label={'Log in by Google'}
-                secondary={true}
-                onClick={props.onLogInHandler}
-            />
+            <center>
+                <RaisedButton
+                    label={'Google login'}
+                    secondary={true}
+                    onClick={props.onLogInHandler}
+                />
+            </center>
         </div>
     );
 };

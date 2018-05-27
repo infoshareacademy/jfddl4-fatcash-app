@@ -7,32 +7,36 @@ import {addEmail, addPassword, addRetypedPassword,sendUserToDatabase} from "../.
 const CreateUser = (props) => (
 
     <div>
+        <center>
+            <h1>{props.warn}</h1>
 
-        <h1>{props.warn}</h1>
+            <TextField
+                onChange={props.onCreateEmailHandler}
+                name={"email"}
+                hintText={"Type Your email"}
 
-        <TextField
-            onChange={props.onCreateEmailHandler}
-            name={"email"}
-            placeholder={"Type Your email"}
-
-        />
-        <TextField
-            onChange={props.onCreatePasswordHandler}
-            name={"password"}
-            placeholder={"Type Your password"}
-            type={'password'}
-        />
-        <TextField
-            onChange={props.onCreateRetypedPasswordHandler}
-            name={"retypedpassword"}
-            placeholder={"Retype Your password"}
-            type={'password'}
-        />
-        <RaisedButton
-            label={"Create User and login"}
-            primary={true}
-            onClick={props.sendUser}
-        />
+            />
+            <br/>
+            <TextField
+                onChange={props.onCreatePasswordHandler}
+                name={"password"}
+                hintText={"Type Your password"}
+                type={'password'}
+            />
+            <br/>
+            <TextField
+                onChange={props.onCreateRetypedPasswordHandler}
+                name={"retypedpassword"}
+                hintText={"Retype Your password"}
+                type={'password'}
+            />
+            <br/>
+            <RaisedButton
+                label={"Register"}
+                primary={true}
+                onClick={props.sendUser}
+            />
+        </center>
     </div>
 )
 
@@ -53,4 +57,3 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateUser)
-

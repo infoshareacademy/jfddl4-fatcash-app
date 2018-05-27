@@ -1,5 +1,4 @@
 import React from 'react'
-import FlatButton from 'material-ui/FlatButton'
 import Divider from 'material-ui/Divider'
 import 'react-input-range/lib/css/index.css'
 import Pagination from 'material-ui-pagination';
@@ -7,6 +6,8 @@ import ListItemForOperationList from './ListItemForOperationList'
 import Search from './Search'
 import {connect} from 'react-redux'
 import FullOperationView from './FullOperationView'
+import LinearProgress from 'material-ui/LinearProgress';
+
 
 
 const ITEMS_PER_PAGE = 5
@@ -15,7 +16,19 @@ class OperationList extends React.Component {
     state = {
         valueRange: {min: 0, max: 5000},
         valueDrop: this.props.match.params.categoryId || "",
-        currentPage: 0
+        currentPage: 0,
+        description: ''
+    }
+
+    componentWillReceiveProps(props){
+        if (props.transactions){
+            this.setState({
+                valueRange: {
+                    min: 0,
+                    max: Math.max.apply(null, props.transactions.map((i)=> (i.value)))
+                }
+            })
+        }
     }
 
     handleText = (e, value) => {
@@ -32,13 +45,13 @@ class OperationList extends React.Component {
 
 
         const filteredTransaction =  this.props.transactions && this.props.transactions.filter(task => (
-            (this.state.valueDrop ? task.category === this.state.valueDrop : true)
+            (this.state.valueDrop && this.state.valueDrop !== 'all' ? task.category === this.state.valueDrop : true)
             &&
             task.value >= this.state.valueRange.min
             &&
             task.value <= this.state.valueRange.max
             &&
-            task.description.toLowerCase().indexOf(task.description.toLowerCase()) !== -1
+            task.description.toLowerCase().indexOf(this.state.description.toLowerCase()) !== -1
 
         )
     )
@@ -48,7 +61,7 @@ class OperationList extends React.Component {
 
         return (
             !filteredTransaction ?
-                'Loading...'
+                <LinearProgress mode="indeterminate" />
                 :
                 <div>
                     <Search
@@ -82,7 +95,6 @@ class OperationList extends React.Component {
                             }
                         )
                     }
-
                     <Divider/>
                     <Pagination
                         total={Math.ceil(filteredTransactionLength / ITEMS_PER_PAGE)}
