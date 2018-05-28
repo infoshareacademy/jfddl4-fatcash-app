@@ -7,6 +7,7 @@ import OperationList from './components/OperationList/OperationList'
 import Dashboard from './components/Dashboard'
 import AddCategory from './components/AddCategory'
 import ShareButton from './components/Share'
+import StartView from './components/StartView'
 import CategoryList from './components/CategoryList/CategoryList'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -16,7 +17,7 @@ import {logOut} from "./state/auth";
 import {connect} from 'react-redux'
 import DataChart from "./components/DataCharts/DataChart";
 import FullOperationView from './components/OperationList/FullOperationView'
-import ProfilePage from './components/AddOperation/AddPhoto'
+// import ProfilePage from './components/AddOperation/AddPhoto'
 
 
 class App extends React.Component {
@@ -50,15 +51,14 @@ class App extends React.Component {
                             onRequestSideBarChange={this.drawerBtnClickHandler}
                             isSideBarOpen={this.state.isDrowerOpen}
                         />
-
-                        <Route exact path={'/'} component={Dashboard}/>
+                        <Route exact path={'/'} component={StartView}/>
+                        <Route exact path={'/dashboard'} component={Dashboard}/>
                         <Route exact path={'/add-category'} component={AddCategory}/>
                         <Route path={'/operation-list/:categoryId?'} component={OperationList}/>
                         <Route path={'/add-new-operation'} component={AddOperation}/>
                         <Route exact path={'/category-list'} component={CategoryList}/>
                         <Route exact path={'/operation/:transactionId?'} component={FullOperationView}/>
                         <Route exact path={'/data-chart'} component={DataChart}/>
-                        <Route exact path={'/profile-page'} component={ProfilePage}/>
                     </div>
                 </Router>
 

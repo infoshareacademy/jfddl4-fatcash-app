@@ -29,5 +29,5 @@ export const store = createStore(
 store.dispatch(initCategoriesIncomeSync())
 store.dispatch(initCategoriesExpSync())
 store.dispatch(initAuthUserSync())
- store.dispatch(initNumberOfLogins())
+store.dispatch(initNumberOfLogins())
 

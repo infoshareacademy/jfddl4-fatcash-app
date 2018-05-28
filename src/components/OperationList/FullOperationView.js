@@ -7,13 +7,13 @@ import Paper from 'material-ui/Paper'
 import moment from "moment/moment";
 import {connect} from "react-redux";
 import categoriesIncome from "../../state/categoriesIncome";
+import RaisedButton from 'material-ui/RaisedButton'
 
 
 class FullOperationView extends React.Component {
     state = {
         transactionId: this.props.match.params.transactionId || '' // for hyperlinks of operations
     }
-
 
 
     render() {
@@ -24,30 +24,37 @@ class FullOperationView extends React.Component {
 
                     this.state.transactionId.length === 0 ?
 
-                  false
-                    :
-                    this.props.transactions.filter((el, i, arr) =>
-                        (this.state.transactionId === el.key))
-                        .map((el, i, arr) => {
-                            const categories = this.props.categoriesInc.concat(this.props.categoriesExp)
-                            const categoryOfTransaction = categories.find(category => category.key === el.category)
-                            return <div>
-                                <h2> Your operation </h2>
-                                <br/>
-                                <div><b>Category:</b>{categoryOfTransaction.name}</div>
-                                <br/>
-                                <div><b>Your
-                                    description:</b>:{el.description === '' ? "You didn't write description" : el.description}
-                                </div>
-                                <br/>
-                                <div><b>Type of operation:</b>{el.income ? 'Income' : 'Expence'}</div>
-                                <br/>
-                                <div><b>Date of operation:</b>{moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}</div>
-                                <br/>
+                        false
+                        :
+                        this.props.transactions.filter((el, i, arr) =>
+                            (this.state.transactionId === el.key))
+                            .map((el, i, arr) => {
+                                const categories = this.props.categoriesInc.concat(this.props.categoriesExp)
+                                const categoryOfTransaction = categories.find(category => category.key === el.category)
+                                return <div>
+                                    <BackButton/>
+                                    <br/>
+                                    <br/>
+                                    <h2> Your operation </h2>
+                                    <br/>
+                                    <div><b>Category: </b>{categoryOfTransaction.name}</div>
+                                    <br/>
+                                    <div><b>Your
+                                        description: </b>:{el.description === '' ? "You didn't write description" : el.description}
+                                    </div>
+                                    <br/>
+                                    <div><b>Operation type: </b>{el.income ? 'Income' : 'Expence'}</div>
+                                    <br/>
+                                    <div><b>Value: </b>{el.value}</div>
+                                    <br/>
+                                    <div><b>Date of operation: </b>{moment(el.date).format('MMMM Do YYYY, h:mm:ss a')}
+                                    </div>
+                                    <br/>
 
-                                <div><img style={{maxWidth: '200px'}} src={el.image}/></div>
-                            </div>
-                        })
+                                    <div><img style={{maxWidth: '200px'}} src={el.image}/></div>
+
+                                </div>
+                            })
                 }
                 <Snackbar
                     open={this.state.open}
@@ -70,3 +77,19 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps
 )(FullOperationView)
+
+class BackButton extends React.Component {
+    static contextTypes = {
+        router: () => true, // replace with PropTypes.object if you use them
+    }
+
+    render() {
+        return (
+            <RaisedButton
+                primary={true}
+                onClick={this.context.router.history.goBack}>
+                Back
+            </RaisedButton>
+        )
+    }
+}
