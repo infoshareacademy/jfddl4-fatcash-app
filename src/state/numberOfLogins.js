@@ -40,12 +40,12 @@ export const initNumberOfLogins = () => (dispatch, getState) => {
                             ...user.loginsLogs
                         }
                     }, {})
-                ).map(el => moment(el.timestamp).format('YYYY-MM-DD'))
+                ).map(el => moment(el.timestamp).format('MM-DD'))
             )
 
             let dates = {}
             for (let i = 0; i < 7; i++)
-                dates[moment().subtract(i, 'days').format('YYYY-MM-DD')] = 0
+                dates[moment().subtract(i, 'days').format('MM-DD')] = 0
 
 
 

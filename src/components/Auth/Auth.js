@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {logInByEmail, logInByGoogle} from "../../state/auth";
+import {logInByEmail, logInByGoogle,remindPassword} from "../../state/auth";
 import LogInByGoogle from "./LogInByGoogle";
 import LogInByEmail from "./LogInByEmail";
 import CreateUser from '../../components/Auth/CreateUser'
@@ -12,8 +12,8 @@ import AppBar from 'material-ui/AppBar';
 const style ={
     marginTop:'3%',
     marginBottom:'4%',
-    marginLeft:'30%',
-    marginRight:'30%',
+    marginLeft:'10%',
+    marginRight:'10%',
     textAlign: 'center',
 
 
@@ -37,6 +37,7 @@ const Auth = (props) => (
                     <h5>Sign in by email</h5>
                     <LogInByEmail
                         onLogInHandler={props.logInByEmail}
+                        onRemindPasswordClick={props.onRemindPasswordClick}
                     />
                     <br/>
                     <Divider/>
@@ -63,8 +64,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     logInByGoogle: () => dispatch(logInByGoogle()),
-    logInByEmail: (email, password) => dispatch(logInByEmail(email, password))
-
+    logInByEmail: (email, password) => dispatch(logInByEmail(email, password)),
+    onRemindPasswordClick:(email)=> dispatch(remindPassword(email))
 })
 
 export default connect(
