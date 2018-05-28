@@ -78,11 +78,44 @@ class AddOperation extends React.Component {
                 })
             })
     }
+
+
+
+    saveTaskToDatabase = () => {
+
+        this.state.value.length === 0 || this.state.category.length === 0 ? alert("You must add value and choose category !!") :
+
+            fetch(`https://fatcash-app.firebaseio.com/users/${this.props.userUid}/transactions/.json`,
+                {
+                    method: 'POST',
+                    body: JSON.stringify
+                    (
+                        {
+                            category: this.state.category,
+                            date: Date.now(),
+                            description: this.state.description,
+                            income: this.state.income,
+                            value: this.state.value * 1,
+                            image: this.state.image
+                        }
+                    )
+                }
+            ).then(this.loadTransaction).then(() => {
+                this.setState({
+                    open: true,
+                    value: '',
+                    description: '',
+
+
+                })
+            })
+    }
+
     render() {
 
         return (
             <Paper style={{margin: "20px", padding: '20px'}}>
-                {this.props.categoriesInc.length>0 && this.props.categoriesExp.length>0 ?
+                {this.props.categoriesInc.length > 0 && this.props.categoriesExp.length > 0 ?
                     <Controls
                         newIncomeHandler={(e, val) => this.newOperationHandler('income', val)}
                         newImageHandler={(e, val) => this.newOperationHandler('image', val)}
@@ -90,6 +123,7 @@ class AddOperation extends React.Component {
                         newDescriptionHandler={(e, val) => this.newOperationHandler('description', val)}
                         newValueHandler={(e, val) => this.newOperationHandler('value', val)}
                         saveTaskToDatabase={this.saveTaskToDatabase}
+                        saveIncomeNumberkToDatabase={this.saveIncomeNumberkToDatabase}
                         income={this.state.income}
                         categoriesInc={this.props.categoriesInc}
                         category={this.state.category}
@@ -103,7 +137,7 @@ class AddOperation extends React.Component {
                         onUploadSuccess={this.handleUploadSuccess}
                         onProgress={this.handleProgress}
                         imageLength={this.state.image.length}
-                    />: <h2>To add new operations, you must have one income and expense category at least</h2> }
+                    /> : <h2>To add new operations, you must have one income and expense category at least</h2>}
 
 
                 <Snackbar
