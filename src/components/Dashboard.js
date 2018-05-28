@@ -71,9 +71,9 @@ class Dashboard extends React.Component {
         console.log()
         return (
             <div>
-                <h1>Dashboard</h1>
-                <Paper zDepth={3} rounded={true}>
 
+                <Paper style={{margin: "20px", padding: '20px'}} zDepth={3} rounded={true}>
+                    <h1 style={{margin: "20px", padding: '20px'}}>Dashboard</h1>
                     <Row style={styles.row}>
                         <Col xs={12} sm={12} md={6} style={styles.colRow}>
 
@@ -91,8 +91,12 @@ class Dashboard extends React.Component {
                         </Col>
 
                         <Col xs={12} sm={12} md={6}>
-                            <h2 style={styles.h2}>Transactions per categories</h2>
-                        <PieChart style={styles.pie} width={320} height={320}>
+
+
+
+                            <h2 style={styles.h2}>Number of transactions per categories</h2>
+                            {this.props.transact.length>0 ?
+                                <PieChart style={styles.pie} width={320} height={320}>
                         <Pie
                         data={categoriesChartData}
                         dataKey="value"
@@ -103,12 +107,13 @@ class Dashboard extends React.Component {
                         <Cell key={`cell-${value.value}`} fill={value.color}/>
                         ))
                         }
+
                         </Pie>
                         <Tooltip/>
 
 
                         </PieChart>
-
+                                :  <h4 style={{textAlign:'center'}}>You don't have any transactions<br/> to display chart</h4> }
                         </Col>
 
                     </Row>

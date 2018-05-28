@@ -53,7 +53,7 @@ const SideBar = (props) => (
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/'}><MenuItem
             style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
-            color={'#3aa1ba'}>assignment</FontIcon>Open manual</MenuItem></Link>
+            color={'#3aa1ba'}>assignment</FontIcon>Manual</MenuItem></Link>
         <Divider/>
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/dashboard'}><MenuItem
             style={menuitemstyl}><FontIcon

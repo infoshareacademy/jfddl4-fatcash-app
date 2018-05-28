@@ -50,9 +50,9 @@ const Search = (props) => (
                         onChange={props.handleChange}
                     >
                         <MenuItem
-                            value={'all'}
-                            primaryText={'all'}
-                            label={'all'}
+                            value={'all categories'}
+                            primaryText={'all categories'}
+                            label={'all categories'}
                         />
 
                         {props.categoriesInc.map((el, i) => (
@@ -73,10 +73,9 @@ const Search = (props) => (
                         onChange={props.handleChange}
                     >
                         <MenuItem
-                            value={'all'}
-                            primaryText={'all'}
-                            label={'all'}
-                            disabled={true}
+                            value={'all categories'}
+                            primaryText={'all categories'}
+                            label={'all categories'}
                         />
 
                         {props.categoriesExp.map((el, i) => (
