@@ -48,6 +48,14 @@ class LoginByEmail extends React.Component {
                         onClick={() =>
                             this.props.onLogInHandler(this.state.login, this.state.password)}
                     />
+                    <RaisedButton
+                        label={'Remind password'}
+                        primary={true}
+                        onClick={() => this.props.onRemindPasswordClick(this.state.login)}
+                    />
+
+
+
                 </center>
             </div>
         );
