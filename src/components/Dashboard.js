@@ -77,9 +77,9 @@ class Dashboard extends React.Component {
                     <Row style={styles.row}>
                         <Col xs={12} sm={12} md={6} style={styles.colRow}>
 
-                            <h2 style={styles.h2}>Number of logins</h2>
+                            <h2 style={styles.h2}>Number of logins per day</h2>
 
-                            <BarChart style={styles.bar} width={400} height={250} data={this.props.logins}>
+                            <BarChart style={styles.bar} width={window.innerWidth< 700 ? 300 : 600} height={250} data={this.props.logins}>
                                 <CartesianGrid strokeDasharray="3 3"/>
                                 <XAxis dataKey="key"/>
                                 <YAxis/>
@@ -91,7 +91,7 @@ class Dashboard extends React.Component {
                         </Col>
 
                         <Col xs={12} sm={12} md={6}>
-                            <h2 style={styles.h2}>Transactions</h2>
+                            <h2 style={styles.h2}>Transactions per categories</h2>
                         <PieChart style={styles.pie} width={320} height={320}>
                         <Pie
                         data={categoriesChartData}
