@@ -27,7 +27,7 @@ const Controls = ({
                       onUploadError,
                       onUploadSuccess,
                       onProgress,
-                      imageLength
+                      imageLength,
 
                   }) => (
     <div>
@@ -128,6 +128,7 @@ const Controls = ({
     </div> <br/>
         <RaisedButton
             onClick={saveTaskToDatabase}
+
             fullWidth={true}
             primary={true}
             label={"SAVE IT!"}
