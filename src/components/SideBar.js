@@ -11,7 +11,7 @@ import UserAvatar from '../../src/components/Auth/Authavatar'
 const imgstyle = {
 
     maxWidth: '20%',
-    marginLeft: '2vh'
+
 
 }
 const menuitemstyl = {
@@ -45,18 +45,15 @@ const SideBar = (props) => (
         width={260}
         containerStyle={draverstyle}
     >
-        {/*<h2 style={{}}><img src={wallet} style={imgstyle} alt="Fatcash Logo"/>FATCASH</h2>*/}
 
-        {/*<Divider/>*/}
+        <Divider/>
         <UserAvatar/>
-
+        <MyClock/>
+        <Divider/>
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/'}><MenuItem
             style={menuitemstyl}><FontIcon
             className="material-icons" style={iconStyles}
             color={'#3aa1ba'}>assignment</FontIcon>Open manual</MenuItem></Link>
-        <Divider/>
-
-        <MyClock/>
         <Divider/>
         <Link onClick={props.onRequestSideBarChange} style={linkstyles} to={'/dashboard'}><MenuItem
             style={menuitemstyl}><FontIcon
@@ -91,7 +88,9 @@ const SideBar = (props) => (
             Category</MenuItem></Link>
 
         <Divider/>
-
+<br/>
+        <center><img src={wallet} style={imgstyle} alt="Fatcash Logo"/></center>
+        <div style={{textAlign:'center'}}>FATCASH</div>
 
     </Drawer>
 
