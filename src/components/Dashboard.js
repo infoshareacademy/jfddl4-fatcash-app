@@ -18,21 +18,39 @@ import Paper from 'material-ui/Paper';
 import {connect} from 'react-redux'
 
 const styles = {
+    pie: {
+        margin: '0 auto',
+
+    },
+    paper: {
+        marginTop: '8vh',
+        padding: '5vh'
+    },
     row: {
-        width: '100%'
+        padding: '2vh',
+        borderRadius: '30px'
+
+    },
+    h2: {
+        textAlign:'center'
+
+    },
+    bar:{
+
+        margin: '0 auto'
+    },
+    colRow:{
+
+        // backgroundColor:'green'
     }
-}
+};
 
 function getRandomRgb() {
-    var num = Math.round(0xffffff * Math.random());
-    var r = num >> 16;
-    var g = num >> 8 & 255;
-    var b = num & 255;
+    const num = Math.round(0xffffff * Math.random());
+    const r = num >> 16;
+    const g = num >> 8 & 255;
+    const b = num & 255;
     return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-}
-
-for (var i = 0; i < 10; i++) {
-    ;
 }
 
 class Dashboard extends React.Component {
@@ -57,21 +75,23 @@ class Dashboard extends React.Component {
                 <Paper zDepth={3} rounded={true}>
 
                     <Row style={styles.row}>
-                        <Col xs={12} sm={12} md={6}>
+                        <Col xs={12} sm={12} md={6} style={styles.colRow}>
 
-                            <BarChart width={730} height={250} data={this.props.logins}>
+                            <h2 style={styles.h2}>Number of logins</h2>
+
+                            <BarChart style={styles.bar} width={400} height={250} data={this.props.logins}>
                                 <CartesianGrid strokeDasharray="3 3"/>
                                 <XAxis dataKey="key"/>
                                 <YAxis/>
                                 <Tooltip/>
-                                <Legend/>
                                 <Bar dataKey="value" fill="#8884d8"/>
                                 {/*<Bar dataKey="uv" fill="#82ca9d" />*/}
                             </BarChart>
 
                         </Col>
 
-
+                        <Col xs={12} sm={12} md={6}>
+                            <h2 style={styles.h2}>Transactions</h2>
                         <PieChart style={styles.pie} width={320} height={320}>
                         <Pie
                         data={categoriesChartData}
@@ -88,6 +108,8 @@ class Dashboard extends React.Component {
 
 
                         </PieChart>
+
+                        </Col>
 
                     </Row>
 

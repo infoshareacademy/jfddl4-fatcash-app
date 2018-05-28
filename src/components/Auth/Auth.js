@@ -12,8 +12,8 @@ import AppBar from 'material-ui/AppBar';
 const style ={
     marginTop:'3%',
     marginBottom:'4%',
-    marginLeft:'30%',
-    marginRight:'30%',
+    marginLeft:'10%',
+    marginRight:'10%',
     textAlign: 'center',
 
 
