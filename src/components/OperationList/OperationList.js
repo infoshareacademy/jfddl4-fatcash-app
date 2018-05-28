@@ -48,7 +48,7 @@ class OperationList extends React.Component {
     render() {
 
         const filteredTransaction =  this.props.transactions && this.props.transactions.filter(task => (
-            (this.state.valueDrop && this.state.valueDrop !== 'all' ? task.category === this.state.valueDrop : true)
+            (this.state.valueDrop && this.state.valueDrop !== 'all categories' ? task.category === this.state.valueDrop : true)
             &&
             task.value >= this.state.valueRange.min
             &&
@@ -67,7 +67,7 @@ class OperationList extends React.Component {
                 <LinearProgress mode="indeterminate" />
                 :
                 <div>
-                    <Paper style={{margin: '10px'}}>
+                    {/*<Paper style={{margin: '10px'}}>*/}
                     {this.props.transactions.length>0 ?
                     <Search
                         handleChange={this.handleChange}
@@ -77,10 +77,10 @@ class OperationList extends React.Component {
                         valueDrop={this.state.valueDrop}
                         categoriesInc={this.props.categoriesInc}
                         categoriesExp={this.props.categoriesExp}
-                    />: <h5>You havn`t transactions yet.
+                    />: <h2>You havn`t transactions yet.
                             <Link to={'/add-new-operation'}>
-                                <FlatButton label="Add your first transaction" primary={true} /></Link></h5>}
-                    </Paper>
+                                <FlatButton label="Add your first transaction" primary={true} /></Link></h2>}
+                    {/*</Paper>*/}
 
                     <br/>
                     <Paper>

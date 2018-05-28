@@ -17,7 +17,7 @@ const StartView = (props) => (
             :
             <img style={{maxWidth: '200px'}} src={props.userPhotoUrl}/>}
 
-        <h1>Hello {props.displayName}, welcome to FatCash application! </h1>
+        <h1>Hello {props.displayName ? props.displayName : 'User'}, welcome to FatCash application! </h1>
         <h2>We provide user instructions below...</h2>
         <ul>
             <li> Dashboard - hear yo can see two chat connected with databse, in first chart you can see number of logs

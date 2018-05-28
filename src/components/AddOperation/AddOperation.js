@@ -8,6 +8,8 @@ import moment from "moment/moment";
 import {connect} from "react-redux";
 import categoriesIncome from "../../state/categoriesIncome";
 import firebase from 'firebase';
+import FlatButton from 'material-ui/FlatButton';
+import {Link} from 'react-router-dom';
 
 
 class AddOperation extends React.Component {
@@ -137,7 +139,8 @@ class AddOperation extends React.Component {
                         onUploadSuccess={this.handleUploadSuccess}
                         onProgress={this.handleProgress}
                         imageLength={this.state.image.length}
-                    /> : <h2>To add new operations, you must have one income and expense category at least</h2>}
+                    /> : <h2>To add new operations, you must have one income and expense category at least<Link to={'/add-category'}>
+                        <FlatButton label="Add your first categories" primary={true} /></Link></h2>}
 
 
                 <Snackbar
