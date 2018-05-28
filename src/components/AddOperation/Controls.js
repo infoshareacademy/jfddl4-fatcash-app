@@ -28,7 +28,6 @@ const Controls = ({
                       onUploadSuccess,
                       onProgress,
                       imageLength,
-                      saveIncomeNumberkToDatabase
 
                   }) => (
     <div>
@@ -128,8 +127,8 @@ const Controls = ({
         {imageLength>0 ? 'We uploaded your image succesfully.' : "You didn't upload image, yet...."}
     </div> <br/>
         <RaisedButton
-            onClick={() => {saveTaskToDatabase()
-                saveIncomeNumberkToDatabase()}}
+            onClick={saveTaskToDatabase}
+
             fullWidth={true}
             primary={true}
             label={"SAVE IT!"}

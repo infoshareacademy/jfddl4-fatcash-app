@@ -79,21 +79,7 @@ class AddOperation extends React.Component {
             })
     }
 
-    saveIncomeNumberkToDatabase = () => {
 
-
-        fetch(`https://fatcash-app.firebaseio.com/users/${this.props.userUid}/categories/income/${this.state.category}.json`,
-            {
-                method: 'PATCH',
-                body: JSON.stringify
-                (
-                    {
-                        number: this.props.categoriesInc[this.state.category].number + 1
-                    }
-                )
-            }
-        )
-    }
 
     saveTaskToDatabase = () => {
 
